@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /about/
+
+Sitemap:https://note.mjunya.com/sitemap.xml

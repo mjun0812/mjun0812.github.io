@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-categories-js",
+    "path": "/category/py-torch//2",
+    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[]}},"pageContext":{"category":"PyTorch","count":1,"pageNumber":1,"humanPageNumber":2,"skip":5,"limit":5,"numberOfPages":2,"previousPagePath":"/category/py-torch/","nextPagePath":""}},
+    "staticQueryHashes": []}

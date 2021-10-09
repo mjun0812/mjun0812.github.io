@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-templates-tags-js",
     "path": "/tag/pillow/",
-    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2021.10.10","title":"PyTorchで画像を読み込む速度を比較","category":"PyTorch"},"fields":{"slug":"/posts/2021-10-10-PyTorch-Image-Load-Speed/"}}}]}},"pageContext":{"tag":"Pillow","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":5,"numberOfPages":2,"previousPagePath":"","nextPagePath":"/tag/pillow//2"}},
+    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2021.10.10","title":"PyTorchで画像を読み込む速度を比較","category":"PyTorch"},"fields":{"slug":"/posts/2021-10-10-PyTorch-Image-Load-Speed/"}}}]}},"pageContext":{"tag":"Pillow","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":10,"numberOfPages":1,"previousPagePath":"","nextPagePath":""}},
     "staticQueryHashes": []}

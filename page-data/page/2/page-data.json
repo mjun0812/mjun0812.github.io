@@ -1,5 +1,0 @@
-{
-    "componentChunkName": "component---src-templates-index-js",
-    "path": "/page/2",
-    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2021.05.24","title":"Shell Scriptで使う条件分岐 test","category":"shellscript"},"fields":{"slug":"/posts/2021-05-24-test-in-shellscript/"}}},{"node":{"frontmatter":{"date":"2021.05.18","title":"First Post","category":"undifined"},"fields":{"slug":"/posts/2021-05-18-first-post/"}}}]}},"pageContext":{"pageNumber":1,"humanPageNumber":2,"skip":5,"limit":5,"numberOfPages":2,"previousPagePath":"/","nextPagePath":""}},
-    "staticQueryHashes": []}

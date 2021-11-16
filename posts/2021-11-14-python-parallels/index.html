@@ -25,7 +25,6 @@
 
     <span class="token comment"># tqdmで経過が知りたい時</span>
     <span class="token keyword">with</span> tqdm<span class="token punctuation">(</span>total<span class="token operator">=</span><span class="token builtin">len</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> progress<span class="token punctuation">:</span>
-
         <span class="token keyword">with</span> ProcessPoolExecutor<span class="token punctuation">(</span>max_workers<span class="token operator">=</span>worker_num<span class="token punctuation">)</span> <span class="token keyword">as</span> executor<span class="token punctuation">:</span> <span class="token comment"># -----(2)</span>
             result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment"># 処理結果を保存するlist</span>
 
@@ -33,13 +32,13 @@
             <span class="token keyword">for</span> i<span class="token punctuation">,</span> d <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># -------(3)</span>
                 future <span class="token operator">=</span> executor<span class="token punctuation">.</span>submit<span class="token punctuation">(</span>fn<span class="token punctuation">,</span> i<span class="token punctuation">,</span> d<span class="token punctuation">)</span>
                 result<span class="token punctuation">.</span>append<span class="token punctuation">(</span>future<span class="token punctuation">.</span>result<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token comment"># tqdmで経過が知りたい時</span>
+                future<span class="token punctuation">.</span>add_done_callback<span class="token punctuation">(</span><span class="token keyword">lambda</span> p<span class="token punctuation">:</span> progress<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-            <span class="token comment"># 1. 引数がiterできる場合</span>
-            future <span class="token operator">=</span> executor<span class="token punctuation">.</span><span class="token builtin">map</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> data<span class="token punctuation">)</span>
-            result <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>future<span class="token punctuation">)</span>
+    <span class="token keyword">with</span> ProcessPoolExecutor<span class="token punctuation">(</span>max_workers<span class="token operator">=</span>worker_num<span class="token punctuation">)</span> <span class="token keyword">as</span> executor<span class="token punctuation">:</span> <span class="token comment"># -----(2)</span>
+        <span class="token comment"># 2. 引数がiterできる場合</span>
+        result <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>tqdm<span class="token punctuation">(</span>executor<span class="token punctuation">.</span><span class="token builtin">map</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token punctuation">,</span> total<span class="token operator">=</span><span class="token builtin">len</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-            <span class="token comment"># tqdmで経過が知りたい時</span>
-            future<span class="token punctuation">.</span>add_done_callback<span class="token punctuation">(</span><span class="token keyword">lambda</span> p<span class="token punctuation">:</span> progress<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
 
 <span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">&quot;__main__&quot;</span><span class="token punctuation">:</span>

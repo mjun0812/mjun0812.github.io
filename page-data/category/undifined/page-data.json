@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-templates-categories-js",
     "path": "/category/undifined/",
-    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2021.05.18","title":"First Post","category":"undifined"},"fields":{"slug":"/posts/2021-05-18-first-post/"}}}]}},"pageContext":{"category":"undifined","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":10,"numberOfPages":1,"previousPagePath":"","nextPagePath":""}},
+    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2021.05.18","title":"First Post","category":"undifined"},"fields":{"slug":"/posts/2021-05-18-first-post/"}}}]}},"pageContext":{"category":"undifined","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":10,"numberOfPages":2,"previousPagePath":"","nextPagePath":"/category/undifined//2"}},
     "staticQueryHashes": []}

@@ -1,5 +1,0 @@
-{
-    "componentChunkName": "component---src-templates-tags-js",
-    "path": "/tag/python//2",
-    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[]}},"pageContext":{"tag":"python","count":1,"pageNumber":1,"humanPageNumber":2,"skip":10,"limit":10,"numberOfPages":2,"previousPagePath":"/tag/python/","nextPagePath":""}},
-    "staticQueryHashes": []}

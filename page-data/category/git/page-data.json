@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-templates-categories-js",
     "path": "/category/git",
-    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2021.10.19","title":"git pushで複数の場所にpushする","category":"Git"},"fields":{"slug":"/posts/2021-10-19-git-push-multi-remote/"}}}]}},"pageContext":{"category":"Git","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":10,"numberOfPages":1,"previousPagePath":"","nextPagePath":""}},
+    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2021.10.19","update":"2021.10.19","title":"git pushで複数の場所にpushする","category":"Git"},"fields":{"slug":"/posts/2021-10-19-git-push-multi-remote/"}}}]}},"pageContext":{"category":"Git","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":10,"numberOfPages":1,"previousPagePath":"","nextPagePath":""}},
     "staticQueryHashes": []}

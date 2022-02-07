@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-templates-categories-js",
     "path": "/category/tensorflow",
-    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2021.12.12","title":"RTX3000番台(Ampere)でtensorflow-gpu 1.15を使う","category":"Tensorflow"},"fields":{"slug":"/posts/2021-12-12-tf-1-15-rtx-3000/"}}}]}},"pageContext":{"category":"Tensorflow","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":10,"numberOfPages":1,"previousPagePath":"","nextPagePath":""}},
+    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2021.12.12","update":"2021.12.12","title":"RTX3000番台(Ampere)でtensorflow-gpu 1.15を使う","category":"Tensorflow"},"fields":{"slug":"/posts/2021-12-12-tf-1-15-rtx-3000/"}}}]}},"pageContext":{"category":"Tensorflow","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":10,"numberOfPages":1,"previousPagePath":"","nextPagePath":""}},
     "staticQueryHashes": []}

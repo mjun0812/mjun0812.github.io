@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-pages-categories-js",
     "path": "/categories/",
-    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka"}},"categoryGroup":{"group":[{"fieldValue":"Design","totalCount":1},{"fieldValue":"Git","totalCount":1},{"fieldValue":"Linux","totalCount":1},{"fieldValue":"PyTorch","totalCount":2},{"fieldValue":"Python","totalCount":2},{"fieldValue":"Server","totalCount":2},{"fieldValue":"Tensorflow","totalCount":1},{"fieldValue":"shellscript","totalCount":3},{"fieldValue":"undifined","totalCount":1}]}},"pageContext":{}},
+    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka"}},"categoryGroup":{"group":[{"fieldValue":"Design","totalCount":1},{"fieldValue":"Docker","totalCount":1},{"fieldValue":"Git","totalCount":1},{"fieldValue":"Linux","totalCount":1},{"fieldValue":"PyTorch","totalCount":2},{"fieldValue":"Python","totalCount":2},{"fieldValue":"Server","totalCount":2},{"fieldValue":"Tensorflow","totalCount":1},{"fieldValue":"shellscript","totalCount":3},{"fieldValue":"undifined","totalCount":1}]}},"pageContext":{}},
     "staticQueryHashes": []}

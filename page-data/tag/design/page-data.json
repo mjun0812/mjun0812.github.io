@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-templates-tags-js",
     "path": "/tag/design",
-    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2021.12.28","title":"RobotoMonoに日本語を合成したフォントを作りました","category":"Design"},"fields":{"slug":"/posts/2021-12-28-roboto-mono-jp/"}}}]}},"pageContext":{"tag":"design","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":10,"numberOfPages":1,"previousPagePath":"","nextPagePath":""}},
+    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2021.12.28","update":"2021.12.28","title":"RobotoMonoに日本語を合成したフォントを作りました","category":"Design"},"fields":{"slug":"/posts/2021-12-28-roboto-mono-jp/"}}}]}},"pageContext":{"tag":"design","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":10,"numberOfPages":1,"previousPagePath":"","nextPagePath":""}},
     "staticQueryHashes": []}

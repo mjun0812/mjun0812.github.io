@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-tags-js",
+    "path": "/tag/docker",
+    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2022.02.08","update":"2022.02.08","title":"Dockerfile内で任意のバージョンのPythonをソースからビルドする","category":"Docker"},"fields":{"slug":"/posts/2022-02-08-build-python-from-source-in-dockerfile/"}}}]}},"pageContext":{"tag":"docker","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":10,"numberOfPages":1,"previousPagePath":"","nextPagePath":""}},
+    "staticQueryHashes": []}

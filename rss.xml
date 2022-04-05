@@ -1,4 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[MJUN Tech Note RSS Feed]]></title><description><![CDATA[とある情報系の院生の技術ノートです]]></description><link>https://note.mjunya.com</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 04 Apr 2022 14:59:19 GMT</lastBuildDate><item><title><![CDATA[docker-composeのGitlabのメール通知をGoogle WorkspaceのSMTPリレーで行う]]></title><description><![CDATA[私はクレデンシャルなソースコードを管理するために，自宅サーバでGitLabをセルフホストしています． 基本的にユーザーは自分しかいないのですが，メール通知があったほうが便利かと思い，メールを設定することにしました． ちょうど，このサイトのドメインを使ってGoogle…]]></description><link>https://note.mjunya.com/posts/2022-04-04-gitlab-mail-google-smtp-relay/</link><guid isPermaLink="false">https://note.mjunya.com/posts/2022-04-04-gitlab-mail-google-smtp-relay/</guid><pubDate>Mon, 04 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;私はクレデンシャルなソースコードを管理するために，自宅サーバでGitLabをセルフホストしています．&lt;br/&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[MJUN Tech Note RSS Feed]]></title><description><![CDATA[とある情報系の院生の技術ノートです]]></description><link>https://note.mjunya.com</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 05 Apr 2022 07:25:46 GMT</lastBuildDate><item><title><![CDATA[UbuntuでGitLabをapache経由でproxyする]]></title><description><![CDATA[今回はUbuntuでApacheを使ってGitlabをサブディレクトリで立てる方法です． SSL証明書はGitLabではなく，Apacheとcertbotで管理します．   今回のゴールは， https://hoge.com/gitlab にGitLab…]]></description><link>https://note.mjunya.com/posts/2022-04-05-gitlab-apache/</link><guid isPermaLink="false">https://note.mjunya.com/posts/2022-04-05-gitlab-apache/</guid><pubDate>Tue, 05 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;今回はUbuntuでApacheを使ってGitlabをサブディレクトリで立てる方法です．&lt;br/&gt;
+SSL証明書はGitLabではなく，Apacheとcertbotで管理します．  &lt;/p&gt;&lt;p&gt;今回のゴールは，&lt;code class=&quot;language-text&quot;&gt;https://hoge.com/gitlab&lt;/code&gt;にGitLabを立てることです．&lt;/p&gt;&lt;h2 id=&quot;apacheのインストール&quot;&gt;apacheのインストール&lt;/h2&gt;&lt;p&gt;まずはapache2のインストール．&lt;/p&gt;&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;apt&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; apache2
+&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; systemctl status apache&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&quot;certbotの導入&quot;&gt;certbotの導入&lt;/h2&gt;&lt;p&gt;次にcertbotを導入します．予め，登録用のメールアドレスとドメインを用意してください．&lt;/p&gt;&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;apt&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; certbot python3-certbot-apache
+&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; certbot --apache
+
+Enter email address &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; urgent renewal and security notices&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Enter &lt;span class=&quot;token string&quot;&gt;&amp;#x27;c&amp;#x27;&lt;/span&gt; to
+cancel&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: hoge@hoge.com
+
+You must agree &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; order to register with the ACME server at
+https://acme-v02.api.letsencrypt.org/directory
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;A&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;gree/&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;C&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;ancel: A
+
+Would you be willing to share your email address with the Electronic Frontier
+Foundation, a founding partner of the Let s Encrypt project and the non-profit
+organization that develops Certbot?
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Y&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;es/&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;N&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;o: N
+
+Which names would you like to activate HTTPS for?
+----------------------------------------
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;: hoge.com
+----------------------------------------
+ &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Enter &lt;span class=&quot;token string&quot;&gt;&amp;#x27;c&amp;#x27;&lt;/span&gt; to cancel&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+
+Please choose whether or not to redirect HTTP traffic to HTTPS, removing HTTP access.
+----------------------------------------
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;: No redirect
+&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;: Redirect
+----------------------------------------
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;press &lt;span class=&quot;token string&quot;&gt;&amp;#x27;c&amp;#x27;&lt;/span&gt; to cancel&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;
+
+Congratulations&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; You have successfully enabled https://hoge.com
+
+&lt;span class=&quot;token comment&quot;&gt;# 自動更新が働いているかを確認&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; systemctl status certbot.timer&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&quot;apacheの設定&quot;&gt;apacheの設定&lt;/h2&gt;&lt;p&gt;次に，apacheにProxyの設定をします．&lt;br/&gt;
+&lt;code class=&quot;language-text&quot;&gt;/etc/apache2/sites-enabled/000-default-le-ssl.conf&lt;/code&gt;に以下を加筆します．&lt;/p&gt;&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;ProxyPass /gitlab http://localhost:8000/gitlab
+ProxyPassReverse /gitlab http://localhost:8000/gitlab&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ついでにapacheのバージョンが外から見えないように，&lt;code class=&quot;language-text&quot;&gt;/etc/apache2/conf-enabled/security.conf&lt;/code&gt;を編集します．&lt;/p&gt;&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;ServerTokens Prod
+ServerSignature Off&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;設定が終わったら，apacheを再起動します．&lt;/p&gt;&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; systemctl restart apache&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&quot;gitlabの立ち上げ&quot;&gt;GitLabの立ち上げ&lt;/h2&gt;&lt;p&gt;今回はdocker-composeでGitLabを立ち上げます．&lt;/p&gt;&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&amp;#x27;3.7&amp;#x27;&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;gitlab&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; gitlab/gitlab&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;ce&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;14.7.7&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;ce.0
+    &lt;span class=&quot;token key atrule&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; always
+    &lt;span class=&quot;token key atrule&quot;&gt;hostname&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&amp;#x27;hoge.com&amp;#x27;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token key atrule&quot;&gt;GITLAB_OMNIBUS_CONFIG&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token scalar string&quot;&gt;
+        external_url &amp;#x27;http://hoge.com/gitlab/&amp;#x27;
+        gitlab_rails[&amp;#x27;gitlab_shell_ssh_port&amp;#x27;] = 22
+        gitlab_rails[&amp;#x27;time_zone&amp;#x27;] = &amp;#x27;Asia/Tokyo&amp;#x27;
+        letsencrypt[&amp;#x27;enable&amp;#x27;] = false
+        nginx[&amp;#x27;listen_port&amp;#x27;] = 8088&lt;/span&gt;
+
+    &lt;span class=&quot;token key atrule&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&amp;#x27;8000:8000&amp;#x27;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&amp;#x27;22:22&amp;#x27;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; ./gitlab/data&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;/var/opt/gitlab
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; ./gitlab/logs&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;/var/log/gitlab
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; ./gitlab/config&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;/etc/gitlab&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;SSL証明書はapacheで管理するので，&lt;code class=&quot;language-text&quot;&gt;letsencrypt[&amp;#x27;enable&amp;#x27;] = false&lt;/code&gt;としておきます．  &lt;/p&gt;&lt;p&gt;以上でapache経由で任意のサブディレクトリでGitLabにアクセスできます．&lt;/p&gt;</content:encoded></item><item><title><![CDATA[docker-composeのGitlabのメール通知をGoogle WorkspaceのSMTPリレーで行う]]></title><description><![CDATA[私はクレデンシャルなソースコードを管理するために，自宅サーバでGitLabをセルフホストしています． 基本的にユーザーは自分しかいないのですが，メール通知があったほうが便利かと思い，メールを設定することにしました． ちょうど，このサイトのドメインを使ってGoogle…]]></description><link>https://note.mjunya.com/posts/2022-04-04-gitlab-mail-google-smtp-relay/</link><guid isPermaLink="false">https://note.mjunya.com/posts/2022-04-04-gitlab-mail-google-smtp-relay/</guid><pubDate>Mon, 04 Apr 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;私はクレデンシャルなソースコードを管理するために，自宅サーバでGitLabをセルフホストしています．&lt;br/&gt;
 基本的にユーザーは自分しかいないのですが，メール通知があったほうが便利かと思い，メールを設定することにしました．&lt;/p&gt;&lt;p&gt;ちょうど，このサイトのドメインを使ってGoogle Workspaceを契約しているので，提供されているSMTPリレーサービスを使って，
 Google経由でメール通知を行うことにします．&lt;/p&gt;&lt;h2 id=&quot;op25b問題について&quot;&gt;OP25B問題について&lt;/h2&gt;&lt;p&gt;自宅サーバーでメールの送信を行うのに問題になるのが「OP25B」です．  &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://www.ntt.com/personal/services/option/mail/ocnmail/meiwaku/op25b.html&quot;&gt;https://www.ntt.com/personal/services/option/mail/ocnmail/meiwaku/op25b.html&lt;/a&gt;&lt;/p&gt;&lt;p&gt;これは迷惑メール対策のために，プロバイダーが自宅からのメール送信をブロックしてしまう問題です．&lt;br/&gt;
 これを回避するためにプロバイダが用意しているSMTPリレーサーバを中継してメールを送信するのですが，

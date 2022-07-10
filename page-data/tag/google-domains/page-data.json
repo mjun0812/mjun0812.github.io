@@ -2,4 +2,4 @@
     "componentChunkName": "component---src-templates-tags-js",
     "path": "/tag/google-domains",
     "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2021.12.06","update":"2022.02.08","title":"Google Domainsを使ってDDNSを設定","category":"Server"},"fields":{"slug":"/posts/2021-12-06-googledomains-ddns/"}}}]}},"pageContext":{"tag":"Google Domains","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":10,"numberOfPages":1,"previousPagePath":"","nextPagePath":""}},
-    "staticQueryHashes": []}
+    "staticQueryHashes": ["1123391092"]}

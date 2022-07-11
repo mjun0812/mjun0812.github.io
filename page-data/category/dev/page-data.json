@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-categories-js",
+    "path": "/category/dev",
+    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka","description":"とある情報系の院生の技術ノートです"}},"allMdx":{"edges":[{"node":{"frontmatter":{"date":"2022.07.11","update":"2022.07.11","title":"初めてのissueとPull ReqでPyTorchとYOLOv5に貢献した話","category":"Dev"},"fields":{"slug":"/posts/2022-07-09_my-first-contribute/"}}}]}},"pageContext":{"category":"Dev","count":1,"pageNumber":0,"humanPageNumber":1,"skip":0,"limit":10,"numberOfPages":1,"previousPagePath":"","nextPagePath":""}},
+    "staticQueryHashes": ["1123391092"]}

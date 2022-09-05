@@ -116,9 +116,103 @@ MLflow Tracking, Projects, Models, Registoryからなるモジュールに分か
       <!-- --><span class="token punctuation">-</span> mlflow<!-- --><span class="token punctuation">-</span>net
 <!-- --><span class="token key atrule">networks</span><span class="token punctuation">:</span>
   <!-- --><span class="token key atrule">mlflow-net</span><span class="token punctuation">:</span>
-    <!-- --><span class="token key atrule">driver</span><span class="token punctuation">:</span> bridge<!-- --></code></pre></div><p>今回はNginx ProxyでBasic認証をかけるため，Basic認証のuserとpasswordも用意しておきます．</p><div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash"><span class="token comment"># ホストPC側</span>
+    <!-- --><span class="token key atrule">driver</span><span class="token punctuation">:</span> bridge<!-- --></code></pre></div><p>以下，<!-- --><code class="language-text">docker-compose.yml</code>を順に見ていきます．<!-- --></p><h3 id="mlflow">MLflow</h3><p>下記では，MLflow Tracking Serverを立てています．<!-- --><br/>
+<!-- -->今回は同じコンテナネットワークにあるMinIOをartifactのストレージとするため，
+<!-- --><code class="language-text">AWS_ACCESS_KEY_ID</code>と<!-- --><code class="language-text">AWS_SECRET_ACCESS_KEY</code>を設定しておきます．<!-- --></p><p>また，ssh port forward等でMLflowのUIにアクセスすることも考えて，<!-- --><code class="language-text">VIRTUAL_HOST</code>には
+サーバーのホスト名だけでなく，<!-- --><code class="language-text">localhost</code>も追加しておきます．ポートはnginx-proxyの都合上，
+80番でListenさせておきます．<!-- --></p><p>mlflowのコマンドのオプションの<!-- --><code class="language-text">--backend-store-url</code>はSQL ALchemyと同じ方法でuriを渡します．<!-- --></p><div class="gatsby-highlight" data-language="yaml"><pre class="language-yaml"><code class="language-yaml">  <!-- --><span class="token key atrule">mlflow</span><span class="token punctuation">:</span>
+    <!-- --><span class="token key atrule">container_name</span><span class="token punctuation">:</span> mlflow
+    <!-- --><span class="token key atrule">build</span><span class="token punctuation">:</span>
+      <!-- --><span class="token key atrule">context</span><span class="token punctuation">:</span> .
+      <!-- --><span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> Dockerfile
+    <!-- --><span class="token key atrule">expose</span><span class="token punctuation">:</span>
+      <!-- --><span class="token punctuation">-</span> <!-- --><span class="token number">80</span>
+    <!-- --><span class="token key atrule">restart</span><span class="token punctuation">:</span> unless<!-- --><span class="token punctuation">-</span>stopped
+    <!-- --><span class="token key atrule">depends_on</span><span class="token punctuation">:</span>
+      <!-- --><span class="token punctuation">-</span> db
+      <!-- --><span class="token punctuation">-</span> minio
+    <!-- --><span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <!-- --><span class="token key atrule">TZ</span><span class="token punctuation">:</span> Asia/Tokyo
+      <!-- --><span class="token key atrule">VIRTUAL_HOST</span><span class="token punctuation">:</span> <!-- --><span class="token string">&quot;example.com,localhost&quot;</span>
+      <!-- --><span class="token key atrule">MLFLOW_S3_ENDPOINT_URL</span><span class="token punctuation">:</span> http<!-- --><span class="token punctuation">:</span>//minio<!-- --><span class="token punctuation">:</span><span class="token number">9000</span>
+      <!-- --><span class="token key atrule">AWS_ACCESS_KEY_ID</span><span class="token punctuation">:</span> minio
+      <!-- --><span class="token key atrule">AWS_SECRET_ACCESS_KEY</span><span class="token punctuation">:</span> minio
+    <!-- --><span class="token key atrule">command</span><span class="token punctuation">:</span> <!-- --><span class="token punctuation">&gt;</span><span class="token scalar string">
+      mlflow server 
+      --backend-store-uri &#x27;mysql+mysqldb://mlflow:mlflow@db:3306/mlflow&#x27;
+      --artifacts-destination &#x27;s3://mlflow/artifacts&#x27; 
+      --serve-artifacts --host 0.0.0.0 --port 80</span>
+    <!-- --><span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <!-- --><span class="token punctuation">-</span> mlflow<!-- --><span class="token punctuation">-</span>net
+
+  <!-- --><span class="token key atrule">db</span><span class="token punctuation">:</span>
+    <!-- --><span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<!-- --><span class="token punctuation">:</span>8.0.29
+    <!-- --><span class="token key atrule">restart</span><span class="token punctuation">:</span> unless<!-- --><span class="token punctuation">-</span>stopped
+    <!-- --><span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <!-- --><span class="token key atrule">MYSQL_USER</span><span class="token punctuation">:</span> mlflow
+      <!-- --><span class="token key atrule">MYSQL_PASSWORD</span><span class="token punctuation">:</span> mlflow
+      <!-- --><span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> mlflow
+      <!-- --><span class="token key atrule">MYSQL_DATABASE</span><span class="token punctuation">:</span> mlflow
+      <!-- --><span class="token key atrule">TZ</span><span class="token punctuation">:</span> Asia/Tokyo
+    <!-- --><span class="token key atrule">cap_add</span><span class="token punctuation">:</span>
+      <!-- --><span class="token comment"># https://github.com/docker-library/mysql/issues/422</span>
+      <!-- --><span class="token punctuation">-</span> SYS_NICE
+    <!-- --><span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <!-- --><span class="token punctuation">-</span> ./mysql/data<!-- --><span class="token punctuation">:</span>/var/lib/mysql
+      <!-- --><span class="token punctuation">-</span> ./mysql/my.cnf<!-- --><span class="token punctuation">:</span>/etc/mysql/conf.d/my.cnf
+    <!-- --><span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <!-- --><span class="token punctuation">-</span> mlflow<!-- --><span class="token punctuation">-</span>net<!-- --></code></pre></div><p>そして，MySQLの設定をコンテナ内の/etc/mysql/conf.d/my.cnfに置いておきます．<!-- --><br/>
+<!-- -->タイムアウトや文字コードの設定が付与されています．<!-- --></p><div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash"><span class="token punctuation">[</span>mysql<!-- --><span class="token punctuation">]</span>
+default-character-set<!-- --><span class="token operator">=</span>utf8mb4
+
+<!-- --><span class="token punctuation">[</span>mysqld<!-- --><span class="token punctuation">]</span>
+character-set-server<!-- --><span class="token operator">=</span>utf8mb4
+collation-server<!-- --><span class="token operator">=</span>utf8mb4_unicode_ci
+wait_timeout <!-- --><span class="token operator">=</span> <!-- --><span class="token number">31536000</span>
+interactive_timeout <!-- --><span class="token operator">=</span> <!-- --><span class="token number">31536000</span></code></pre></div><h3 id="minio">MinIO</h3><p>AWS S3互換のオブジェクトファイルストレージである，MinIOは以下の方法で建てることができます．</p><p>ここで設定した<!-- --><code class="language-text">MINIO_ACCESS_KEY</code>と<!-- --><code class="language-text">MINIO_SECRET_KEY</code>はMLflowのAWSのKeyと同じになるように設定しましょう．<!-- --></p><p>defaultbucketでは，コンテナ起動時にMLflowの保存先バケットを作成するコマンドです．<!-- --><br/>
+<!-- -->ここのentorypoint内にも，<!-- --><code class="language-text">MINIO_ACCESS_KEY</code>と<!-- --><code class="language-text">MINIO_SECRET_KEY</code>を入力するところがあるので注意してください．<!-- --></p><div class="gatsby-highlight" data-language="yaml"><pre class="language-yaml"><code class="language-yaml">  <!-- --><span class="token comment"># S3互換のストレージ</span>
+  <!-- --><span class="token key atrule">minio</span><span class="token punctuation">:</span>
+    <!-- --><span class="token key atrule">image</span><span class="token punctuation">:</span> minio/minio
+    <!-- --><span class="token key atrule">restart</span><span class="token punctuation">:</span> unless<!-- --><span class="token punctuation">-</span>stopped
+    <!-- --><span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <!-- --><span class="token punctuation">-</span> ./minio<!-- --><span class="token punctuation">:</span>/export
+    <!-- --><span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <!-- --><span class="token key atrule">MINIO_ACCESS_KEY</span><span class="token punctuation">:</span> minio
+      <!-- --><span class="token key atrule">MINIO_SECRET_KEY</span><span class="token punctuation">:</span> minio
+    <!-- --><span class="token key atrule">command</span><span class="token punctuation">:</span> server /export
+    <!-- --><span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <!-- --><span class="token punctuation">-</span> mlflow<!-- --><span class="token punctuation">-</span>net
+
+  <!-- --><span class="token comment"># minioコンテナ起動時にデフォルトのバケットを自動作成する</span>
+  <!-- --><span class="token key atrule">defaultbucket</span><span class="token punctuation">:</span>
+    <!-- --><span class="token key atrule">image</span><span class="token punctuation">:</span> minio/mc
+    <!-- --><span class="token key atrule">depends_on</span><span class="token punctuation">:</span>
+      <!-- --><span class="token punctuation">-</span> minio
+    <!-- --><span class="token key atrule">entrypoint</span><span class="token punctuation">:</span> <!-- --><span class="token punctuation">&gt;</span><span class="token scalar string">
+      /bin/sh -c &quot;
+      until (/usr/bin/mc config host add minio http://minio:9000 minio minio) do echo &#x27;try to create buckets...&#x27; &amp;&amp; sleep 1; done;
+      /usr/bin/mc mb minio/mlflow;
+      /usr/bin/mc policy download minio/mlflow;
+      exit 0;
+      &quot;</span>
+    <!-- --><span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <!-- --><span class="token punctuation">-</span> mlflow<!-- --><span class="token punctuation">-</span>net<!-- --></code></pre></div><h3 id="nginx-proxy">nginx-proxy</h3><p>ここでは，MLflowにBasic認証をかけるために，nginx-proxyを立てておきます．<!-- --><br/>
+<!-- -->以下の例ではサーバーのポート5000でMLflowに接続することができます．<!-- --></p><div class="gatsby-highlight" data-language="yaml"><pre class="language-yaml"><code class="language-yaml">  <!-- --><span class="token key atrule">nginx-proxy</span><span class="token punctuation">:</span>
+    <!-- --><span class="token key atrule">image</span><span class="token punctuation">:</span> jwilder/nginx<!-- --><span class="token punctuation">-</span>proxy
+    <!-- --><span class="token key atrule">restart</span><span class="token punctuation">:</span> unless<!-- --><span class="token punctuation">-</span>stopped
+    <!-- --><span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <!-- --><span class="token punctuation">-</span> <!-- --><span class="token string">&quot;5000:80&quot;</span>
+    <!-- --><span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <!-- --><span class="token punctuation">-</span> ./nginx/htpasswd<!-- --><span class="token punctuation">:</span>/etc/nginx/htpasswd
+      <!-- --><span class="token punctuation">-</span> ./nginx/certs/<!-- --><span class="token punctuation">:</span>/etc/nginx/certs
+      <!-- --><span class="token punctuation">-</span> ./nginx/conf.d/proxy.conf<!-- --><span class="token punctuation">:</span>/etc/nginx/conf.d/proxy.conf
+      <!-- --><span class="token punctuation">-</span> /var/run/docker.sock<!-- --><span class="token punctuation">:</span>/tmp/docker.sock<!-- --><span class="token punctuation">:</span>ro
+    <!-- --><span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <!-- --><span class="token punctuation">-</span> mlflow<!-- --><span class="token punctuation">-</span>net<!-- --></code></pre></div><p>今回はNginx ProxyでBasic認証をかけるため，Basic認証のuserとpasswordも用意しておきます．</p><div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash"><span class="token comment"># ホストPC側</span>
 <!-- --><span class="token builtin class-name">cd</span> nginx/htpasswd
-htpasswd -c <!-- --><span class="token punctuation">[</span>domain名<!-- --><span class="token punctuation">]</span> <!-- --><span class="token punctuation">[</span>username<!-- --><span class="token punctuation">]</span></code></pre></div><p>jwilder/nginx-proxyでは，コンテナ内の<!-- --><code class="language-text">/etc/nginx/htpasswd</code>にドメイン名でファイルを置くことでBasic認証を付与することができます．<!-- --></p><p>以上でサーバーの構築は完了です．次に，実験を行うPythonスクリプト側の呼び出しを見てみましょう．</p><h2 id="実験スクリプト">実験スクリプト</h2><p>MLflowはver. 1.24.0から，MLflowをS3にアクセスするためのProxyとすることで，artifactの保存先のS3ストレージのcredentialをクライアント側で保持する必要がなくなりました．利便的にもセキュリティ的にも楽です．
+htpasswd -c <!-- --><span class="token punctuation">[</span>domain名<!-- --><span class="token punctuation">]</span> <!-- --><span class="token punctuation">[</span>username<!-- --><span class="token punctuation">]</span></code></pre></div><p>jwilder/nginx-proxyでは，コンテナ内の<!-- --><code class="language-text">/etc/nginx/htpasswd</code>にドメイン名でファイルを置くことでBasic認証を付与することができます．<!-- --></p><p>また，デフォルトではnginx-proxyを介したファイルの転送には容量制限があるので，これを設定で増量しておきます．
+設定をコンテナ内の<!-- --><code class="language-text">/etc/nginx/conf.d/proxy.conf</code>に置くことで，設定をすることができます．<!-- --></p><div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash"><span class="token comment"># /etc/nginx/conf.d/proxy.conf</span>
+client_max_body_size 5g<!-- --><span class="token punctuation">;</span></code></pre></div><p>以上でサーバーの構築は完了です．次に，実験を行うPythonスクリプト側の呼び出しを見てみましょう．</p><h2 id="実験スクリプト">実験スクリプト</h2><p>MLflowはver. 1.24.0から，MLflowをS3にアクセスするためのProxyとすることで，artifactの保存先のS3ストレージのcredentialをクライアント側で保持する必要がなくなりました．利便的にもセキュリティ的にも楽です．
 そのため，クライアント側で持つべき情報は</p><ul><li>MLflow ServerのURL</li><li>Basic認証のusername, password</li></ul><p>のみとなります．URLはスクリプト内で設定し，Basic認証の情報は環境変数に設定することでスクリプトからもServerにアクセスすることができます．</p><div class="gatsby-highlight" data-language="python"><pre class="language-python"><code class="language-python"><span class="token keyword">import</span> mlflow
 <!-- --><span class="token keyword">import</span> os
 

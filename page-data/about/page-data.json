@@ -1,5 +1,1 @@
-{
-    "componentChunkName": "component---src-pages-about-js",
-    "path": "/about/",
-    "result": {"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka"}}},"pageContext":{}},
-    "staticQueryHashes": ["1123391092"]}
+{"componentChunkName":"component---src-pages-about-js","path":"/about/","result":{"data":{"site":{"siteMetadata":{"title":"MJUN Tech Note","author":"Junya Morioka"}}},"pageContext":{}},"staticQueryHashes":["1123391092"],"slicesMap":{}}

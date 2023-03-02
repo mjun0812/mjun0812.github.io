@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[MJUN Tech Note RSS Feed]]></title><description><![CDATA[とある情報系の院生の技術ノートです]]></description><link>https://note.mjunya.com</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 01 Mar 2023 02:57:19 GMT</lastBuildDate><item><title><![CDATA[PyTorch DDPでマルチGPU学習時にVRAMの偏りが発生した時]]></title><description><![CDATA[こんにちは．今回はPyTorchのTipsで，Multi GPU Training時に設定不足などで起こる，
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[MJUN Tech Note RSS Feed]]></title><description><![CDATA[とある情報系の院生の技術ノートです]]></description><link>https://note.mjunya.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 02 Mar 2023 14:50:51 GMT</lastBuildDate><item><title><![CDATA[PyTorch DDPでマルチGPU学習時にVRAMの偏りが発生した時]]></title><description><![CDATA[こんにちは．今回はPyTorchのTipsで，Multi GPU Training時に設定不足などで起こる，
 GPU間でのVRAMの使用量の偏りを直す方法を紹介します． 基本的にGPU間のVRAM使用量の偏りが起こる時は，実装のミスが多いです． PyTorch…]]></description><link>https://note.mjunya.com/posts/2023-01-21_torch-multi-gpu-vram-imbalance/</link><guid isPermaLink="false">https://note.mjunya.com/posts/2023-01-21_torch-multi-gpu-vram-imbalance/</guid><pubDate>Sat, 21 Jan 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;こんにちは．今回はPyTorchのTipsで，Multi GPU Training時に設定不足などで起こる，
 GPU間でのVRAMの使用量の偏りを直す方法を紹介します．&lt;/p&gt;
 &lt;p&gt;基本的にGPU間のVRAM使用量の偏りが起こる時は，実装のミスが多いです．&lt;/p&gt;
@@ -1555,6 +1555,17 @@ forward-zoneはGoogleのDNSを設定している．
 &lt;code class=&quot;language-text&quot;&gt;ProcessPoolExecutor&lt;/code&gt;を&lt;code class=&quot;language-text&quot;&gt;ThreadPoolExecutor&lt;/code&gt;に変更すれば良い．&lt;/p&gt;
 &lt;p&gt;下記の関数fnがI/Oバウンドならマルチスレッドを，
 CPUバウンドならマルチプロセスにすれば良い．&lt;/p&gt;
+&lt;p&gt;&lt;div&gt;
+        &lt;a class=&quot;amazon-card-container&quot; href=&quot;https://www.amazon.co.jp/dp/4873119170?tag=mjun-22&amp;linkCode=ogi&amp;th=1&amp;psc=1&quot;&gt;
+          &lt;div class=&quot;amazon-card-body&quot;&gt;
+            &lt;div class=&quot;amazon-card-title&quot;&gt;Effective Python 第2版 ―Pythonプログラムを改良する90項目&lt;/div&gt;
+            &lt;div class=&quot;amazon-card-domain&quot;&gt;www.amazon.co.jp&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;amazon-card-image-container&quot; &gt;
+            &lt;img class=&quot;amazon-card-image&quot; src=&quot;https://m.media-amazon.com/images/I/41Ekr6CCxDL._SL160_.jpg&quot; loading=&quot;lazy&quot; alt=&quot;Effective Python 第2版 ―Pythonプログラムを改良する90項目-image&quot; /&gt;
+          &lt;/div&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; concurrent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;futures &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; ProcessPoolExecutor
 &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; tqdm &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; tqdm
 &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; os
@@ -1604,7 +1615,6 @@ CPUバウンドならマルチプロセスにすれば良い．&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;2について，関数の引数がiter可能な場合はmapを使えば(3)のforを省略できる．&lt;/p&gt;
 &lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-&lt;iframe align=&quot;center&quot; sandbox=&quot;allow-popups allow-scripts allow-modals allow-forms allow-same-origin&quot; style=&quot;width:120px;height:240px;&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; frameborder=&quot;0&quot; src=&quot;//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&amp;bc1=000000&amp;IS2=1&amp;bg1=FFFFFF&amp;fc1=000000&amp;lc1=0000FF&amp;t=mjun-22&amp;language=ja_JP&amp;o=9&amp;p=8&amp;l=as4&amp;m=amazon&amp;f=ifr&amp;ref=as_ss_li_til&amp;asins=4873119170&amp;linkId=934dffbf2c95ab25b569b2b04897a92a&quot;&gt;&lt;/iframe&gt;
 &lt;p&gt;&lt;div&gt;
         &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; href=&quot;https://qiita.com/tag1216/items/db5adcf1ddcb67cfefc8&quot; class=&quot;link-card-container&quot;&gt;
             &lt;div class=&quot;link-card-wrapper&quot;&gt;

@@ -1,4 +1,46 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[MJUN Tech Note RSS Feed]]></title><description><![CDATA[とある情報系の院生の技術ノートです]]></description><link>https://note.mjunya.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 02 Mar 2023 14:50:51 GMT</lastBuildDate><item><title><![CDATA[PyTorch DDPでマルチGPU学習時にVRAMの偏りが発生した時]]></title><description><![CDATA[こんにちは．今回はPyTorchのTipsで，Multi GPU Training時に設定不足などで起こる，
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[MJUN Tech Note RSS Feed]]></title><description><![CDATA[とある情報系の院生の技術ノートです]]></description><link>https://note.mjunya.com</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 06 Mar 2023 12:51:38 GMT</lastBuildDate><item><title><![CDATA[Nginxで任意のポートのhttp通信をhttpsにリダイレクトする]]></title><description><![CDATA[Webサーバを立てる時に使用するNginxで，
+任意のポートにきたhttpリクエストをhttpsにリダイレクトする方法のメモ． Nginxで，ポート80を443にリダイレクトして
+強制的にhttps化する方法はよく書かれているが，
+ポート8080や8065に立てたWeb…]]></description><link>https://note.mjunya.com/posts/2023-03-06_nginx-redirect-http-to-https/</link><guid isPermaLink="false">https://note.mjunya.com/posts/2023-03-06_nginx-redirect-http-to-https/</guid><pubDate>Mon, 06 Mar 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Webサーバを立てる時に使用するNginxで，
+任意のポートにきたhttpリクエストをhttpsにリダイレクトする方法のメモ．&lt;/p&gt;
+&lt;p&gt;Nginxで，ポート80を443にリダイレクトして
+強制的にhttps化する方法はよく書かれているが，
+ポート8080や8065に立てたWebアプリへのhttp通信をhttpsにする方法は
+書かれていなかったのでメモ．&lt;/p&gt;
+&lt;p&gt;例えば，Nginxをリバースプロキシとして使っていて，
+exemple.com:8065のアクセスをexample.com:8060に
+飛ばしていた時の例．
+example.comのSSL証明書はcertbotで取得しているとする．&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;server &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  server_name example.com:8065$&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  listen &lt;span class=&quot;token number&quot;&gt;8065&lt;/span&gt; ssl&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  listen &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;::&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;:8065 ssl&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# managed by Certbot&lt;/span&gt;
+  ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# managed by Certbot&lt;/span&gt;
+  include /etc/letsencrypt/options-ssl-nginx.conf&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# managed by Certbot&lt;/span&gt;
+  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# managed by Certbot&lt;/span&gt;
+
+  error_page &lt;span class=&quot;token number&quot;&gt;497&lt;/span&gt; @force_https&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  location @force_https &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token builtin class-name&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;301&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;https://$host:$server_port$request_uri&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+  location / &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    proxy_pass http://localhost:8060&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    proxy_set_header X-Forwarded-Host &lt;span class=&quot;token variable&quot;&gt;$host&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ポイントはここ．&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;error_page &lt;span class=&quot;token number&quot;&gt;497&lt;/span&gt; @force_https&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+location @force_https &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token builtin class-name&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;301&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;https://$host:$server_port$request_uri&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;httpsでListenしているポートにhttpでリクエストを送ると，&lt;code class=&quot;language-text&quot;&gt;The plain HTTP request was sent to HTTPS port&lt;/code&gt;
+というようなエラーメッセージが帰ってくる．
+この時のエラーコードはNginx専有の497が帰ってきている．&lt;br&gt;
+これを利用して，497エラーの時はhttpsに飛ばすようにしてあげると，
+任意のポートへのhttps通信を強制することが可能となる．&lt;/p&gt;</content:encoded></item><item><title><![CDATA[PyTorch DDPでマルチGPU学習時にVRAMの偏りが発生した時]]></title><description><![CDATA[こんにちは．今回はPyTorchのTipsで，Multi GPU Training時に設定不足などで起こる，
 GPU間でのVRAMの使用量の偏りを直す方法を紹介します． 基本的にGPU間のVRAM使用量の偏りが起こる時は，実装のミスが多いです． PyTorch…]]></description><link>https://note.mjunya.com/posts/2023-01-21_torch-multi-gpu-vram-imbalance/</link><guid isPermaLink="false">https://note.mjunya.com/posts/2023-01-21_torch-multi-gpu-vram-imbalance/</guid><pubDate>Sat, 21 Jan 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;こんにちは．今回はPyTorchのTipsで，Multi GPU Training時に設定不足などで起こる，
 GPU間でのVRAMの使用量の偏りを直す方法を紹介します．&lt;/p&gt;
 &lt;p&gt;基本的にGPU間のVRAM使用量の偏りが起こる時は，実装のミスが多いです．&lt;/p&gt;

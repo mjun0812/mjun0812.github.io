@@ -1,4 +1,358 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[MJUN Tech Note RSS Feed]]></title><description><![CDATA[とある情報系の院生の技術ノートです]]></description><link>https://note.mjunya.com</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 01 Apr 2023 10:03:52 GMT</lastBuildDate><item><title><![CDATA[Nginxで任意のポートのhttp通信をhttpsにリダイレクトする]]></title><description><![CDATA[Webサーバを立てる時に使用するNginxで，
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[MJUN Tech Note RSS Feed]]></title><description><![CDATA[とある情報系の院生の技術ノートです]]></description><link>https://note.mjunya.com</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 11 Oct 2023 11:09:33 GMT</lastBuildDate><item><title><![CDATA[TorchVisionのtransforms.v2を触ってみた]]></title><description><![CDATA[先日，PyTorchの画像操作系の処理がまとまったライブラリ，TorchVisionのバージョン0.16.0が公開されました．
+このアップデートで，データ拡張でよく用いられるのバージョンv2のドキュメントが加筆されました．
+自体はベータ版として0.15.…]]></description><link>https://note.mjunya.com/posts/2023-10-11_torchvisionv2/</link><guid isPermaLink="false">https://note.mjunya.com/posts/2023-10-11_torchvisionv2/</guid><pubDate>Wed, 11 Oct 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;先日，PyTorchの画像操作系の処理がまとまったライブラリ，TorchVisionのバージョン0.16.0が公開されました．
+このアップデートで，データ拡張でよく用いられる&lt;code class=&quot;language-text&quot;&gt;torchvision.transforms&lt;/code&gt;のバージョンv2のドキュメントが加筆されました．
+&lt;code class=&quot;language-text&quot;&gt;torchvision.transforms.v2&lt;/code&gt;自体はベータ版として0.15.0から存在していたものの，今回のアップデートでドキュメントが充実し，recommendになったことから，
+実際に以前の方法とどのように異なるのか見ていきたいと思います．
+なお，v2はまだベータ版です．0.17.0で安定版となるようです．&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;リリースノート&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/pytorch/vision/releases/tag/v0.16.0&quot;&gt;https://github.com/pytorch/vision/releases/tag/v0.16.0&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ドキュメント&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;https://pytorch.org/vision/stable/transforms.html#v2-api-reference-recommended&quot;&gt;https://pytorch.org/vision/stable/transforms.html#v2-api-reference-recommended&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;今後のアップデートはv2のみに行われるようなので，この機会に移行しておきたいところです．&lt;/p&gt;
+&lt;h2 id=&quot;主な変更点&quot;&gt;主な変更点&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;transformsの入力として物体検出のBBoxや，セグメンテーションマスク，動画を扱えるようになった点&lt;/li&gt;
+&lt;li&gt;CutMixやMixUpといったデータ拡張手法に対応した点&lt;/li&gt;
+&lt;li&gt;高速化&lt;/li&gt;
+&lt;li&gt;任意の入力(dict, lists, tuplesなど)を受け付ける&lt;/li&gt;
+&lt;li&gt;Resizeなどがtorch.uint8型を入力として受け取れる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;上記の変更点をもとに，v2では以下の方法が推奨されています．&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PIL.Image型の代わりに，Tensor型を入力とする&lt;/li&gt;
+&lt;li&gt;Resizeなどを行う場合は，入力をtorch.uint8([0~255])にする&lt;/li&gt;
+&lt;li&gt;Resizeはバイリニアかバイキュービックで行う&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;移行方法&quot;&gt;移行方法&lt;/h2&gt;
+&lt;p&gt;移行方法は簡単です．今まで&lt;code class=&quot;language-text&quot;&gt;import torchvision.transforms&lt;/code&gt;としていたところを，&lt;code class=&quot;language-text&quot;&gt;import torchvision.transforms.v2&lt;/code&gt;とするだけです．&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# V1&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; torchvision &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; transforms
+
+&lt;span class=&quot;token comment&quot;&gt;# V2(transformsのままv2を呼び出す場合)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; torchvision&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;transforms &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; v2 &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; transforms&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;実験1-変換速度の計測&quot;&gt;実験1: 変換速度の計測&lt;/h2&gt;
+&lt;p&gt;前述した通り，V2ではtransformsの高速化やuint8型への対応が変更点として挙げられています．
+そこで，v1, v2で速度の計測を行ってみたいと思います．&lt;/p&gt;
+&lt;p&gt;v1, v2について，PIL.ImageとTensor型で入力した場合でそれぞれ比較してみます．&lt;/p&gt;
+&lt;p&gt;入力画像として以下を用意しました．
+Resizeの効果を見たいので，大きめのサイズの画像を用意しました．&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 640px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/5579417ef5b99f937dc7a608bd4161d1/6af66/torchvisionv2_2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 75%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAAA9hAAAPYQGoP6dpAAADBElEQVR42rWUS0yTaRSG/40u1BgUKZWpvUChCBEpLVQKVazW1kJRa1GQwUIF1FpFR8wg4AwSvIAXUPGCiBA1hujCyywmmczCsHDiFMQLEsPNS0JiYkyI6/59DChRJ5kRF/MmT07y5Ts5m/Mcgf9IMBicYDyiKBIQxYn6b4z/FSabvsVUI0xMDgQIiB8R/8H4WzAoMjg0Qs/jPp70PaNvYICng8P0D71kYGSUvufDDI4MM/Z+DGGqk12eUsLsdtQWKwrzGhakZ6LNzmdRVjHumho8h3ZyqbMd4be7t/D63ByoLaO8ysexk/toOLGXhqN7aTlfxYGD22lta6Tg5/1EOPNQWh3I9E4U6WuJt2zA7t1FYY2PhJU6Lna0ItQe3s/02QIa7XQ0phkY9FIyzBHYcudjy5QyN1zA7kihsKweSZIDuclCVLIFyeJ01FmbOXazgzNtp/CVe3na/wShrq6akFCBRGM4JtNCSvMKqdzupXjrcpZZZBhSQ3EX2sjZWESIXIsiw06E1oBieRaypTbs2ypp/eN3Gm9cpqv7PkJz03GUipkk6ZTsdHu42tJCZ9s5ikqM6I0SVPEz8Gyxk7VuHbPCNESlZSOJSyF6xUYS83YTvSIftSMXd/WvvBh9jdB8+gSGRBVWYwolmwq4dbmdk/W7SDDPYqUrnsUZcsp2uMjJLSVcsZRYyyai05zIdKuJSd+KNM5KqH4Jzp/2MPruDULb+SYMcfMx6xOwLdFTkrmKfIeByOhpRMXMRJ4cSnnVj1RXdpBo8KAxrkFn3owqaS1qaw7KZCdz5CkkuLbRNdiLcL/rHu3NDdy5fpErzfWcPfILN1vP0H66jtoKH949RVy7foGKiuOESDSoFq4ibtl61EYXP5hSURptRKYWEJNdwF3/n1Pfwy3F+5gTFotUrkUar0NhMCGNjWGuTMY8lYZIWxqd925/od6kj1/5GfjkqMjQ0Cv8/kf4e3t50N3Ng4fd+B/20NPzN37/Xzwb6eft2Nv/weXvujbjzge+cD/wmclr8wFWImVi6GBNGwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;otter&quot;
+        title=&quot;&quot;
+        src=&quot;/static/5579417ef5b99f937dc7a608bd4161d1/6af66/torchvisionv2_2.png&quot;
+        srcset=&quot;/static/5579417ef5b99f937dc7a608bd4161d1/772e8/torchvisionv2_2.png 200w,
+/static/5579417ef5b99f937dc7a608bd4161d1/e17e5/torchvisionv2_2.png 400w,
+/static/5579417ef5b99f937dc7a608bd4161d1/6af66/torchvisionv2_2.png 640w&quot;
+        sizes=&quot;(max-width: 640px) 100vw, 640px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;引用: &lt;a href=&quot;https://publicdomainq.net/otter-animal-0014492/&quot;&gt;https://publicdomainq.net/otter-animal-0014492/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;identify image.jpg
+image.jpg JPEG 3872x2592 3872x2592+0+0 &lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;-bit sRGB &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;.93051MiB &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;.000u &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;:00.001&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;測定したコードは以下です．&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; time
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; torch
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; torchvision
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; torchvision&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;transforms &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; v1
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; torchvision&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;transforms&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;v2 &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; v2
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; PIL &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Image
+
+
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_v1_transforms_tensor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; v1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Compose&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+            v1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomHorizontalFlip&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomVerticalFlip&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomResizedCrop&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;224&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;224&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.01&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; antialias&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Normalize&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_v2_transforms_tensor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Compose&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomHorizontalFlip&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomVerticalFlip&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomResizedCrop&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;224&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;224&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.01&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; antialias&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ToDtype&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;torch&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;float32&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; scale&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Normalize&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_v1_transforms_pil&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; v1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Compose&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+            v1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ToTensor&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomHorizontalFlip&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomVerticalFlip&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomResizedCrop&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;224&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;224&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.01&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; antialias&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Normalize&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;get_v2_transforms_pil&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Compose&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ToImage&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomHorizontalFlip&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomVerticalFlip&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomResizedCrop&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;224&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;224&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.01&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; antialias&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ToDtype&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;torch&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;float32&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; scale&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Normalize&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    num_iter &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;200&lt;/span&gt;
+
+    transforms &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; get_v1_transforms_tensor&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    elapsed_times &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; _ &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;num_iter&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        img &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; torchvision&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;read_image&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;./image.jpg&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        t &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; time&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        img &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; img &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;
+        transforms&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;append&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;time&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; t&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    elapsed_times &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;V1 Elapsed Time(Input Tensor): &quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;ms&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    transforms &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; get_v2_transforms_tensor&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    elapsed_times &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; _ &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;num_iter&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        img &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; torchvision&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;read_image&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;./image.jpg&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+        t &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; time&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        transforms&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;append&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;time&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; t&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    elapsed_times &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;V2 Elapsed Time(Input Tensor): &quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;ms&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    transforms &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; get_v1_transforms_pil&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    elapsed_times &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; _ &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;num_iter&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        img &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Image&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;./image.jpg&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;convert&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;RGB&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        t &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; time&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        transforms&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;append&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;time&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; t&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    elapsed_times &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;V1 Elapsed Time(Input PIL): &quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;ms&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    transforms &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; get_v2_transforms_pil&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    elapsed_times &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; _ &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;num_iter&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        img &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Image&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;./image.jpg&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;convert&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;RGB&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        t &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; time&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        transforms&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;append&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;time&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; t&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    elapsed_times &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;V2 Elapsed Time(Input PIL): &quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;elapsed_times&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;ms&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; __name__ &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;__main__&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    main&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;実行結果は以下となりました．&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;python exp.py
+V1 Elapsed Time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Input Tensor&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;:  &lt;span class=&quot;token number&quot;&gt;42.47044086456299&lt;/span&gt; ms
+V2 Elapsed Time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Input Tensor&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;:  &lt;span class=&quot;token number&quot;&gt;4.662487506866455&lt;/span&gt; ms
+V1 Elapsed Time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Input PIL&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;:  &lt;span class=&quot;token number&quot;&gt;63.41712474822998&lt;/span&gt; ms
+V2 Elapsed Time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Input PIL&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;:  &lt;span class=&quot;token number&quot;&gt;13.053297996520996&lt;/span&gt; ms&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;まとめると以下です．&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;version&lt;/th&gt;
+&lt;th&gt;Input&lt;/th&gt;
+&lt;th align=&quot;right&quot;&gt;elapsed time&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;v1&lt;/td&gt;
+&lt;td&gt;Tensor&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;42.4704&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;v2&lt;/td&gt;
+&lt;td&gt;Tensor&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;4.6625&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;v1&lt;/td&gt;
+&lt;td&gt;PIL&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;63.4171&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;v2&lt;/td&gt;
+&lt;td&gt;PIL&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;13.0533&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;今回の場合は，Tensorを入力した場合は9.1倍，PILを入力した場合は4.9倍の高速化となりました．
+だいぶ早いですね〜．&lt;/p&gt;
+&lt;h2 id=&quot;実験2-boxを入力してみる&quot;&gt;実験2: Boxを入力してみる&lt;/h2&gt;
+&lt;p&gt;今までのtransformsは，画像しか入力できませんでしたが，今回からBBoxやmaskを入力できるようになったみたいです．
+というわけで，今回は簡単に用意できるBBoxを使って実験してみようと思います．&lt;/p&gt;
+&lt;p&gt;以下のコードは公式のTutorialから拝借しました．&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://pytorch.org/vision/stable/auto_examples/transforms/plot_transforms_getting_started.html&quot;&gt;https://pytorch.org/vision/stable/auto_examples/transforms/plot_transforms_getting_started.html&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; matplotlib&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;pyplot &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; plt
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; torch
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; torchvision &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; tv_tensors
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; torchvision&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; read_image
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; torchvision&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;transforms &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; v2
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; torchvision&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;transforms&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;v2 &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; functional &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; F
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; torchvision&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;utils &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; draw_bounding_boxes&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; draw_segmentation_masks
+
+
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;imgs&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; row_title&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;**&lt;/span&gt;imshow_kwargs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;isinstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;imgs&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# Make a 2d grid even if there&apos;s just 1 row&lt;/span&gt;
+        imgs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;imgs&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+    num_rows &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;imgs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    num_cols &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;imgs&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    _&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; axs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; plt&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;subplots&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nrows&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;num_rows&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; ncols&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;num_cols&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; squeeze&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; row_idx&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; row &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;imgs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; col_idx&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; img &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;row&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            boxes &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;
+            masks &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;isinstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;tuple&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                img&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; target &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; img
+                &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;isinstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;target&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                    boxes &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; target&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;boxes&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                    masks &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; target&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;masks&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;isinstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;target&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; tv_tensors&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;BoundingBoxes&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                    boxes &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; target
+                &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;token keyword&quot;&gt;raise&lt;/span&gt; ValueError&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string-interpolation&quot;&gt;&lt;span class=&quot;token string&quot;&gt;f&quot;Unexpected target type: &lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;target&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            img &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; F&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;to_image&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; img&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;dtype&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;is_floating_point &lt;span class=&quot;token keyword&quot;&gt;and&lt;/span&gt; img&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;token comment&quot;&gt;# Poor man&apos;s re-normalization for the colors to be OK-ish. This&lt;/span&gt;
+                &lt;span class=&quot;token comment&quot;&gt;# is useful for images coming out of Normalize()&lt;/span&gt;
+                img &lt;span class=&quot;token operator&quot;&gt;-=&lt;/span&gt; img&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                img &lt;span class=&quot;token operator&quot;&gt;/=&lt;/span&gt; img&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+            img &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; F&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;to_dtype&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; torch&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;uint8&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; scale&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; boxes &lt;span class=&quot;token keyword&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                img &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; draw_bounding_boxes&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; boxes&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; colors&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;yellow&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; width&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; masks &lt;span class=&quot;token keyword&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                img &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; draw_segmentation_masks&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+                    img&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; masks&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;to&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;torch&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; colors&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;green&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; masks&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;shape&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; alpha&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.65&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+            ax &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; axs&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;row_idx&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; col_idx&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+            ax&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;imshow&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;permute&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;numpy&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;**&lt;/span&gt;imshow_kwargs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            ax&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;xticklabels&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; yticklabels&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; xticks&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; yticks&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; row_title &lt;span class=&quot;token keyword&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; row_idx &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;num_rows&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            axs&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;row_idx&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ylabel&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;row_title&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;row_idx&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    plt&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;tight_layout&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    img &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; read_image&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;./image.jpg&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    boxes &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; tv_tensors&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;BoundingBoxes&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2540&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2540&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token builtin&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;XYXY&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        canvas_size&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;shape&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    transforms &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Compose&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomResizedCrop&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;size&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; antialias&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomPhotometricDistort&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            v2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;RandomHorizontalFlip&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    out_img&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; out_boxes &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; transforms&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; boxes&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;boxes&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;out_boxes&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; boxes&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;out_img&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; out_boxes&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    plt&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;show&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; __name__ &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;__main__&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    main&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;結果は以下のようになります．&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 640px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/5579417ef5b99f937dc7a608bd4161d1/6af66/torchvisionv2_2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 75%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAAA9hAAAPYQGoP6dpAAADBElEQVR42rWUS0yTaRSG/40u1BgUKZWpvUChCBEpLVQKVazW1kJRa1GQwUIF1FpFR8wg4AwSvIAXUPGCiBA1hujCyywmmczCsHDiFMQLEsPNS0JiYkyI6/59DChRJ5kRF/MmT07y5Ts5m/Mcgf9IMBicYDyiKBIQxYn6b4z/FSabvsVUI0xMDgQIiB8R/8H4WzAoMjg0Qs/jPp70PaNvYICng8P0D71kYGSUvufDDI4MM/Z+DGGqk12eUsLsdtQWKwrzGhakZ6LNzmdRVjHumho8h3ZyqbMd4be7t/D63ByoLaO8ysexk/toOLGXhqN7aTlfxYGD22lta6Tg5/1EOPNQWh3I9E4U6WuJt2zA7t1FYY2PhJU6Lna0ItQe3s/02QIa7XQ0phkY9FIyzBHYcudjy5QyN1zA7kihsKweSZIDuclCVLIFyeJ01FmbOXazgzNtp/CVe3na/wShrq6akFCBRGM4JtNCSvMKqdzupXjrcpZZZBhSQ3EX2sjZWESIXIsiw06E1oBieRaypTbs2ypp/eN3Gm9cpqv7PkJz03GUipkk6ZTsdHu42tJCZ9s5ikqM6I0SVPEz8Gyxk7VuHbPCNESlZSOJSyF6xUYS83YTvSIftSMXd/WvvBh9jdB8+gSGRBVWYwolmwq4dbmdk/W7SDDPYqUrnsUZcsp2uMjJLSVcsZRYyyai05zIdKuJSd+KNM5KqH4Jzp/2MPruDULb+SYMcfMx6xOwLdFTkrmKfIeByOhpRMXMRJ4cSnnVj1RXdpBo8KAxrkFn3owqaS1qaw7KZCdz5CkkuLbRNdiLcL/rHu3NDdy5fpErzfWcPfILN1vP0H66jtoKH949RVy7foGKiuOESDSoFq4ibtl61EYXP5hSURptRKYWEJNdwF3/n1Pfwy3F+5gTFotUrkUar0NhMCGNjWGuTMY8lYZIWxqd925/od6kj1/5GfjkqMjQ0Cv8/kf4e3t50N3Ng4fd+B/20NPzN37/Xzwb6eft2Nv/weXvujbjzge+cD/wmclr8wFWImVi6GBNGwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;box&quot;
+        title=&quot;&quot;
+        src=&quot;/static/5579417ef5b99f937dc7a608bd4161d1/6af66/torchvisionv2_2.png&quot;
+        srcset=&quot;/static/5579417ef5b99f937dc7a608bd4161d1/772e8/torchvisionv2_2.png 200w,
+/static/5579417ef5b99f937dc7a608bd4161d1/e17e5/torchvisionv2_2.png 400w,
+/static/5579417ef5b99f937dc7a608bd4161d1/6af66/torchvisionv2_2.png 640w&quot;
+        sizes=&quot;(max-width: 640px) 100vw, 640px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;上記のコード例で重要な部分はここです．&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;boxes &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; tv_tensors&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;BoundingBoxes&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2540&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2540&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;token builtin&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;XYXY&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            canvas_size&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;img&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;shape&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;v2ではBBoxは&lt;code class=&quot;language-text&quot;&gt;tv_tensors.BoundingBoxes&lt;/code&gt;に，
+Maskは&lt;code class=&quot;language-text&quot;&gt;tv_tensors.Mask&lt;/code&gt;に入れて入力することで，Box・Maskへもデータ拡張ができるようです．&lt;/p&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;以上簡単にですが，torchvision.transformsのv2の紹介でした．
+実験1で示したように，Resizeをuint8で処理できるようになったこともあってか，
+transformsの大幅な高速化がなされています．
+導入も簡単なので，torchvisio.transformsを使用している人はv2への移行を検討してみても良いのかもしれません．&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Nginxで任意のポートのhttp通信をhttpsにリダイレクトする]]></title><description><![CDATA[Webサーバを立てる時に使用するNginxで，
 任意のポートにきたhttpリクエストをhttpsにリダイレクトする方法のメモ． Nginxで，ポート80を443にリダイレクトして
 強制的にhttps化する方法はよく書かれているが，
 ポート8080や8065に立てたWeb…]]></description><link>https://note.mjunya.com/posts/2023-03-06_nginx-redirect-http-to-https/</link><guid isPermaLink="false">https://note.mjunya.com/posts/2023-03-06_nginx-redirect-http-to-https/</guid><pubDate>Mon, 06 Mar 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Webサーバを立てる時に使用するNginxで，
@@ -1597,17 +1951,6 @@ forward-zoneはGoogleのDNSを設定している．
 &lt;code class=&quot;language-text&quot;&gt;ProcessPoolExecutor&lt;/code&gt;を&lt;code class=&quot;language-text&quot;&gt;ThreadPoolExecutor&lt;/code&gt;に変更すれば良い．&lt;/p&gt;
 &lt;p&gt;下記の関数fnがI/Oバウンドならマルチスレッドを，
 CPUバウンドならマルチプロセスにすれば良い．&lt;/p&gt;
-&lt;p&gt;&lt;div&gt;
-        &lt;a class=&quot;amazon-card-container&quot; href=&quot;https://www.amazon.co.jp/dp/4873119170?tag=mjun-22&amp;linkCode=ogi&amp;th=1&amp;psc=1&quot;&gt;
-          &lt;div class=&quot;amazon-card-body&quot;&gt;
-            &lt;div class=&quot;amazon-card-title&quot;&gt;Effective Python 第2版 ―Pythonプログラムを改良する90項目&lt;/div&gt;
-            &lt;div class=&quot;amazon-card-domain&quot;&gt;www.amazon.co.jp&lt;/div&gt;
-          &lt;/div&gt;
-          &lt;div class=&quot;amazon-card-image-container&quot; &gt;
-            &lt;img class=&quot;amazon-card-image&quot; src=&quot;https://m.media-amazon.com/images/I/41Ekr6CCxDL._SL160_.jpg&quot; loading=&quot;lazy&quot; alt=&quot;Effective Python 第2版 ―Pythonプログラムを改良する90項目-image&quot; /&gt;
-          &lt;/div&gt;
-        &lt;/a&gt;
-      &lt;/div&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; concurrent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;futures &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; ProcessPoolExecutor
 &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; tqdm &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; tqdm
 &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; os
@@ -1662,13 +2005,7 @@ CPUバウンドならマルチプロセスにすれば良い．&lt;/p&gt;
             &lt;div class=&quot;link-card-wrapper&quot;&gt;
                 &lt;div class=&quot;link-card-text&quot;&gt;
                     &lt;div class=&quot;link-card-title&quot;&gt;Pythonでconcurrent.futuresを使った並列タスク実行 - Qiita&lt;/div&gt;
-                    &lt;div class=&quot;link-card-description&quot;&gt;
-
-concurrent.futuresモジュールの概要
-
-Python3.2で追加されたconcurrent.futuresモジュールは、複数の処理を並列実行するための機能を提供します。
-
-Pythonには他にthreadingとm...&lt;/div&gt;
+                    &lt;div class=&quot;link-card-description&quot;&gt;concurrent.futuresモジュールの概要Python3.2で追加されたconcurrent.futuresモジュールは、複数の処理を並列実行するための機能を提供します。Pythonに…&lt;/div&gt;
                 &lt;/div&gt;
                 &lt;div class=&quot;link-card-url&quot;&gt;
                     &lt;img class=&quot;link-card-favicon&quot; src=&quot;https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico&quot; alt=&quot;Pythonでconcurrent.futuresを使った並列タスク実行 - Qiita-favicon&quot;/&gt;
@@ -1685,9 +2022,7 @@ Pythonには他にthreadingとm...&lt;/div&gt;
             &lt;div class=&quot;link-card-wrapper&quot;&gt;
                 &lt;div class=&quot;link-card-text&quot;&gt;
                     &lt;div class=&quot;link-card-title&quot;&gt;Pythonで並列処理をするなら知っておくべきGILをできる限り詳しく調べてみた - Qiita&lt;/div&gt;
-                    &lt;div class=&quot;link-card-description&quot;&gt;最近Pythonでオーケストレーション層(BFF)のアプリケーションを書く機会がありました。
-
-Python3.4からはasyncioが導入され、I/Oバウンドな処理はシングルスレッドでも効率的に捌けるようになったものの、依然としてC...&lt;/div&gt;
+                    &lt;div class=&quot;link-card-description&quot;&gt;最近Pythonでオーケストレーション層(BFF)のアプリケーションを書く機会がありました。Python3.4からはasyncioが導入され、I/Oバウンドな処理はシングルスレッドでも効率的に捌け…&lt;/div&gt;
                 &lt;/div&gt;
                 &lt;div class=&quot;link-card-url&quot;&gt;
                     &lt;img class=&quot;link-card-favicon&quot; src=&quot;https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico&quot; alt=&quot;Pythonで並列処理をするなら知っておくべきGILをできる限り詳しく調べてみた - Qiita-favicon&quot;/&gt;
@@ -1707,12 +2042,12 @@ Python3.4からはasyncioが導入され、I/Oバウンドな処理はシング�
                     
                 &lt;/div&gt;
                 &lt;div class=&quot;link-card-url&quot;&gt;
-                    &lt;img class=&quot;link-card-favicon&quot; src=&quot;https://zenn.dev/images/logo-transparent.png&quot; alt=&quot;Pythonの並行処理を理解したい [マルチスレッド編]-favicon&quot;/&gt;
+                    &lt;img class=&quot;link-card-favicon&quot; src=&quot;https://static.zenn.studio/images/logo-transparent.png&quot; alt=&quot;Pythonの並行処理を理解したい [マルチスレッド編]-favicon&quot;/&gt;
                     &lt;div class=&quot;link-card-link&quot;&gt;https://zenn.dev/ryo_kawamata/articles/python-concurrent-thread&lt;/div&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class=&quot;link-card-image-wrapper&quot;&gt;
-                            &lt;img class=&quot;link-card-image&quot; alt=&quot;Pythonの並行処理を理解したい [マルチスレッド編]-image&quot; src=&quot;https://res.cloudinary.com/zenn/image/upload/s--K67N_Z7x--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:Python%25E3%2581%25AE%25E4%25B8%25A6%25E8%25A1%258C%25E5%2587%25A6%25E7%2590%2586%25E3%2582%2592%25E7%2590%2586%25E8%25A7%25A3%25E3%2581%2597%25E3%2581%259F%25E3%2581%2584%2520%255B%25E3%2583%259E%25E3%2583%25AB%25E3%2583%2581%25E3%2582%25B9%25E3%2583%25AC%25E3%2583%2583%25E3%2583%2589%25E7%25B7%25A8%255D%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:ryo_kawamata%2Cx_203%2Cy_98/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL3plbm4tdXNlci11cGxvYWQvYXZhdGFyLzU2N2NiMTI0ZWYuanBlZw==%2Cr_max%2Cw_90%2Cx_87%2Cy_72/og-base.png&quot; /&gt;
+                            &lt;img class=&quot;link-card-image&quot; alt=&quot;Pythonの並行処理を理解したい [マルチスレッド編]-image&quot; src=&quot;https://res.cloudinary.com/zenn/image/upload/s--noc-fc_q--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:Python%25E3%2581%25AE%25E4%25B8%25A6%25E8%25A1%258C%25E5%2587%25A6%25E7%2590%2586%25E3%2582%2592%25E7%2590%2586%25E8%25A7%25A3%25E3%2581%2597%25E3%2581%259F%25E3%2581%2584%2520%255B%25E3%2583%259E%25E3%2583%25AB%25E3%2583%2581%25E3%2582%25B9%25E3%2583%25AC%25E3%2583%2583%25E3%2583%2589%25E7%25B7%25A8%255D%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:ryo_kawamata%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL3plbm4tdXNlci11cGxvYWQvYXZhdGFyLzU2N2NiMTI0ZWYuanBlZw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png&quot; /&gt;
                         &lt;/div&gt;
         &lt;/a&gt;
     &lt;/div&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Pandasで標準出力したDataframeにgrepする]]></title><description><![CDATA[Pythonのデータ分析のライブラリにPandasというライブラリがある． 個人的には2次元配列をきれいに標準出力できるのでよく使っていたりする(完全に邪道)． Pandas…]]></description><link>https://note.mjunya.com/posts/2021-10-20-pandas-output-grep/</link><guid isPermaLink="false">https://note.mjunya.com/posts/2021-10-20-pandas-output-grep/</guid><pubDate>Wed, 20 Oct 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Pythonのデータ分析のライブラリにPandasというライブラリがある．&lt;br&gt;

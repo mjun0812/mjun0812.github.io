@@ -1,0 +1,26 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+const { title, siteTitle, description, author } = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  siteTitle={siteTitle}
+  description={description}
+  author={author}
+>
+  <slot />
+</BaseLayout>
+
+<style is:global lang="scss">
+  pre {
+    font-family: "Roboto Mono", monospace;
+    padding: 1rem;
+    border-radius: 15px;
+  }
+  a {
+    color: var(--accent-color);
+    text-decoration: underline;
+  }
+</style>

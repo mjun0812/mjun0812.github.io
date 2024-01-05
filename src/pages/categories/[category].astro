@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostList from "../../components/PostList.astro";
+
+import { siteTitle, description, author } from "../index.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  const categories = [...new Set(posts.map((post) => post.data.category))];
+  function kebabCase(str: string) {
+    return str
+      .toLowerCase()
+      .replace(/(\s|_)+/g, "-")
+      .replace(/([a-z])([A-Z])/g, "$1-$2");
+  }
+
+  return categories.map((category) => ({
+    params: {
+      category: kebabCase(category),
+    },
+    props: {
+      posts: posts.filter((post) => post.data.category.includes(category)),
+      categoryName: category,
+    },
+  }));
+}
+
+const { posts, categoryName } = Astro.props;
+---
+
+<BaseLayout
+  siteTitle={siteTitle}
+  title={"Category: " + categoryName + " | " + siteTitle}
+  description={description}
+  author={author}
+>
+  <h2>"{categoryName}"カテゴリの記事</h2>
+  <PostList posts={posts} />
+</BaseLayout>

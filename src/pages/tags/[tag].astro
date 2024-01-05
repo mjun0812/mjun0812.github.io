@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostList from "../../components/PostList.astro";
+
+import { siteTitle, description, author } from "../index.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  const tags = [...new Set(posts.map((post) => post.data.tags).flat())];
+  function kebabCase(str: string) {
+    return str
+      .toLowerCase()
+      .replace(/(\s|_)+/g, "-")
+      .replace(/([a-z])([A-Z])/g, "$1-$2");
+  }
+
+  return tags.map((tag) => ({
+    params: {
+      tag: kebabCase(tag),
+    },
+    props: {
+      posts: posts.filter((post) => post.data.tags.includes(tag)),
+      tagName: tag,
+    },
+  }));
+}
+
+const { posts, tagName } = Astro.props;
+---
+
+<BaseLayout
+  siteTitle={siteTitle}
+  title={"Tag: " + tagName + " | " + siteTitle}
+  description={description}
+  author={author}
+>
+  <h2>#{tagName}のタグが付いた記事</h2>
+  <PostList posts={posts} />
+</BaseLayout>

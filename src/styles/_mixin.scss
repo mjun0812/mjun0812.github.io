@@ -1,0 +1,27 @@
+@mixin lightmode() {
+  --background-color: #f9f9f9;
+  --card-color: #ffffff;
+  --shadow-color: #d3d3d3;
+  --subtext-color: #9c9da2;
+  --text-color: #212121;
+  --accent-color: #1d71d7;
+  --code-highlight: #d3d3d3;
+  --linkcard-border: #d0d7de;
+}
+@mixin darkmode() {
+  --background-color: #161718;
+  --card-color: #23242f;
+  --shadow-color: #23242f;
+  --subtext-color: #9c9da2;
+  --text-color: #e4e5fb;
+  --accent-color: #5377d2;
+  --code-highlight: #161718;
+  --linkcard-border: #303234;
+}
+
+$side-padding: 2rem;
+$sidebar-width: 0.2;
+$card-height: 5rem;
+
+$english-font: "Raleway", "Inter", "Helvetica", "Helvetica Neue", Arial,
+  "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;

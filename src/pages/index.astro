@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostList from "../components/PostList.astro";
+
+export const siteTitle = "MJUN Tech Note";
+export const description = "とある情報系の院生の技術ノートです";
+export const author = "Junya Morioka";
+
+let posts = await getCollection("posts");
+posts = posts.sort(
+  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+);
+---
+
+<BaseLayout
+  siteTitle={siteTitle}
+  title={siteTitle}
+  description={description}
+  author={author}
+>
+  <PostList posts={posts} />
+</BaseLayout>

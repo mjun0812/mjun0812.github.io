@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+
+import { siteTitle, description, author } from "../index.astro";
+
+function kebabCase(str: string) {
+  return str
+    .toLowerCase()
+    .replace(/(\s|_)+/g, "-")
+    .replace(/([a-z])([A-Z])/g, "$1-$2");
+}
+
+const posts = await getCollection("posts");
+const tags = [...new Set(posts.map((post) => post.data.tags).flat())];
+---
+
+<PostLayout
+  siteTitle={siteTitle}
+  title={"Tags | " + siteTitle}
+  description={description}
+  author={author}
+>
+  <ul>
+    {
+      tags.map((tag) => (
+        <li>
+          <a href={`/tags/${kebabCase(tag)}`}>{tag}</a>
+        </li>
+      ))
+    }
+  </ul>
+</PostLayout>

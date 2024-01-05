@@ -1,0 +1,16 @@
+---
+const { author } = Astro.props;
+---
+
+<footer>
+  <span>
+    &copy; {new Date().getFullYear()}
+    {author}
+  </span>
+</footer>
+
+<style lang="scss">
+  footer {
+    text-align: center;
+  }
+</style>

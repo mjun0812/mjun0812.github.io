@@ -1,0 +1,17 @@
+---
+import PostCard from "./PostCard.astro";
+
+const { posts } = Astro.props;
+---
+
+<div class="postList">
+  {posts.map((post) => <PostCard post={post} />)}
+</div>
+
+<style lang="scss">
+  .postList {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+  }
+</style>

@@ -1,0 +1,113 @@
+---
+const { post } = Astro.props;
+const { data } = post;
+
+function kebabCase(str: string) {
+  return str
+    .toLowerCase()
+    .replace(/(\s|_)+/g, "-")
+    .replace(/([a-z])([A-Z])/g, "$1-$2");
+}
+---
+
+<div class="postCard">
+  <h2 class="postTitle"><a href={"/posts/" + post.slug}>{data.title}</a></h2>
+  <div class="postMeta">
+    <span class="postPublishedAt"
+      >{new Date(data.date).toLocaleDateString("sv-SE")}</span
+    >
+
+    {
+      data.date !== data.update && (
+        <span class="postUpdateAt">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fas"
+            data-icon="redo-alt"
+            class="svg-inline--fa fa-redo-alt fa-w-16"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+          >
+            <path
+              fill="currentColor"
+              d="M256.455 8c66.269.119 126.437 26.233 170.859 68.685l35.715-35.715C478.149 25.851 504 36.559 504 57.941V192c0 13.255-10.745 24-24 24H345.941c-21.382 0-32.09-25.851-16.971-40.971l41.75-41.75c-30.864-28.899-70.801-44.907-113.23-45.273-92.398-.798-170.283 73.977-169.484 169.442C88.764 348.009 162.184 424 256 424c41.127 0 79.997-14.678 110.629-41.556 4.743-4.161 11.906-3.908 16.368.553l39.662 39.662c4.872 4.872 4.631 12.815-.482 17.433C378.202 479.813 319.926 504 256 504 119.034 504 8.001 392.967 8 256.002 7.999 119.193 119.646 7.755 256.455 8z"
+            />
+          </svg>
+          {new Date(data.update).toLocaleDateString("sv-SE")}
+        </span>
+      )
+    }
+
+    <span class="postCategory">
+      <a href={`/category/${kebabCase(post.data.category)}`}>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="tag"
+          class="svg-inline--fa fa-tag fa-w-16"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          width="32"
+          height="32"
+        >
+          <path
+            fill="currentColor"
+            d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+          ></path>
+        </svg>
+        {data.category}
+      </a>
+    </span>
+  </div>
+</div>
+
+<style lang="scss">
+  .postCard {
+    display: flex;
+    align-items: left; // // flex要素の垂直配置
+    justify-content: left; // flex要素の水平配置
+    flex-direction: column;
+    background: var(--card-color);
+    position: relative;
+    min-height: $card-height;
+    margin: 0 calc($side-padding/2);
+    padding: 0 1.5rem 1.5rem;
+    // Shadow
+    border: solid 1px var(--shadow-color);
+    border-radius: 10px;
+    // Animation
+    transition: all 0.3s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+
+  .postTitle a {
+    color: var(--accent-color);
+    text-decoration: none;
+  }
+
+  .postUpdateAt {
+    margin-left: 3rem;
+  }
+
+  .postCategory {
+    margin-left: 3rem;
+    > a {
+      color: var(--text-color);
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  svg {
+    height: 1rem;
+    vertical-align: middle;
+  }
+</style>

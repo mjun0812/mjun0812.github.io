@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;400&display=swap");
+
+:root {
+  @include darkmode();
+  &.light {
+    @include lightmode();
+  }
+  color: var(--text-color);
+  background-color: var(--background-color);
+  max-width: 90rem;
+  // centering
+  margin: auto;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", Meiryo, sans-serif;
+  font-display: swap;
+}
+
+.container {
+  display: flex;
+  display: -webkit-flex;
+}
+
+.main {
+  width: percentage(1 - 0.05 - $sidebar-width);
+  max-width: percentage(1 - 0.05 - $sidebar-width);
+  padding: calc($side-padding/4) calc($side-padding/2);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: percentage($sidebar-width);
+  min-width: percentage($sidebar-width);
+  padding: calc($side-padding/4) calc($side-padding/2);
+}
+
+@media screen and (max-width: 480px) {
+  /* 480px以下に適用されるCSS（スマホ用） */
+  .container {
+    flex-direction: column-reverse;
+  }
+  .main {
+    width: auto;
+    max-width: none;
+  }
+  .sidebar {
+    width: auto;
+  }
+}

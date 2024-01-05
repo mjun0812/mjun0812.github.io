@@ -1,0 +1,108 @@
+---
+import ThemeToggleButton from "./ThemeToggleButton.astro";
+
+const { siteTitle, description } = Astro.props;
+---
+
+<header>
+  <h1 class="siteTitle">
+    <a href="/">{siteTitle}</a>
+  </h1>
+
+  <p class="description">{description}</p>
+
+  <nav>
+    <ul>
+      <li>
+        <a href="/">Home</a>
+      </li>
+      <li>
+        <a href="/categories/">Categories</a>
+      </li>
+      <li>
+        <a href="/tags/">Tags</a>
+      </li>
+      <li>
+        <a href="/about/">About Me</a>
+      </li>
+      <li>
+        <a href="/rss.xml">Feed</a>
+      </li>
+      <li>
+        <ThemeToggleButton />
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style lang="scss">
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc($side-padding/4) $side-padding;
+    color: var(--accent-color);
+    font-family: $english-font;
+    font-display: swap;
+  }
+
+  h1.siteTitle {
+    border: solid 1px var(--accent-color);
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-weight: 200;
+    font-size: 1.5rem;
+    word-break: normal;
+    a,
+    a:visited {
+      color: var(--accent-color);
+      font-family: $english-font;
+      text-decoration: none;
+    }
+  }
+
+  .description {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    margin-left: 2rem;
+    color: var(--text-color);
+  }
+
+  nav {
+    margin-left: auto;
+    margin-top: auto;
+    ul {
+      list-style: none;
+      text-align: right;
+      li {
+        display: inline-block;
+      }
+    }
+
+    a,
+    a:visited {
+      color: var(--text-color);
+      margin: 0.5rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    /* 480px以下に適用されるCSS（スマホ用） */
+    nav {
+      margin-top: 0;
+      ul {
+        text-align: left;
+      }
+      a,
+      a:visited {
+        font-size: 1rem;
+      }
+    }
+  }
+</style>

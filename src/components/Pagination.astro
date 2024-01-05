@@ -1,0 +1,30 @@
+---
+const { previousPagePath, nextPagePath, currentPage, totalPage } = Astro.props;
+---
+
+<div class="pagination">
+  {previousPagePath ? <a href={previousPagePath}>Previous</a> : <br />}
+  <span>
+    {currentPage} / {totalPage}
+  </span>
+  {nextPagePath ? <a href={nextPagePath}>Next</a> : <br />}
+</div>
+
+<style lang="scss">
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.3rem;
+    a,
+    a:visited {
+      color: var(--text-color);
+      margin: 0.5rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+  }
+</style>

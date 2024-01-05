@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@astrojs/partytown": "^2.0.3",
-    "astro": "^4.0.9"
+    "astro": "^4.0.9",
+    "astro-icon": "^1.0.2"
   },
   "devDependencies": {
+    "@iconify-json/mdi": "^1.1.64",
+    "@iconify-json/simple-icons": "^1.1.86",
     "sass": "^1.69.7"
   }
 }

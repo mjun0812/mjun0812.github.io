@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
 
-import { siteTitle, description, author } from "../index.astro";
+import { siteTitle, description, author } from "../[...page].astro";
 
 function kebabCase(str: string) {
   return str

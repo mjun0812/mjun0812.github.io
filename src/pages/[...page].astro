@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostList from "../components/PostList.astro";
+import Pagination from "../components/Pagination.astro";
+
+export const siteTitle = "MJUN Tech Note";
+export const description = "とある情報系の院生の技術ノートです";
+export const author = "Junya Morioka";
+
+export async function getStaticPaths({ paginate }) {
+  let posts = await getCollection("posts");
+  posts = posts.sort(
+    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+  );
+  return paginate(posts, { pageSize: 8 });
+}
+
+const { page } = Astro.props;
+---
+
+<BaseLayout
+  siteTitle={siteTitle}
+  title={siteTitle}
+  description={description}
+  author={author}
+>
+  <PostList posts={page.data} />
+  <Pagination
+    previousPagePath={page.url.prev}
+    nextPagePath={page.url.next}
+    currentPage={page.currentPage}
+    totalPage={page.lastPage}
+  />
+</BaseLayout>

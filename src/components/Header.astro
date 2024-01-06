@@ -1,15 +1,13 @@
 ---
 import ThemeToggleButton from "./ThemeToggleButton.astro";
 
-const { siteTitle, description } = Astro.props;
+const { siteTitle } = Astro.props;
 ---
 
 <header>
   <h1 class="siteTitle">
     <a href="/">{siteTitle}</a>
   </h1>
-
-  <p class="description">{description}</p>
 
   <nav>
     <ul>

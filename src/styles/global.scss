@@ -48,3 +48,90 @@
     width: auto;
   }
 }
+
+// Remark Link Card
+.rlc-container {
+  display: grid;
+  overflow: hidden;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  align-items: streatch;
+  width: 100%;
+  padding: 0.25rem;
+  text-decoration: none;
+  background-color: var(--linkcard-border);
+  &:link {
+    color: var(--text-color);
+  }
+  &:visited {
+    color: var(--text-color);
+  }
+}
+.rlc-info {
+  grid-area: 1 / 1 / 2 / 2;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  justify-content: space-between;
+  padding: 0.5rem;
+  text-align: left;
+}
+.rlc-title {
+  color: var(--accent-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.25rem;
+  white-space: nowrap;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.rlc-description {
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  height: 2rem;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+.rlc-url-container {
+  display: flex;
+  align-items: bottom;
+}
+.rlc-favicon {
+  display: flex;
+  flex-direction: column;
+  align-items: bottom;
+  margin-right: 4px;
+  border-radius: 1rem;
+  width: 16px;
+  height: 16px;
+}
+.rlc-url {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1rem;
+  text-decoration: underline;
+}
+.rlc-image-container {
+  display: grid;
+  grid-area: 1 / 2 / 2 / 3;
+  align-items: center;
+  height: 8rem;
+}
+.rlc-image {
+  object-fit: contain;
+  margin: auto;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-height: 8rem;
+  max-height: 8rem;
+  border-bottom-right-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}

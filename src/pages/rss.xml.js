@@ -1,6 +1,9 @@
 import rss from '@astrojs/rss';
 import { getCollection } from "astro:content";
-import { siteTitle, description, siteUrl } from "./[...page].astro"
+
+export const siteTitle = "MJUN Tech Note";
+export const description = "とある情報系の院生の技術ノートです";
+export const siteUrl = "https://note.mjunya.com";
 
 export async function GET() {
     let posts = await getCollection("posts");

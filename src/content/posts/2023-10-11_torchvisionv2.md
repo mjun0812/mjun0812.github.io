@@ -19,11 +19,11 @@ published: true
 
 - リリースノート
 
-https://github.com/pytorch/vision/releases/tag/v0.16.0
+<https://github.com/pytorch/vision/releases/tag/v0.16.0>
 
 - ドキュメント
 
-https://pytorch.org/vision/stable/transforms.html#v2-api-reference-recommended
+<https://pytorch.org/vision/stable/transforms.html#v2-api-reference-recommended>
 
 今後のアップデートはv2のみに行われるようなので，この機会に移行しておきたいところです．
 

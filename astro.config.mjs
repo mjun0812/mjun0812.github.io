@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import partytown from "@astrojs/partytown";
+import remarkLinkCard from "remark-link-card";
 
 import icon from "astro-icon";
 
@@ -16,6 +17,7 @@ export default defineConfig({
     }
   },
   markdown: {
+    remarkPlugins: [remarkLinkCard],
     shikiConfig: {
       theme: 'one-dark-pro'
     }

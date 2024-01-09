@@ -3,4 +3,4 @@ Disallow: /about/
 Disallow: /tags/
 Disallow: /categories/
 
-Sitemap: https://note.mjunya.com/sitemap-index.xml
+Sitemap: https://mjunya.com/sitemap-index.xml

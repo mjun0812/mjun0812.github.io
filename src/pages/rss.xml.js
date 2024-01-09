@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 
 export const siteTitle = "MJUN Tech Note";
 export const description = "とある情報系の院生の技術ノートです";
-export const siteUrl = "https://note.mjunya.com";
+export const siteUrl = "https://mjunya.com";
 
 export async function GET() {
     let posts = await getCollection("posts");

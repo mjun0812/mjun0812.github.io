@@ -1,4 +1,4 @@
-# note.mjunya.com
+# mjunya.com
 
 ## dev memo
 

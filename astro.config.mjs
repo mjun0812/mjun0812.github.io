@@ -7,7 +7,7 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://note.mjunya.com",
+  site: "https://mjunya.com",
   vite: {
     css: {
       preprocessorOptions: {

@@ -30,6 +30,19 @@ const { title, siteTitle, description, author } = Astro.props;
         min-width: percentage($sidebar-width);
         padding: calc($side-padding/4) calc($side-padding/2);
       }
+      @media screen and (max-width: 480px) {
+        /* 480px以下に適用されるCSS（スマホ用） */
+        .container {
+          flex-direction: column-reverse;
+        }
+        main {
+          width: auto;
+          max-width: none;
+        }
+        .sidebar {
+          width: auto;
+        }
+      }
     </style>
   </head>
   <body>

@@ -16,39 +16,6 @@
   font-display: swap;
 }
 
-.container {
-  display: flex;
-  display: -webkit-flex;
-}
-
-.main {
-  width: percentage(1 - 0.05 - $sidebar-width);
-  max-width: percentage(1 - 0.05 - $sidebar-width);
-  padding: calc($side-padding/4) calc($side-padding/2);
-}
-
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  width: percentage($sidebar-width);
-  min-width: percentage($sidebar-width);
-  padding: calc($side-padding/4) calc($side-padding/2);
-}
-
-@media screen and (max-width: 480px) {
-  /* 480px以下に適用されるCSS（スマホ用） */
-  .container {
-    flex-direction: column-reverse;
-  }
-  .main {
-    width: auto;
-    max-width: none;
-  }
-  .sidebar {
-    width: auto;
-  }
-}
-
 // Remark Link Card
 .rlc-container {
   display: grid;

@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
 import { siteTitle, description, author } from "../[...page].astro";
+import "../../styles/markdown.scss";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -80,7 +81,9 @@ const { Content } = await post.render();
       </li>
     </ul>
 
-    <Content />
+    <div class="markdown-body">
+      <Content class="" />
+    </div>
   </div>
 </PostLayout>
 

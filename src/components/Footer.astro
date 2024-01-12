@@ -3,6 +3,9 @@ const { author } = Astro.props;
 ---
 
 <footer>
+  <p class="notice">
+    本サイトではGoogle AdsenseとAmazonアフィリエイトを使用しています
+  </p>
   <span>
     &copy; {new Date().getFullYear()}
     {author}
@@ -10,6 +13,11 @@ const { author } = Astro.props;
 </footer>
 
 <style lang="scss">
+  .notice {
+    font-size: 0.8rem;
+    color: #666;
+    margin: 0.1rem;
+  }
   footer {
     text-align: center;
   }

@@ -133,8 +133,8 @@ tqdmで経過を確認できるようにした．
 
 ## 参考
 
-[$card](https://qiita.com/tag1216/items/db5adcf1ddcb67cfefc8)
+<https://qiita.com/tag1216/items/db5adcf1ddcb67cfefc8>
 
-[$card](https://qiita.com/ttiger55/items/5e1d5a3405d2b3ef8f40)
+<https://qiita.com/ttiger55/items/5e1d5a3405d2b3ef8f40>
 
-[$card](https://zenn.dev/ryo_kawamata/articles/python-concurrent-thread)
+<https://zenn.dev/ryo_kawamata/articles/python-concurrent-thread>

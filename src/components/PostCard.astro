@@ -18,7 +18,7 @@ function kebabCase(str: string) {
     >
 
     {
-      data.date !== data.update && (
+      new Date(data.update).valueOf() - new Date(data.date).valueOf() > 0 && (
         <span class="postUpdateAt">
           <svg
             aria-hidden="true"

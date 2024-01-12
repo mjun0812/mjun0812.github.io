@@ -9,7 +9,7 @@ import profileImage from "../assets/profile_icon.png";
 
 <div class="profile">
   <Image src={profileImage} alt="profile image" class="profileIcon" />
-  <h3>{author}</h3>
+  <h3><a href="/about" class="myname">{author}</a></h3>
   <p>
     <a href="https://github.com/mjun0812" class="iconLink">
       <Icon name="mdi:github" />
@@ -46,6 +46,14 @@ import profileImage from "../assets/profile_icon.png";
 </div>
 
 <style lang="scss">
+  .myname {
+    color: var(--accent-color);
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   .profile {
     background-color: var(--card-color);
     border: solid 1px var(--shadow-color);

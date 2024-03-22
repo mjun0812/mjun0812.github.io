@@ -26,16 +26,17 @@
   grid-row-gap: 0px;
   align-items: streatch;
   width: 100%;
-  padding: 0.25rem;
   text-decoration: none;
-  background-color: var(--linkcard-border);
   &:link {
     color: var(--text-color);
   }
   &:visited {
     color: var(--text-color);
   }
-  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid var(--linkcard-border);
+  border-radius: 0.4rem;
 }
 .rlc-info {
   grid-area: 1 / 1 / 2 / 2;

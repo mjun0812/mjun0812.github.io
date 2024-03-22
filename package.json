@@ -19,6 +19,7 @@
     "sharp": "^0.33.1"
   },
   "devDependencies": {
+    "@iconify-json/fa6-brands": "^1.1.18",
     "@iconify-json/mdi": "^1.1.64",
     "@iconify-json/simple-icons": "^1.1.86",
     "sass": "^1.69.7"

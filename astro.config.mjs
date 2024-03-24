@@ -23,5 +23,11 @@ export default defineConfig({
       theme: 'one-dark-pro'
     }
   },
-  integrations: [partytown(), icon(), sitemap()]
+  integrations: [partytown(), icon(), sitemap(
+    {
+      filter: (page) => page !== 'https://mjunya.com/tag*',
+      filter: (page) => page !== 'https://mjunya.com/category*',
+      filter: (page) => page !== 'https://mjunya.com/categories',
+    }
+  )]
 });

@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 import OneColumnLayout from "../layouts/OneColumnLayout.astro";
 import profileImage from "../assets/profile_icon.png";
 
-export const siteTitle = "MJUN Tech Note";
+export const siteTitle = "Junya Morioka | 森岡 隼也";
 export const description = "とある情報系の院生の技術ノートです";
 export const author = "Junya Morioka";
 
@@ -25,6 +25,7 @@ posts = posts.sort(
     <div style="text-align: center">
       <Image src={profileImage} alt="profile image" class="profileIcon" />
       <h1 class="name">Junya Morioka</h1>
+      <h1 class="name">森岡 隼也</h1>
       <p>
         <a href="https://github.com/mjun0812" class="iconLink">
           <Icon name="mdi:github" />
@@ -53,7 +54,7 @@ posts = posts.sort(
         </svg>
         Tokyo, Japan
       </p>
-      <p>情報系の博士課程1年です</p>
+      <p>情報系の博士課程2年です</p>
     </div>
 
     <h2>Interest</h2>
@@ -344,6 +345,35 @@ posts = posts.sort(
           <span>
             ライフインテリジェンスとオフィス情報システム研究会(LOIS), 2024.03</span
           >
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          3D Structure Estimation of Room Environment Using Semantic Segmentation and Model Fitting
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            <strong class="me"><u>Junya Morioka</u></strong
+            >, Ryusuke Miyamoto
+          </span>
+          <span> IEEE International Workshop on Metrology for Living Environment (MetroLivEnv) , 2024.06</span>
+        </div>
+      </li>
+    </ul>
+
+    <h2>Award</h2>
+    <ul class="publist">
+      <li>
+        <div class="title">
+          グッドプレゼンテーション賞　「遠隔協調作業における臨場感向上のための単眼カメラによる部屋の3次元構造の推定」
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            <strong class="me"><u>Junya Morioka</u></strong> and Ryusuke Miyamoto
+          </span>
+          <span>
+            ライフインテリジェンスとオフィス情報システム研究会(LOIS), 2024.03
+          </span>
         </div>
       </li>
     </ul>

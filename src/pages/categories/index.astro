@@ -11,8 +11,10 @@ function kebabCase(str: string) {
     .replace(/([a-z])([A-Z])/g, "$1-$2");
 }
 
-const posts = await getCollection("posts");
-const categories = [...new Set(posts.map((post) => post.data.category).flat())];
+let posts = await getCollection("posts");
+const categories = [
+  ...new Set(posts.map((post) => post.data.category).flat()),
+].sort((a, b) => a.localeCompare(b, "ja"));
 ---
 
 <PostLayout
@@ -21,13 +23,35 @@ const categories = [...new Set(posts.map((post) => post.data.category).flat())];
   description={description}
   author={author}
 >
-  <ul>
-    {
-      categories.map((category) => (
-        <li>
-          <a href={`/categories/${kebabCase(category)}`}>{category}</a>
-        </li>
-      ))
-    }
-  </ul>
+  <div class="postMain">
+    <h1 class="postTitle">Categories</h1>
+    <ul>
+      {
+        categories.map((category) => (
+          <li>
+            <a href={`/categories/${kebabCase(category)}`}>{category}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </PostLayout>
+
+<style lang="scss">
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 0.5rem;
+  }
+  .postTitle {
+    color: var(--accent-color);
+  }
+  .postMain {
+    background-color: var(--card-color);
+    border: solid 1px var(--shadow-color);
+    padding: 1rem;
+    border-radius: 15px;
+  }
+</style>

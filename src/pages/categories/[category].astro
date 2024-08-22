@@ -20,7 +20,12 @@ export async function getStaticPaths() {
       category: kebabCase(category),
     },
     props: {
-      posts: posts.filter((post) => post.data.category.includes(category)),
+      posts: posts
+        .filter((post) => post.data.category.includes(category))
+        .sort(
+          (a, b) =>
+            new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+        ),
       categoryName: category,
     },
   }));

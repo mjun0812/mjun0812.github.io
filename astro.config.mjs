@@ -19,7 +19,7 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkLinkCard],
     shikiConfig: {
-      theme: 'one-dark-pro'
+      theme: 'tokyo-night'
     }
   },
   integrations: [partytown(), icon(), sitemap()]

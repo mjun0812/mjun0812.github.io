@@ -1,7 +1,7 @@
 ---
 title: python-build-standaloneとDockerによるポータブルなPython環境の構築
-tags: [None]
-category: None
+tags: [Python, Docker]
+category: Python
 date: 2024-08-01
 update: 2024-08-01
 # for Zenn

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap");
 
 :root {
   @include darkmode();
@@ -11,96 +12,104 @@
   max-width: 90rem;
   // centering
   margin: auto;
-  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
-    "Hiragino Sans", Meiryo, sans-serif;
+  font-family: "Noto Sans JP", "Helvetica Neue", Arial,
+    "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
   font-display: swap;
+  font-weight: 350;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: underline;
 }
 
 // Remark Link Card
-.rlc-container {
-  display: grid;
-  overflow: hidden;
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  align-items: streatch;
-  width: 100%;
-  text-decoration: none;
-  &:link {
+// リンクカードのスタイル
+.rlc {
+  &-container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr;
+    align-items: stretch;
+    overflow: hidden;
+    width: 100%;
+    height: 8rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--linkcard-border);
+    border-radius: 0.3rem;
+    text-decoration: none;
     color: var(--text-color);
+    @media (min-width: 1024px) {
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
-  &:visited {
-    color: var(--text-color);
+
+  &-info {
+    grid-area: 1 / 1 / 2 / 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.5rem;
+    overflow: hidden;
+    text-align: left;
   }
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border: 2px solid var(--linkcard-border);
-  border-radius: 0.4rem;
-}
-.rlc-info {
-  grid-area: 1 / 1 / 2 / 2;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  justify-content: space-between;
-  padding: 0.5rem;
-  text-align: left;
-}
-.rlc-title {
-  color: var(--accent-color);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 1.25rem;
-  white-space: nowrap;
-  &:hover {
+
+  &-title {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &-description {
+    font-size: 0.8rem;
+    line-height: 1rem;
+    height: 2rem;
+    overflow: hidden;
+  }
+
+  &-url {
+    &-container {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    font-size: 0.8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     text-decoration: underline;
   }
-}
-.rlc-description {
-  overflow: hidden;
-  font-size: 0.875rem;
-  line-height: 1rem;
-  height: 2rem;
-  text-decoration: none;
-  &:hover {
-    text-decoration: none;
+
+  &-favicon {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    border-radius: 1rem;
   }
-}
-.rlc-url-container {
-  display: flex;
-  align-items: bottom;
-}
-.rlc-favicon {
-  display: flex;
-  flex-direction: column;
-  align-items: bottom;
-  margin-right: 4px;
-  border-radius: 1rem;
-  width: 16px;
-  height: 16px;
-}
-.rlc-url {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 1rem;
-  text-decoration: underline;
-}
-.rlc-image-container {
-  display: grid;
-  grid-area: 1 / 2 / 2 / 3;
-  align-items: center;
-  height: 8rem;
-}
-.rlc-image {
-  object-fit: contain;
-  margin: auto;
-  overflow: hidden;
-  width: 100%;
-  max-width: 100%;
-  min-height: 8rem;
-  max-height: 8rem;
-  border-bottom-right-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
+
+  &-image {
+    &-container {
+      grid-area: 1 / 2 / 2 / 3;
+      display: grid;
+      align-items: center;
+      height: 8rem;
+    }
+
+    object-fit: contain;
+    width: 100%;
+    max-width: 100%;
+    min-height: 8rem;
+    max-height: 8rem;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 0 0.25rem 0.25rem 0;
+  }
 }

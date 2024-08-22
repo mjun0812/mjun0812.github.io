@@ -20,6 +20,15 @@ const { title, siteTitle, description, author } = Astro.props;
     </style>
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-N3DMFDC&gtm_auth=F6mlCRwnK9TD4Itv5-Zibg&gtm_preview=env-2&gtm_cookies_win=x"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
     <Header siteTitle={siteTitle} description={description} />
     <main>
       <slot />

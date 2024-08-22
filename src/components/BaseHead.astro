@@ -31,24 +31,24 @@ const { title, description } = Astro.props;
 
 <meta name="google-adsense-account" content="ca-pub-6113326314551329" />
 
-<script
-  is:inline
-  async
-  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6113326314551329"
-  crossorigin="anonymous"></script>
-
-<script
-  type="text/partytown"
-  src="https://www.googletagmanager.com/gtag/js?id=GTM-N3DMFDC"></script>
-<script type="text/partytown">
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-
-  gtag("config", "GTM-N3DMFDC");
+<!-- Google Tag Manager -->
+<script>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != "dataLayer" ? "&l=" + l : "";
+    j.async = true;
+    j.src =
+      "https://www.googletagmanager.com/gtm.js?id=" +
+      i +
+      dl +
+      "&gtm_auth=F6mlCRwnK9TD4Itv5-Zibg&gtm_preview=env-2&gtm_cookies_win=x";
+    f.parentNode.insertBefore(j, f);
+  })(window, document, "script", "dataLayer", "GTM-N3DMFDC");
 </script>
+<!-- End Google Tag Manager -->
 
 <!-- This is intentionally inlined to avoid FOUC -->
 <script is:inline>

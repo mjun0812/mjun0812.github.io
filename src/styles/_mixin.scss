@@ -7,6 +7,7 @@
   --accent-color: #1d71d7;
   --code-highlight: #d3d3d3;
   --linkcard-border: #d0d7de;
+  --linkcard-background: #ffffff;
 }
 @mixin darkmode() {
   --background-color: #161718;
@@ -16,7 +17,8 @@
   --text-color: #e4e5fb;
   --accent-color: #5377d2;
   --code-highlight: #565758;
-  --linkcard-border: #565758;
+  --linkcard-border: #2f2f2f;
+  --linkcard-background: #000000;
 }
 
 $side-padding: 2rem;

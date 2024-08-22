@@ -39,6 +39,7 @@ a {
     border-radius: 0.3rem;
     text-decoration: none;
     color: var(--text-color);
+    background: var(--linkcard-background);
     @media (min-width: 1024px) {
       width: 90%;
       margin-left: auto;
@@ -66,6 +67,9 @@ a {
     &:hover {
       text-decoration: underline;
     }
+    @media screen and (max-width: 480px) {
+      font-size: 1rem;
+    }
   }
 
   &-description {
@@ -73,6 +77,10 @@ a {
     line-height: 1rem;
     height: 2rem;
     overflow: hidden;
+    color: var(--subtext-color);
+    @media screen and (max-width: 480px) {
+      font-size: 0.75rem;
+    }
   }
 
   &-url {
@@ -86,6 +94,7 @@ a {
     text-overflow: ellipsis;
     white-space: nowrap;
     text-decoration: underline;
+    color: var(--subtext-color);
   }
 
   &-favicon {

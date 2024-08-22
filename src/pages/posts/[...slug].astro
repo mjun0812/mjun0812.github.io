@@ -104,12 +104,13 @@ const { Content } = await post.render();
 
   .postTitle {
     color: var(--accent-color);
+    font-size: 1.8em;
   }
 
   .postMain {
     background-color: var(--card-color);
     border: solid 1px var(--shadow-color);
-    padding: 1rem;
+    padding: 1em 2em;
     border-radius: 15px;
   }
 
@@ -129,6 +130,9 @@ const { Content } = await post.render();
       li {
         display: block;
       }
+    }
+    .postMain {
+      padding: 0.5em 1em;
     }
   }
 </style>

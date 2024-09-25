@@ -20,11 +20,17 @@
       font-weight: 700;
       background: var(--background-color);
     }
-
   }
 
   // 段落と要素のマージン
-  p, blockquote, ul, ol, dl, table, pre, details {
+  p,
+  blockquote,
+  ul,
+  ol,
+  dl,
+  table,
+  pre,
+  details {
     margin-top: 0;
     margin-bottom: 16px;
     font-size: 1rem;
@@ -42,6 +48,7 @@
     & + p {
       margin-top: 0.3em;
     }
+    word-wrap: break-word;
   }
 
   h1,
@@ -102,7 +109,7 @@
     display: flex;
     /* flex + codeの隣に疑似要素を配置することで横スクロール時の右端の余白を作る */
     &:after {
-      content: '';
+      content: "";
       width: 8px;
       flex-shrink: 0;
     }
@@ -132,7 +139,9 @@
   }
 
   // テキストスタイル
-  i, cite, em {
+  i,
+  cite,
+  em {
     font-style: italic;
   }
 

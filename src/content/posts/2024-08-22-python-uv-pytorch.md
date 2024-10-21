@@ -13,6 +13,13 @@ published: true
 
 こんにちは。今回はPythonのパッケージマネージャのuvで、PyTorchのCPU/CUDAのバージョンをLinuxやmacOSなどの環境に応じて切り替えてインストールする方法を紹介します。
 
+> uv v0.4.23でindex-urlを複数指定してインストールする方法が追加されました。
+> 以下の新しい記事で紹介しています。
+> この記事で紹介している方法だと、CUDA 12.4以降は動作しない場合があるため、
+> 以下の新しい記事を参考にしてください。
+
+<https://mjunya.com/posts/2024-10-22-python-uv-pytorch-2>
+
 ## はじめに
 
 先日リリースされたuvのv0.30.0で、Ryeで実装されていたようなPython自体の管理もできるようになりました。
@@ -20,8 +27,6 @@ published: true
 <https://astral.sh/blog/uv-unified-python-packaging>
 
 <https://nikkie-ftnext.hatenablog.com/entry/uv-0.3.0-release-awesome-future-python-project-package-manager>
-
-<https://dev.to/astrojuanlu/python-packaging-is-great-now-uv-is-all-you-need-4i2d>
 
 コマンド体系はRyeとほぼ同じで、以下のような感じで好きなバージョンのPython環境を構築することができます。
 

@@ -5,6 +5,13 @@ import { getCollection } from "astro:content";
 import OneColumnLayout from "../layouts/OneColumnLayout.astro";
 import profileImage from "../assets/profile_icon.png";
 
+import small_object_detection from "../assets/small_object_detection.png";
+import room_3d_reconstruction from "../assets/3d_room.png";
+import pose_estimation from "../assets/6dof.png";
+import qvsbase from "../assets/qvsbase.png";
+import huggingface from "../assets/hf.webp";
+import spic from "../assets/spic.png";
+
 export const siteTitle = "Junya Morioka | 森岡 隼也";
 export const description = "とある情報系の院生の技術ノートです";
 export const author = "Junya Morioka";
@@ -76,6 +83,11 @@ posts = posts.sort(
             Computer Science Program, Graduate School of Science and Technology,
             Meiji University
           </span>
+          <span class="info">
+            <a class="link" href="https://www.ip.cs.meiji.ac.jp">
+              画像応用システム研究室(IPLab)
+            </a>
+          </span>
         </div>
       </li>
 
@@ -88,6 +100,11 @@ posts = posts.sort(
           <span class="info">
             Computer Science Program, Graduate School of Science and Technology,
             Meiji University
+          </span>
+          <span class="info">
+            <a class="link" href="https://www.ip.cs.meiji.ac.jp">
+              画像応用システム研究室(IPLab)
+            </a>
           </span>
         </div>
       </li>
@@ -102,6 +119,11 @@ posts = posts.sort(
             Department of Computer Science, School of Science and Technology,
             Meiji University
           </span>
+          <span class="info">
+            <a class="link" href="https://www.ip.cs.meiji.ac.jp">
+              画像応用システム研究室(IPLab)
+            </a>
+          </span>
         </div>
       </li>
     </ul>
@@ -115,6 +137,9 @@ posts = posts.sort(
             <strong>2021.03 - current</strong>
           </span>
           <span class="info">Part-time Full-stack Engineer</span>
+          <span class="info">
+            <a class="link" href="https://www.qdoga.com">HP</a>
+          </span>
           <span class="info">
             <a class="link" href="https://www.3minutesgolf.com/www/index.html">
               App: 3分ゴルフ
@@ -468,10 +493,6 @@ posts = posts.sort(
       </ul>
 
       <ul class="skillList">
-        <li class="skillText"><Icon name="simple-icons:kotlin" />Kotlin</li>
-      </ul>
-
-      <ul class="skillList">
         <li class="skillText"><Icon name="mdi:language-ruby" />Ruby</li>
         <ul><li><Icon name="simple-icons:rubysinatra" />Sinatra</li></ul>
       </ul>
@@ -492,7 +513,107 @@ posts = posts.sort(
       <ul class="skillList">
         <li class="skillText"><Icon name="simple-icons:nvidia" />TensorRT</li>
       </ul>
+
+      <ul class="skillList">
+        <li class="skillText"><Icon name="simple-icons:cplusplus" />C++</li>
+      </ul>
     </ul>
+
+    <h2>Projects</h2>
+
+    <div class="split-layout">
+      <div class="content-text">
+        <h3 class="project-title">深層学習を用いた小物体検出</h3>
+        深層学習に基づく物体検出には様々な手法が提案されているが， 小物体の検出には精度向上の余地が多分に残されている．
+        本研究では，小物体の検出精度向上を目的として，その精度向上にはどのような処理が重要であるかの検討を行う．
+        また，その検討結果を基に，小物体検出の精度向上を目指すための新たな手法を提案する．
+      </div>
+      <div class="content-image">
+        <Image
+          src={small_object_detection}
+          alt="small object detection"
+          class="project-image"
+        />
+      </div>
+    </div>
+
+    <div class="split-layout">
+      <div class="content-image">
+        <Image
+          src={room_3d_reconstruction}
+          alt="3d room reconstruction"
+          class="project-image"
+        />
+      </div>
+      <div class="content-text">
+        <h3 class="project-title">単眼カメラを用いた部屋の3次元構造の復元</h3>
+        近年，VRデバイスの普及や技術の向上により，実空間を仮想空間に反映する技術の需要が高まっている．
+        特に，室内環境を仮想空間上に反映する技術は，建築やインテリアデザイン，ロボティクスなどの
+        様々な分野で利用されている． 実空間を仮想空間に反映するためには，実空間の3次元構造を推定する必要があるが，
+        高価な機器が必要であったり，計算量や測定の手軽さの面で問題がある． そこで本研究では，推定対象を室内環境に限定し，1枚の画像を用いた3次元構造の推定手法を提案する．
+        既存手法では深度推定を用いる手法が一般的であったが，本研究ではセマンティックセグメンテーションと
+        直方体のフィッティングを用いた新たな手法を提案する． 3D CGを用いた実験の結果，提案手法は既存手法と上回る精度を達成し，
+        競争力のある結果を示している
+      </div>
+    </div>
+
+    <div class="split-layout">
+      <div class="content-text">
+        <h3 class="project-title">
+          深層学習モデルを用いた物体の3次元姿勢推定(6DoF Pose Estimation)
+        </h3>
+        本研究では、高精度な物体の3次元位置推定手法を考案することを目的としています。
+        高精度な物体の3次元位置推定には、学習のためのデータセットや、 オクルージョンへの対応、カメラのキャリブレーションなど、様々な課題があります。
+        本研究ではデータセットの作成からモデルの実応用までを目標にして研究を行っています。
+      </div>
+      <div class="content-image">
+        <Image
+          src={pose_estimation}
+          alt="6DoF pose_estimation"
+          class="project-image"
+        />
+      </div>
+    </div>
+
+    <div class="split-layout">
+      <div class="content-image">
+        <Image src={qvsbase} alt="qvsbase" class="project-image" />
+      </div>
+      <div class="content-text">
+        <h3 class="project-title">動画配信サービスの開発</h3>
+        iOS/Android向けの動画配信サービスの開発を行いました。 サーバーサイドはRubyのSinatraを使用し、インフラはAWSを使用しました。
+        認証にはFirebase Authenticationを使用しています。 私はバックエンドAPIの開発、Firebase
+        Authenticationの実装、iOSアプリのSwiftUIによる実装とXcode CloudとGitHubを用いてCI/CDの構築を行いました。
+        特に、iOSアプリはUIKitからSwiftUIへの移行をスクラッチで全て1人で実装しました。
+        動画配信サービスはマルチテナント構成となっており、アプリのデザイン等を指定するだけで、特定のジャンルの動画配信サービスを簡単に立ち上げることができます。
+      </div>
+    </div>
+
+    <div class="split-layout">
+      <div class="content-text">
+        <h3 class="project-title">
+          NLP Embedding Modelを用いた検索システムの開発
+        </h3>
+        自然言語処理で用いられるBERTやFaissを用いて、埋め込みモデルを用いた検索システムの開発を行っています。
+        サーバーサイドはFastAPIを使用し、インフラはAWSとオンプレの両方を使用しました。
+        検索対象のデータはPDFで60TBあり、この文書に対して高速に検索を行うことが求められています。
+        HuggingFace Datasetの作成や、tokenizerやモデルの学習を行い、独自のモデルの構築を行っています。
+      </div>
+      <div class="content-image">
+        <Image src={huggingface} alt="huggingface" class="project-image" />
+      </div>
+    </div>
+
+    <div class="split-layout">
+      <div class="content-image">
+        <Image src={spic} alt="spic" class="project-image" />
+      </div>
+      <div class="content-text">
+        <h3 class="project-title">株式会社SPIC 社内システム開発</h3>
+        Lypo-Cをはじめとする健康関連商品、美容関連商品、オリジナルブランド商品の開発及び販売を行う
+        株式会社SPICの社内システムの構築を行っています。
+      </div>
+    </div>
 
     <h2>Contact</h2>
     <p>mjun __at__ mjunya.com</p>
@@ -616,5 +737,39 @@ posts = posts.sort(
     border-radius: 50%;
     max-height: 10rem;
     width: auto;
+  }
+
+  .split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin: 2rem 2rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+
+  h3.project-title {
+    text-decoration: underline;
+    color: var(--accent-color);
+  }
+
+  .content-text {
+    line-height: 1.6;
+  }
+
+  .content-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .project-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
   }
 </style>

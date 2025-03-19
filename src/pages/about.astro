@@ -438,6 +438,54 @@ posts = posts.sort(
           <span>IEEE IRC, 2024.12</span>
         </div>
       </li>
+      <li>
+        <div class="title">
+          AMD Ryzen CPUを対象としたCNNにおける積和演算の並列実装
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            <strong class="me"><u>森岡 隼也</u></strong>, 宮本 龍介
+          </span>
+          <span> 第50回 パルテノン研究会, 2024.12</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">CNN における積和演算の高速化に関する一検討</div>
+        <div class="pubinfo">
+          <span class="author">
+            西郷 智博, 神谷 翔, <strong class="me"><u>森岡 隼也</u></strong>,
+            安達 美穂, 宮本 龍介
+          </span>
+          <span> 第50回 パルテノン研究会, 2024.12</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          バーチャル内見を目的とする3次元構造推定のための効率的なセマンティックエッジ抽出
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            中山 果瑛, <strong class="me"><u>森岡 隼也</u></strong>, 安達 美穂,
+            宮本 龍介
+          </span>
+          <span> 電子情報通信学会(IEICE) MVE研究会（SIS), 2025.03</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          屋内環境における単一画像からの3次元情報推定手法の回転耐性の向上
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            中山 果瑛, <strong class="me"><u>森岡 隼也</u></strong>, 安達 美穂,
+            宮本 龍介
+          </span>
+          <span>
+            電子情報通信学会(IEICE)
+            ライフインテリジェンスとオフィス情報システム研究会(LOIS), 2025.03</span
+          >
+        </div>
+      </li>
     </ul>
 
     <h2>Award</h2>
@@ -453,6 +501,18 @@ posts = posts.sort(
           <span>
             ライフインテリジェンスとオフィス情報システム研究会(LOIS), 2024.03
           </span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          優秀プレゼンテーション賞「AMD Ryzen
+          CPUを対象としたCNNにおける積和演算の並列実装」
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            <strong class="me"><u>森岡 隼也</u></strong>, 宮本 龍介
+          </span>
+          <span> 第50回 パルテノン研究会, 2024.12</span>
         </div>
       </li>
     </ul>
@@ -618,158 +678,158 @@ posts = posts.sort(
     <h2>Contact</h2>
     <p>mjun __at__ mjunya.com</p>
   </div>
-</OneColumnLayout>
 
-<style lang="scss">
-  a {
-    color: var(--text-color);
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
+  <style lang="scss">
+    a {
+      color: var(--text-color);
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
     }
-  }
 
-  svg {
-    height: 1rem;
-    vertical-align: middle;
-    width: auto;
-  }
-
-  h1.name {
-    color: var(--accent-color);
-    font-family: $english-font;
-    text-align: center;
-  }
-
-  h2,
-  h3 {
-    font-family: $english-font;
-    margin-top: 1rem;
-  }
-  h2 {
-    color: var(--accent-color);
-  }
-
-  .profile {
-    background-color: var(--card-color);
-    border: solid 1px var(--shadow-color);
-    padding: 0.5rem;
-    border-radius: 15px;
-  }
-
-  .iconLink {
-    margin-right: 0.2rem;
-    color: var(--text-color);
     svg {
-      height: 2rem;
+      height: 1rem;
+      vertical-align: middle;
       width: auto;
     }
-  }
 
-  [data-icon] {
-    height: 1.2rem;
-    width: auto;
-  }
+    h1.name {
+      color: var(--accent-color);
+      font-family: $english-font;
+      text-align: center;
+    }
 
-  .skillContainer {
-    column-count: 3;
-    column-gap: 26px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  @media screen and (max-width: 480px) {
+    h2,
+    h3 {
+      font-family: $english-font;
+      margin-top: 1rem;
+    }
+    h2 {
+      color: var(--accent-color);
+    }
+
+    .profile {
+      background-color: var(--card-color);
+      border: solid 1px var(--shadow-color);
+      padding: 0.5rem;
+      border-radius: 15px;
+    }
+
+    .iconLink {
+      margin-right: 0.2rem;
+      color: var(--text-color);
+      svg {
+        height: 2rem;
+        width: auto;
+      }
+    }
+
+    [data-icon] {
+      height: 1.2rem;
+      width: auto;
+    }
+
     .skillContainer {
-      column-count: 1;
+      column-count: 3;
+      column-gap: 26px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
-  }
-  .skillList {
-    list-style: none;
-    padding: 0;
-    margin: 0.5em 0;
-  }
-  .skillIcon {
-    color: var(--text-color);
-    vertical-align: middle;
-    height: 1.2em;
-    width: auto;
-    margin-right: 0.25em;
-  }
-  .skillText {
-    font-size: 1.2em;
-  }
-  @media (min-width: 480px) {
-    .skillColumn {
-      width: 50%;
+    @media screen and (max-width: 480px) {
+      .skillContainer {
+        column-count: 1;
+      }
     }
-  }
+    .skillList {
+      list-style: none;
+      padding: 0;
+      margin: 0.5em 0;
+    }
+    .skillIcon {
+      color: var(--text-color);
+      vertical-align: middle;
+      height: 1.2em;
+      width: auto;
+      margin-right: 0.25em;
+    }
+    .skillText {
+      font-size: 1.2em;
+    }
+    @media (min-width: 480px) {
+      .skillColumn {
+        width: 50%;
+      }
+    }
 
-  .title {
-    font-family: $english-font;
-    font-size: 1.2rem;
-    padding-bottom: 0.1rem;
-  }
-  .pubinfo {
-    font-size: 0.9rem;
-    color: var(--subtext-color);
-  }
-  .info {
-    margin-right: 1rem;
-  }
-  .publist li {
-    margin-bottom: 0.7rem;
-  }
-  .author {
-    margin-right: 1rem;
-  }
-  .me {
-    color: var(--text-color);
-  }
-  .link {
-    color: var(--subtext-color);
-    text-decoration: underline;
-    &:hover {
+    .title {
+      font-family: $english-font;
+      font-size: 1.2rem;
+      padding-bottom: 0.1rem;
+    }
+    .pubinfo {
+      font-size: 0.9rem;
+      color: var(--subtext-color);
+    }
+    .info {
+      margin-right: 1rem;
+    }
+    .publist li {
+      margin-bottom: 0.7rem;
+    }
+    .author {
+      margin-right: 1rem;
+    }
+    .me {
+      color: var(--text-color);
+    }
+    .link {
+      color: var(--subtext-color);
       text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
-  }
 
-  .profileIcon {
-    border-radius: 50%;
-    max-height: 10rem;
-    width: auto;
-  }
-
-  .split-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: center;
-    margin: 2rem 2rem;
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
+    .profileIcon {
+      border-radius: 50%;
+      max-height: 10rem;
+      width: auto;
     }
-  }
 
-  h3.project-title {
-    text-decoration: underline;
-    color: var(--accent-color);
-  }
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      margin: 2rem 2rem;
 
-  .content-text {
-    line-height: 1.6;
-  }
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+    }
 
-  .content-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+    h3.project-title {
+      text-decoration: underline;
+      color: var(--accent-color);
+    }
 
-  .project-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-</style>
+    .content-text {
+      line-height: 1.6;
+    }
+
+    .content-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .project-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+  </style>
+</OneColumnLayout>

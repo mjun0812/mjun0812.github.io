@@ -1,8 +1,9 @@
 import { defineConfig } from 'astro/config';
-import partytown from "@astrojs/partytown";
-import remarkLinkCard from "remark-link-card";
+import remarkLinkCard from "remark-link-card-plus";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
+import partytown from "@astrojs/partytown";
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,16 +12,36 @@ export default defineConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "./src/styles/_mixin.scss";'
+          additionalData: `@use "src/styles/_mixin.scss" as *;`
         }
       }
     }
   },
   markdown: {
-    remarkPlugins: [remarkLinkCard],
+    remarkPlugins: [
+      [
+        remarkLinkCard,
+        {
+          cache: false,
+          shortenUrl: true,
+          thumbnailPosition: "right"
+        },
+      ]
+    ],
     shikiConfig: {
-      theme: 'tokyo-night'
+      themes: {
+        dark: 'one-dark-pro',
+        light: 'one-light'
+      }
     }
   },
-  integrations: [partytown(), icon(), sitemap()]
+  integrations: [
+    icon(),
+    sitemap(),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
+  ],
 });

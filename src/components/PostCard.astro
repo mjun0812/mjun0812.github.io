@@ -11,7 +11,7 @@ function kebabCase(str: string) {
 ---
 
 <div class="postCard">
-  <h2 class="postTitle"><a href={"/posts/" + post.slug}>{data.title}</a></h2>
+  <h2 class="postTitle"><a href={"/posts/" + post.id}>{data.title}</a></h2>
   <div class="postMeta">
     <span class="postPublishedAt"
       >{new Date(data.date).toLocaleDateString("sv-SE")}</span

@@ -1,11 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap");
-
 :root {
-  @include darkmode();
-  &.light {
-    @include lightmode();
+  @include lightmode();
+  &.dark {
+    @include darkmode();
   }
   color: var(--text-color);
   background-color: var(--background-color);
@@ -25,100 +21,116 @@ a {
 
 // Remark Link Card
 // リンクカードのスタイル
-.rlc {
-  &-container {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-template-rows: 1fr;
-    align-items: stretch;
-    overflow: hidden;
+.remark-link-card-plus__ {
+  &container {
     width: 100%;
+    margin-bottom: 1.5rem;
+    min-height: 8rem;
     height: 8rem;
-    margin: 1.5rem 0;
+  }
+
+  // 全体
+  &card {
+    display: grid;
+    background-color: var(--linkcard-background);
     border: 1px solid var(--linkcard-border);
-    border-radius: 0.3rem;
+    border-radius: 0.8rem;
     text-decoration: none;
-    color: var(--text-color);
-    background: var(--linkcard-background);
-    @media (min-width: 1024px) {
-      width: 90%;
-      margin-left: auto;
-      margin-right: auto;
+    grid-template-columns: 2fr 1fr;
+    height: 100%;
+    &:hover {
+      background-color: var(--linkcard-hover);
     }
   }
 
-  &-info {
-    grid-area: 1 / 1 / 2 / 2;
+  &main {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 0.5rem;
-    overflow: hidden;
-    text-align: left;
+    justify-content: center;
+    font-weight: normal;
+
+    grid-column: 1;
+    box-sizing: border-box;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 
-  &-title {
+  &title {
     color: var(--accent-color);
     font-size: 1.2rem;
+
+    display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
 
     &:hover {
       text-decoration: underline;
     }
-    @media screen and (max-width: 480px) {
-      font-size: 1rem;
-    }
   }
 
-  &-description {
+  &description {
+    margin-top: 0.2rem;
     font-size: 0.8rem;
-    line-height: 1rem;
-    height: 2rem;
     overflow: hidden;
     color: var(--subtext-color);
+
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+
     @media screen and (max-width: 480px) {
       font-size: 0.75rem;
     }
   }
 
-  &-url {
-    &-container {
-      display: flex;
-      align-items: flex-end;
-    }
-
+  &meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
+  }
+  &favicon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.1rem;
+  }
+  &url {
     font-size: 0.8rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     text-decoration: underline;
     color: var(--subtext-color);
-  }
 
-  &-favicon {
-    width: 16px;
-    height: 16px;
-    margin-right: 4px;
-    border-radius: 1rem;
-  }
-
-  &-image {
-    &-container {
-      grid-area: 1 / 2 / 2 / 3;
-      display: grid;
-      align-items: center;
-      height: 8rem;
-    }
-
-    object-fit: contain;
-    width: 100%;
-    max-width: 100%;
-    min-height: 8rem;
-    max-height: 8rem;
-    margin: auto;
+    display: -webkit-box;
     overflow: hidden;
-    border-radius: 0 0.25rem 0.25rem 0;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  // サムネイル
+  &thumbnail {
+    grid-column: 2;
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+  &image {
+    object-fit: cover;
+    height: 8rem;
+    width: auto;
+    max-width: 100%;
+
+    border: 1px solid var(--linkcard-border);
+    border-radius: 0 1rem 1rem 0;
   }
 }

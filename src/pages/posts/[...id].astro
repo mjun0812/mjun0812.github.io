@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
 import { siteTitle, description, author } from "../[...page].astro";
 import "../../styles/markdown.scss";
@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   const posts = await getCollection("posts");
   return posts
     .map((post) => ({
-      params: { slug: post.slug },
+      params: { id: post.id },
       props: { post },
     }))
     .sort(
@@ -26,7 +26,7 @@ function kebabCase(str: string) {
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <PostLayout
@@ -82,7 +82,7 @@ const { Content } = await post.render();
     </ul>
 
     <div class="markdown-body">
-      <Content class="" />
+      <Content class="content" />
     </div>
   </div>
 </PostLayout>

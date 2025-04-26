@@ -19,7 +19,7 @@ ssh username@{hostname or ip}
 Unix, Linuxではuserのホームディレクトリの`.ssh/`以下に秘密鍵やconfigを保存する。
 .sshディレクトリは700、.ssh以下のファイルには600の権限を付与する。
 
-```shell-session
+```bash
 ~/.ssh/
 ├── authorized_keys
 ├── config
@@ -31,7 +31,7 @@ Unix, Linuxではuserのホームディレクトリの`.ssh/`以下に秘密鍵�
 
 ssh接続を楽にするためにconfigファイルに予め接続設定を書いておく。
 
-```shell-session
+```bash
 Host hoge
   HostName 192.168.0.0
   User hoge
@@ -57,7 +57,7 @@ ssh -o ProxyCommand='ssh -W %h:%p Proxy' Target
 
 続いてssh configでの設定。
 
-```shell-session
+```bash
 Host proxy
     User hoge
 
@@ -70,14 +70,14 @@ Host target
 
 ## sshコマンドのオプションとssh configの対応
 
-command|config|説明|例
-|-|-|-|-|
--p|Port|接続先のPortの指定| ssh -p 22
--i|IdentifyFile|接続に使用する秘密鍵のPath| ssh -i ~/.ssh/hoge_rsa
--X|ForwardX11|Xwindowを転送するかどうか。| ForwardX11 yes
--Y|ForwardX11Trusted|信頼されたXwindowの転送。macOSでXquartzを使うときはこれ。|ForwardX11Trusted yes
--L|LocalForward|クライアントのポートをリモートのネットワーク内のPCに飛ばす| ssh -L 8080:remote_pc:80
--o StrictHostKeyChecking= |StrictHostKeyChecking| known_hostの扱いを決める。|yes(接続しない)、no(接続する)、ask(default 確認させる)
+| command                   | config                | 説明                                                       | 例                                                     |
+| ------------------------- | --------------------- | ---------------------------------------------------------- | ------------------------------------------------------ |
+| -p                        | Port                  | 接続先のPortの指定                                         | ssh -p 22                                              |
+| -i                        | IdentifyFile          | 接続に使用する秘密鍵のPath                                 | ssh -i ~/.ssh/hoge_rsa                                 |
+| -X                        | ForwardX11            | Xwindowを転送するかどうか。                                | ForwardX11 yes                                         |
+| -Y                        | ForwardX11Trusted     | 信頼されたXwindowの転送。macOSでXquartzを使うときはこれ。  | ForwardX11Trusted yes                                  |
+| -L                        | LocalForward          | クライアントのポートをリモートのネットワーク内のPCに飛ばす | ssh -L 8080:remote_pc:80                               |
+| -o StrictHostKeyChecking= | StrictHostKeyChecking | known_hostの扱いを決める。                                 | yes(接続しない)、no(接続する)、ask(default 確認させる) |
 
 ### macOSに使える設定
 

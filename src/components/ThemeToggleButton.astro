@@ -1,4 +1,4 @@
-<button id="toggleButton">
+<button id="toggleButton" transition:persist>
   <svg width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path
       class="sun"
@@ -37,15 +37,42 @@
 </style>
 
 <script is:inline>
-  const toggleTheme = () => {
-    const currentTheme = window.localStorage.getItem("theme");
-    if (currentTheme === "dark") {
-      window.localStorage.setItem("theme", "light");
+  // ページ読み込み時の初期値の決定
+  function setDarkMode(document) {
+    const theme = (() => {
+      if (
+        typeof localStorage !== "undefined" &&
+        localStorage.getItem("theme")
+      ) {
+        return localStorage.getItem("theme");
+      }
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return "dark";
+      }
+      return "light";
+    })();
+
+    if (theme === "light") {
+      document.documentElement.classList.remove("dark");
       document.documentElement.classList.add("light");
     } else {
-      window.localStorage.setItem("theme", "dark");
       document.documentElement.classList.remove("light");
+      document.documentElement.classList.add("dark");
     }
+
+    localStorage.setItem("theme", theme);
+  }
+  setDarkMode(document);
+  document.addEventListener("astro:before-swap", (event) => {
+    setDarkMode(event.newDocument);
+  });
+
+  const toggleTheme = () => {
+    const element = document.documentElement;
+    element.classList.toggle("dark");
+    element.classList.toggle("light");
+    const newTheme = element.classList.contains("dark") ? "dark" : "light";
+    localStorage.setItem("theme", newTheme);
   };
 
   document

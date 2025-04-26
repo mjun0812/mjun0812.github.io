@@ -90,19 +90,18 @@
     font-size: 0.9em;
   }
 
-  // コードスタイル
+  // インラインコードスタイル
   code {
     background: var(--code-highlight);
-    font-size: 0.85rem;
     word-break: break-all;
     vertical-align: 0.08em;
     border-radius: 0.2rem;
-    margin: 0 0.3rem;
     padding: 0.1rem 0.2rem;
   }
 
+  // ブロックコードスタイル
   pre {
-    margin: 1.3rem 0;
+    margin: 1rem 0;
     overflow-x: auto;
     word-break: normal; // iOSで折り返されるのを防ぐ
     word-wrap: normal; // iOSで折り返されるのを防ぐ
@@ -114,14 +113,9 @@
       flex-shrink: 0;
     }
     code {
-      margin: 0;
-      padding: 0;
       background: transparent;
-      font-size: 0.9em;
-    }
-    & > code {
       display: block;
-      padding: 0.8rem; // このようにしないとpreのスクロールバーがコードに重なってしまう
+      padding: 0.75rem; // このようにしないとpreのスクロールバーがコードに重なってしまう
     }
   }
 

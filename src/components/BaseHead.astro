@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 
 const { title, description } = Astro.props;
 ---
@@ -25,51 +25,20 @@ const { title, description } = Astro.props;
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content="/ogp_image_square.png" />
 
-<ViewTransitions />
+<ClientRouter />
 
 <meta name="generator" content={Astro.generator} />
 
-<meta name="google-adsense-account" content="ca-pub-6113326314551329" />
-
 <!-- Google Tag Manager -->
-<script>
-  (function (w, d, s, l, i) {
-    w[l] = w[l] || [];
-    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-    var f = d.getElementsByTagName(s)[0],
-      j = d.createElement(s),
-      dl = l != "dataLayer" ? "&l=" + l : "";
-    j.async = true;
-    j.src =
-      "https://www.googletagmanager.com/gtm.js?id=" +
-      i +
-      dl +
-      "&gtm_auth=F6mlCRwnK9TD4Itv5-Zibg&gtm_preview=env-2&gtm_cookies_win=x";
-    f.parentNode.insertBefore(j, f);
-  })(window, document, "script", "dataLayer", "GTM-N3DMFDC");
+<script
+  type="text/partytown"
+  src="https://www.googletagmanager.com/gtag/js?id=G-1X4HRQ7NWH"></script>
+<script type="text/partytown">
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-1X4HRQ7NWH");
 </script>
 <!-- End Google Tag Manager -->
-
-<!-- This is intentionally inlined to avoid FOUC -->
-<script is:inline>
-  const theme = (() => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
-    }
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
-  })();
-
-  if (
-    theme === "dark" ||
-    (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
-  ) {
-    document.documentElement.classList.remove("light");
-  } else {
-    document.documentElement.classList.add("light");
-  }
-
-  window.localStorage.setItem("theme", theme);
-</script>

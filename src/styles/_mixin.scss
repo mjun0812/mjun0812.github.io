@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap");
+
 @mixin lightmode() {
   --background-color: #f9f9f9;
   --card-color: #ffffff;
@@ -6,8 +10,10 @@
   --text-color: #212121;
   --accent-color: #1d71d7;
   --code-highlight: #d3d3d3;
-  --linkcard-border: #d0d7de;
+
   --linkcard-background: #ffffff;
+  --linkcard-border: #d0d7de;
+  --linkcard-hover: #f0f0f0;
 }
 @mixin darkmode() {
   --background-color: #161718;
@@ -17,8 +23,19 @@
   --text-color: #e4e5fb;
   --accent-color: #5377d2;
   --code-highlight: #565758;
+
+  --linkcard-background: #1a1a21;
   --linkcard-border: #2f2f2f;
-  --linkcard-background: #000000;
+  --linkcard-hover: #23242f;
+
+  .astro-code,
+  .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
 }
 
 $side-padding: 2rem;

@@ -2,14 +2,26 @@
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 
-const { author } = Astro.props;
+const { author, lang = "ja" } = Astro.props;
+
+const texts = {
+  ja: {
+    description: "Computer VisionとWeb<br />に興味があります"
+  },
+  en: {
+    description: "Interested in Computer Vision<br />and Web Development"
+  }
+};
+
+const text = texts[lang] || texts.ja;
+const aboutUrl = lang === "en" ? "/en/about" : "/about";
 
 import profileImage from "../assets/profile_icon.png";
 ---
 
 <div class="profile">
   <Image src={profileImage} alt="profile image" class="profileIcon" />
-  <h3><a href="/about" class="myname">{author}</a></h3>
+  <h3><a href={aboutUrl} class="myname">{author}</a></h3>
   <p>
     <a href="https://github.com/mjun0812" class="iconLink">
       <Icon name="mdi:github" />
@@ -38,11 +50,7 @@ import profileImage from "../assets/profile_icon.png";
     </svg>
     Tokyo, Japan
   </p>
-  <p class="profileDescription">
-    Computer VisionとWeb
-    <br />
-    に興味があります
-  </p>
+  <p class="profileDescription" set:html={text.description}></p>
 </div>
 
 <style lang="scss">

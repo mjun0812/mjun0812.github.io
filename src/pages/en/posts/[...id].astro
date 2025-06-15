@@ -34,6 +34,7 @@ const { Content } = await render(post);
   siteTitle={siteTitle}
   description={description}
   author={author}
+  lang="en"
 >
   <div class="postMain">
     <h1 class="postTitle">{post.data.title}</h1>
@@ -49,7 +50,7 @@ const { Content } = await render(post);
       }
 
       <li>
-        <a href={`/categories/${kebabCase(post.data.category)}`}>
+        <a href={`/en/categories/${kebabCase(post.data.category)}`}>
           <svg
             aria-hidden="true"
             focusable="false"
@@ -73,7 +74,7 @@ const { Content } = await render(post);
       <li>
         {
           post.data.tags.map((tag) => (
-            <a href={`/tags/${kebabCase(tag)}`}>
+            <a href={`/en/tags/${kebabCase(tag)}`}>
               <span>#{tag}</span>
             </a>
           ))

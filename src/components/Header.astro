@@ -1,30 +1,51 @@
 ---
 import ThemeToggleButton from "./ThemeToggleButton.astro";
 
-const { siteTitle } = Astro.props;
+const { siteTitle, lang = "ja" } = Astro.props;
+
+const texts = {
+  ja: {
+    home: "Home",
+    categories: "Categories",
+    tags: "Tags",
+    about: "About Me",
+    feed: "Feed",
+  },
+  en: {
+    home: "Home",
+    categories: "Categories",
+    tags: "Tags",
+    about: "About Me",
+    feed: "Feed",
+  },
+};
+
+const text = texts[lang] || texts.ja;
+const baseUrl = lang === "en" ? "/en" : "";
+const homeUrl = lang === "en" ? "/en/" : "/";
 ---
 
 <header>
   <h1 class="siteTitle">
-    <a href="/">{siteTitle}</a>
+    <a href={homeUrl}>{siteTitle}</a>
   </h1>
 
   <nav>
     <ul>
       <li>
-        <a href="/">Home</a>
+        <a href={homeUrl}>{text.home}</a>
       </li>
       <li>
-        <a href="/categories/">Categories</a>
+        <a href={`${baseUrl}/categories/`}>{text.categories}</a>
       </li>
       <li>
-        <a href="/tags/">Tags</a>
+        <a href={`${baseUrl}/tags/`}>{text.tags}</a>
       </li>
       <li>
-        <a href="/about/">About Me</a>
+        <a href={`${baseUrl}/about/`}>{text.about}</a>
       </li>
       <li>
-        <a href="/rss.xml">Feed</a>
+        <a href={`${baseUrl}/rss.xml`}>{text.feed}</a>
       </li>
       <li>
         <ThemeToggleButton />

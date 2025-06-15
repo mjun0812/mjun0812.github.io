@@ -1,5 +1,5 @@
 ---
-const { post } = Astro.props;
+const { post, lang = "ja" } = Astro.props;
 const { data } = post;
 
 function kebabCase(str: string) {
@@ -8,10 +8,14 @@ function kebabCase(str: string) {
     .replace(/(\s|_)+/g, "-")
     .replace(/([a-z])([A-Z])/g, "$1-$2");
 }
+
+const baseUrl = lang === "en" ? "/en" : "";
+const categoryUrl = `${baseUrl}/categories/${kebabCase(post.data.category)}`;
+const postUrl = lang === "en" ? `/en/posts/${post.id}` : `/posts/${post.id}`;
 ---
 
 <div class="postCard">
-  <h2 class="postTitle"><a href={"/posts/" + post.id}>{data.title}</a></h2>
+  <h2 class="postTitle"><a href={postUrl}>{data.title}</a></h2>
   <div class="postMeta">
     <span class="postPublishedAt"
       >{new Date(data.date).toLocaleDateString("sv-SE")}</span
@@ -41,7 +45,7 @@ function kebabCase(str: string) {
     }
 
     <span class="postCategory">
-      <a href={`/categories/${kebabCase(post.data.category)}`}>
+      <a href={categoryUrl}>
         <svg
           aria-hidden="true"
           focusable="false"

@@ -1,13 +1,26 @@
 ---
-const { previousPagePath, nextPagePath, currentPage, totalPage } = Astro.props;
+const { previousPagePath, nextPagePath, currentPage, totalPage, lang = "ja" } = Astro.props;
+
+const texts = {
+  ja: {
+    previous: "Previous",
+    next: "Next"
+  },
+  en: {
+    previous: "Previous", 
+    next: "Next"
+  }
+};
+
+const text = texts[lang] || texts.ja;
 ---
 
 <div class="pagination">
-  {previousPagePath ? <a href={previousPagePath}>Previous</a> : <br />}
+  {previousPagePath ? <a href={previousPagePath}>{text.previous}</a> : <br />}
   <span>
     {currentPage} / {totalPage}
   </span>
-  {nextPagePath ? <a href={nextPagePath}>Next</a> : <br />}
+  {nextPagePath ? <a href={nextPagePath}>{text.next}</a> : <br />}
 </div>
 
 <style lang="scss">

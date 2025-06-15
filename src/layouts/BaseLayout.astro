@@ -8,13 +8,13 @@ import Bio from "../components/Bio.astro";
 import GoogleTag from "../components/GoogleTag.astro";
 
 const isProduction = import.meta.env.PROD;
-const { title, siteTitle, description, author } = Astro.props;
+const { title, siteTitle, description, author, lang = "ja" } = Astro.props;
 ---
 
-<html lang="ja">
+<html lang={lang}>
   <head>
     {isProduction && <GoogleTag />}
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} lang={lang} />
 
     <style lang="scss">
       .container {
@@ -64,15 +64,15 @@ const { title, siteTitle, description, author } = Astro.props;
       )
     }
     <!-- End Google Tag Manager (noscript) -->
-    <Header siteTitle={siteTitle} />
+    <Header siteTitle={siteTitle} lang={lang} />
     <div class="container">
       <aside class="sidebar">
-        <Bio author={author} />
+        <Bio author={author} lang={lang} />
       </aside>
       <main>
         <slot />
       </main>
     </div>
-    <Footer author={author} />
+    <Footer author={author} lang={lang} />
   </body>
 </html>

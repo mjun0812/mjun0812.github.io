@@ -1,10 +1,21 @@
 ---
-const { author } = Astro.props;
+const { author, lang = "ja" } = Astro.props;
+
+const texts = {
+  ja: {
+    notice: "本サイトではGoogle AdsenseとAmazonアフィリエイトを使用しています"
+  },
+  en: {
+    notice: "This site uses Google Adsense and Amazon Affiliate"
+  }
+};
+
+const text = texts[lang] || texts.ja;
 ---
 
 <footer>
   <p class="notice">
-    本サイトではGoogle AdsenseとAmazonアフィリエイトを使用しています
+    {text.notice}
   </p>
   <span>
     &copy; {new Date().getFullYear()}

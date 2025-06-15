@@ -97,6 +97,8 @@
     vertical-align: 0.08em;
     border-radius: 0.2rem;
     padding: 0.1rem 0.2rem;
+    -webkit-text-size-adjust: none; // iOSでの文字サイズ自動調整を無効化
+    font-size: 0.875rem; // 固定フォントサイズを指定
   }
 
   // ブロックコードスタイル
@@ -106,6 +108,7 @@
     word-break: normal; // iOSで折り返されるのを防ぐ
     word-wrap: normal; // iOSで折り返されるのを防ぐ
     display: flex;
+    -webkit-text-size-adjust: none; // iOSでの文字サイズ自動調整を無効化
     /* flex + codeの隣に疑似要素を配置することで横スクロール時の右端の余白を作る */
     &:after {
       content: "";
@@ -116,6 +119,8 @@
       background: transparent;
       display: block;
       padding: 0.75rem; // このようにしないとpreのスクロールバーがコードに重なってしまう
+      -webkit-text-size-adjust: none; // iOSでの文字サイズ自動調整を無効化
+      font-family: "Roboto Mono", monospace;
     }
   }
 

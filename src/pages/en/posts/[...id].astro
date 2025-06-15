@@ -1,0 +1,138 @@
+---
+import { getCollection, render } from "astro:content";
+import PostLayout from "../../../layouts/PostLayout.astro";
+import { siteTitle, description, author } from "../../[...page].astro";
+import "../../../styles/markdown.scss";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts_en");
+  return posts
+    .map((post) => ({
+      params: { id: post.id },
+      props: { post },
+    }))
+    .sort(
+      (a, b) =>
+        new Date(b.props.post.data.date).getMilliseconds() -
+        new Date(a.props.post.data.date).getMilliseconds()
+    );
+}
+
+function kebabCase(str: string) {
+  return str
+    .toLowerCase()
+    .replace(/(\s|_)+/g, "-")
+    .replace(/([a-z])([A-Z])/g, "$1-$2");
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostLayout
+  title={post.data.title + " | " + siteTitle}
+  siteTitle={siteTitle}
+  description={description}
+  author={author}
+>
+  <div class="postMain">
+    <h1 class="postTitle">{post.data.title}</h1>
+
+    <ul class="postMeta">
+      <li class="date">{post.data.date.toLocaleDateString("en-US")}</li>
+      {
+        post.data.date !== post.data.update && (
+          <li class="update">
+            Update: {post.data.update.toLocaleDateString("en-US")}
+          </li>
+        )
+      }
+
+      <li>
+        <a href={`/categories/${kebabCase(post.data.category)}`}>
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fas"
+            data-icon="tag"
+            class="svg-inline--fa fa-tag fa-w-16"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            width="32"
+            height="32"
+          >
+            <path
+              fill="currentColor"
+              d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+            ></path>
+          </svg>
+          {post.data.category}
+        </a>
+      </li>
+      <li>
+        {
+          post.data.tags.map((tag) => (
+            <a href={`/tags/${kebabCase(tag)}`}>
+              <span>#{tag}</span>
+            </a>
+          ))
+        }
+      </li>
+    </ul>
+
+    <div class="markdown-body">
+      <Content class="content" />
+    </div>
+  </div>
+</PostLayout>
+
+<style lang="scss">
+  a {
+    color: var(--text-color);
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  svg {
+    height: 1em;
+    vertical-align: middle;
+    width: auto;
+  }
+
+  .postTitle {
+    color: var(--accent-color);
+    font-size: 1.8em;
+  }
+
+  .postMain {
+    background-color: var(--card-color);
+    border: solid 1px var(--shadow-color);
+    padding: 1em 2em;
+    border-radius: 15px;
+  }
+
+  .postMeta {
+    padding: 0;
+    margin-bottom: 1.5em;
+    list-style-type: none;
+    li {
+      display: inline;
+      margin-right: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    /* 480px以下に適用されるCSS（スマホ用） */
+    .postMeta {
+      li {
+        display: block;
+      }
+    }
+    .postMain {
+      padding: 0.5em 1em;
+    }
+  }
+</style>

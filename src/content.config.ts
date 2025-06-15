@@ -12,6 +12,18 @@ const postCollection = defineCollection({
     })
 });
 
+const postEnCollection = defineCollection({
+    loader: glob({ base: "./src/content/posts_en", pattern: '*.{md,mdx}' }),
+    schema: z.object({
+        title: z.string(),
+        date: z.date(),
+        update: z.date().optional(),
+        tags: z.array(z.string()),
+        category: z.string(),
+    })
+});
+
 export const collections = {
     posts: postCollection,
+    posts_en: postEnCollection,
 }

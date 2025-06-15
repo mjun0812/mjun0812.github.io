@@ -25,20 +25,6 @@ const { title, description } = Astro.props;
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content="/ogp_image_square.png" />
 
-<ClientRouter />
-
 <meta name="generator" content={Astro.generator} />
 
-<!-- Google Tag Manager -->
-<script
-  type="text/partytown"
-  src="https://www.googletagmanager.com/gtag/js?id=G-1X4HRQ7NWH"></script>
-<script type="text/partytown">
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("config", "G-1X4HRQ7NWH");
-</script>
-<!-- End Google Tag Manager -->
+<ClientRouter />

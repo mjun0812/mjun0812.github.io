@@ -23,6 +23,14 @@ const texts = {
 const text = texts[lang] || texts.ja;
 const baseUrl = lang === "en" ? "/en" : "";
 const homeUrl = lang === "en" ? "/en/" : "/";
+
+// 言語切り替え用のURL
+const currentPath = Astro.url.pathname;
+const toggleLangUrl = lang === "en" 
+  ? currentPath.replace(/^\/en/, "") || "/"
+  : `/en${currentPath === "/" ? "" : currentPath}`;
+
+const langToggleText = lang === "en" ? "日本語" : "English";
 ---
 
 <header>
@@ -49,6 +57,11 @@ const homeUrl = lang === "en" ? "/en/" : "/";
       </li>
       <li>
         <ThemeToggleButton />
+      </li>
+      <li>
+        <a href={toggleLangUrl} class="lang-toggle">
+          {langToggleText}
+        </a>
       </li>
     </ul>
   </nav>
@@ -109,6 +122,27 @@ const homeUrl = lang === "en" ? "/en/" : "/";
       font-weight: 500;
       letter-spacing: 0.05em;
     }
+
+    .lang-toggle {
+      background: transparent;
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color) !important;
+      padding: 0.3rem 0.6rem;
+      border-radius: 12px;
+      font-family: $english-font;
+      font-size: 0.7rem !important;
+      font-weight: 600;
+      text-transform: none !important;
+      letter-spacing: 0.02em !important;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background: var(--accent-color);
+        color: white !important;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      }
+    }
   }
 
   @media screen and (max-width: 480px) {
@@ -121,6 +155,11 @@ const homeUrl = lang === "en" ? "/en/" : "/";
       a,
       a:visited {
         font-size: 1rem;
+      }
+      
+      .lang-toggle {
+        font-size: 0.8rem !important;
+        padding: 0.4rem 0.7rem;
       }
     }
   }

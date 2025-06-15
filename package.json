@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@astrojs/partytown": "^2.1.4",
-    "@astrojs/rss": "^4.0.11",
-    "@astrojs/sitemap": "^3.3.1",
-    "astro": "^5.7.5",
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.4.1",
+    "astro": "^5.9.3",
     "astro-icon": "^1.0.2",
     "remark-link-card-plus": "^0.4.1",
     "sharp": "^0.33.1"

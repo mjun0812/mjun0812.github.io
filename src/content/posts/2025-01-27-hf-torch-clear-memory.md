@@ -158,15 +158,15 @@ gc.collect()
 
 ```bash
 ldd $(which python)
-	linux-vdso.so.1 (0x00007ffe327fc000)
-	/home/mjun/.venv/bin/../lib/libpython3.11.so.1.0 => not found
-	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x000075b9061eb000)
-	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x000075b9061e6000)
-	libutil.so.1 => /lib/x86_64-linux-gnu/libutil.so.1 (0x000075b9061e1000)
-	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x000075b9060f8000)
-	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x000075b9060f1000)
-	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000075b905e00000)
-	/lib64/ld-linux-x86-64.so.2 (0x000075b90620c000)
+ linux-vdso.so.1 (0x00007ffe327fc000)
+ /home/mjun/.venv/bin/../lib/libpython3.11.so.1.0 => not found
+ libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x000075b9061eb000)
+ libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x000075b9061e6000)
+ libutil.so.1 => /lib/x86_64-linux-gnu/libutil.so.1 (0x000075b9061e1000)
+ libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x000075b9060f8000)
+ librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x000075b9060f1000)
+ libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000075b905e00000)
+ /lib64/ld-linux-x86-64.so.2 (0x000075b90620c000)
 ```
 
 glibcでは、以前はメモリ解放関数である`free`を呼び出した場合には、即座にOSにメモリを返却する仕様となっていました。しかし、`free`の呼び出し回数が多い場合はパフォーマンスが低下するため、返却するメモリの割合を制限する変更(dynamic mmap threshold)が加えられました。

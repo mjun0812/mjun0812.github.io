@@ -11,7 +11,7 @@ topics: [None]
 published: true
 ---
 
-Hello. This time I'll write about how to unload once-loaded HuggingFace models and release memory for both CPU RAM and GPU VRAM.
+Hello. This time I'll write about how to unload previously loaded HuggingFace models and release memory for both CPU RAM and GPU VRAM.
 While I mention HuggingFace, the methods introduced in this article can also be used for PyTorch models.
 
 Since I experimented with several approaches, I'll first state the conclusions about memory release methods, then explain what methods I tried and the mechanisms of memory release.
@@ -25,13 +25,13 @@ Also, this time targets NVIDIA GPUs. I don't have a verification environment for
 ## Background
 
 Though I said I'd start with conclusions, let me first consider scenarios where memory release is necessary.
-I think the representative scenario requiring memory release is **"APIs that dynamically serve multiple models"**. While there are many examples in the world of serving PyTorch models with FastAPI, a representative Python framework, most target only single models or load predetermined models. To actually provide and verify trained models as APIs quickly in MLOps fashion, mechanisms to dynamically call new models are needed. For this, old models must be unloaded from memory as new models are called, or RAM and VRAM will overflow, causing API outages.
+I think the representative scenario requiring memory release is **"APIs that dynamically serve multiple models"**. While there are many examples in the world of serving PyTorch models with FastAPI, a representative Python framework, most target only single models or load predetermined models. To actually provide and verify trained models as APIs quickly in an MLOps fashion, mechanisms to dynamically call new models are needed. For this, old models must be unloaded from memory as new models are called, otherwise RAM and VRAM will overflow, causing API outages.
 The methods introduced today can be applied to such scenarios, and I actually use them.
 
 ## Memory Release Method - CPU Edition
 
-When inferencing on CPU, release models from RAM as follows.
-Note this is only effective when Python is CPython (which is most cases).
+When performing inference on CPU, release models from RAM as follows.
+Note this is only effective when Python is CPython (which is the case in most situations).
 
 ```python
 import ctypes

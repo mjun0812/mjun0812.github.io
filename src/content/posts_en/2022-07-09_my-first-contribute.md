@@ -11,9 +11,9 @@ topics: [None]
 published: false
 ---
 
-Hello. This time I'd like to write about how my first issue led to fixing a PyTorch bug and adding new CI/CD test items, and how I became a contributor by sending my first Pull Request to YOLOv5 based on this bug.
+Hello. This time I'd like to write about how my first issue led to fixing a PyTorch bug and adding new CI/CD test items, and how I became a contributor by sending my first pull request to YOLOv5 based on this bug.
 
-This is a personal story, but since this is my first time contributing to major OSS, I decided to write it down to record the process and hopefully convey the flow of contributing to OSS.
+This is a personal story, but since this is my first time contributing to major open-source software, I decided to write it down to record the process and hopefully convey the flow of contributing to OSS.
 
 ## How It All Started
 

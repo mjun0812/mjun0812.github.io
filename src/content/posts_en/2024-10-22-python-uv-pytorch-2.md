@@ -21,7 +21,7 @@ With the uv v0.4.23 update, functionality to specify multiple index-urls for a s
 
 https://github.com/astral-sh/uv/releases/tag/0.4.23
 
-Using this functionality, you can explicitly change the index-url referenced per environment, enabling more reliable PyTorch installation.
+Using this functionality, you can explicitly change the index-url referenced for each environment, enabling more reliable PyTorch installation.
 
 > The reason I'm writing this article now is that the method introduced [previously](https://mjunya.com/posts/2024-08-22-python-uv-pytorch/) 
 > became unusable for CUDA 12.4 cases.
@@ -77,13 +77,13 @@ dependencies = [
 ```
 
 Next, configure index-urls for CPU and CUDA versions of PyTorch.
-Don't forget `explicit = true` at this time. Here's the explanation of the explicit option:
+Don't forget `explicit = true` at this time. Here's an explanation of the explicit option:
 
 > The explicit flag is optional and indicates that the index should only be used for packages that explicitly specify it in tool.uv.sources. If explicit is not set, other packages may be resolved from the index, if not found elsewhere.  
 > Quoted from <https://docs.astral.sh/uv/concepts/dependencies/#index>
 
-In essence, it's an option to restrict the index-specified url from being used when searching for other packages.
-Since this time's index-url is only used for torch installation, and it might reference packages incompatible with the current architecture causing errors, don't forget this.
+In essence, it's an option to restrict the index-specified URL from being used when searching for other packages.
+Since this time's index-url is only used for torch installation, and it might reference packages incompatible with the current architecture causing errors, don't forget this setting.
 
 ```toml
 [[tool.uv.index]]

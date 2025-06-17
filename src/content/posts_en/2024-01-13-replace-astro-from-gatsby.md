@@ -11,7 +11,7 @@ topics: [None]
 published: true
 ---
 
-Hello. This time I'll discuss changing this site's framework from Gatsby.js to Astro.
+Hello. This time I'll discuss migrating this site's framework from Gatsby.js to Astro.
 
 ## Reasons for Change
 

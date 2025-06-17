@@ -21,7 +21,7 @@ Hello. This time I'll introduce python-build-standalone, which enables deploymen
 
 The python-build-standalone repository published on GitHub distributes pre-built Python binaries for various OS and CPU architectures.
 The distributed Python includes pip, so you can start using the Python environment immediately after download.
-Additionally, the Python provided here is used by recently notable package managers like Rye and mise, helping build flexible Python environments.
+Additionally, the Python provided here is used by recently notable package managers like Rye and mise, helping to build flexible Python environments.
 
 Due to licensing, the distributed Python may behave differently from self-built versions, but there are no issues in most operations. Details are written in the following article:
 
@@ -34,7 +34,7 @@ They can be obtained from the following GitHub Release page:
 
 <https://github.com/indygreg/python-build-standalone/releases>
 
-The naming convention for available binaries follows this order:
+The naming convention for available binaries follows this format:
 
 ```bash
 cpython-(Python version)+(release timestamp)-(architecture)-(build configuration)-(included content)

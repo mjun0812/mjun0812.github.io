@@ -15,11 +15,11 @@ Hello. This time I'll introduce how to build MLflow, an experiment management to
 
 ## Motivation for Introduction
 
-When working with machine learning, you end up conducting various experiments while changing hyperparameters, models, and datasets. I thought to introduce an experiment management tool that allows efficient comparison of results to smoothly compare experiments.
+When working with machine learning, you end up conducting various experiments while changing hyperparameters, models, and datasets. I decided to introduce an experiment management tool that allows efficient comparison of results to smoothly compare experiments.
 
 While there are various experiment management tools like TensorBoard and Weight & Bias (wandb) in the currently thriving MLOps scene, [MLflow](https://www.mlflow.org) has recently gained significant popularity as an option.
 
-However, among the various experiment management tools, focusing on "on-premises" and "self-hosted servers" that can handle data without external transmission, there aren't many options. I decided to try building MLflow, which is probably the most used.
+However, among the various experiment management tools, focusing on "on-premises" and "self-hosted servers" that can handle data without external transmission, there aren't many options. I decided to try building MLflow, which is probably the most widely used.
 
 ## What is MLflow
 

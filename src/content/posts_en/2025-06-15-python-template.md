@@ -19,15 +19,15 @@ https://github.com/mjun0812/python-project-template
 
 ## Template Features and Configuration
 
-This template aims to be simple with high flexibility, so I've tried not to introduce too many tools. Many tools increase the learning cost.
+This template aims to be simple with high flexibility, so I've tried not to introduce too many tools. Too many tools increase the learning cost.
 
 - **uv**: Fast Python virtual environment and package management tool built with Rust
 - **ruff**: Fast Formatter and Linter built with Rust
 - **pytest**: Testing framework
-- **pre-commit**: Code quality assurance through Format and Lint before commits
-- **devcontainer**: Unified development environment provision
-- **Docker, Docker Compose**: Containerized portable execution environment provision
-- **GitHub Actions**: CI provision
+- **pre-commit**: Code quality assurance through formatting and linting before commits
+- **devcontainer**: Unified development environment provisioning
+- **Docker, Docker Compose**: Containerized portable execution environment provisioning
+- **GitHub Actions**: CI provisioning
 - **AI rules**: Appropriate AI development assistance for Cursor and Claude Code through rule definitions
 
 The directory structure is as follows:
@@ -126,9 +126,9 @@ exclude = [".git", ".ruff_cache", ".venv", ".vscode"]
 
 https://docs.astral.sh/uv/
 
-**uv** is a Python virtual environment and package management tool built with Rust, developed by astral.
+**uv** is a Python virtual environment and package management tool built with Rust, developed by Astral.
 
-Previously, Python virtual environment and package management had tools like pyenv, pipenv, poetry, and Rye, but uv operates more than 10 times faster than these tools and has high portability, making uv the de facto standard for Python environment management. It's fair to say that Python environment management tools have been unified into uv.
+Previously, Python virtual environment and package management had tools like pyenv, pipenv, poetry, and Rye, but uv operates more than 10 times faster than these tools and has high portability, making uv the de facto standard for Python environment management. It's fair to say that Python environment management tools have been unified around uv.
 
 uv can be installed with the following command:
 
@@ -223,9 +223,9 @@ Initially, I was skeptical about adding types to a dynamically typed language, b
 
 https://docs.astral.sh/ruff/
 
-**ruff** is a Python code Format and Lint tool built with Rust. Like uv mentioned earlier, it's a tool developed by astral, and being built with Rust, it operates very fast. ruff provides the same functionality as Formatters and Linters like Google's black and flake8, covering code Format and Lint with this one tool.
+**ruff** is a Python code formatting and linting tool built with Rust. Like uv mentioned earlier, it's a tool developed by Astral, and being built with Rust, it operates very fast. ruff provides the same functionality as formatters and linters like Google's black and flake8, covering code formatting and linting with this one tool.
 
-Combined with uv mentioned earlier, you can Format and Lint code with the following commands:
+Combined with uv mentioned earlier, you can format and lint code with the following commands:
 
 ```bash
 uv run ruff format . # Format
@@ -233,8 +233,8 @@ uv run ruff check . # Lint
 uv run ruff check --fix . # Lint & Fix it
 ```
 
-Using the `--fix` option with `ruff check` will fix Lint Errors as much as possible.
-To configure Format and Lint settings with Ruff, edit `pyproject.toml` as follows:
+Using the `--fix` option with `ruff check` will fix lint errors as much as possible.
+To configure formatting and linting settings with Ruff, edit `pyproject.toml` as follows:
 
 ```toml
 [tool.ruff]
@@ -334,7 +334,7 @@ uv run pytest -s -v
 
 https://pre-commit.com/
 
-**pre-commit** is a tool that runs specific tasks before Git commits. This template ensures code quality before version control by configuring ruff Format and Lint to run before commits.
+**pre-commit** is a tool that runs specific tasks before Git commits. This template ensures code quality before version control by configuring ruff formatting and linting to run before commits.
 
 pre-commit configuration is written in the `.pre-commit-config.yaml` file:
 
@@ -357,7 +357,7 @@ repos:
 ```
 
 The first `uv-pre-commit` is configured to run uv lock. This synchronizes `pyproject.toml` and `uv.lock`.
-The second `ruff-pre-commit` is configured to run ruff Format and Lint. While pre-commit can error out and stop commits, this template is configured to perform automatic fixes as much as possible.
+The second `ruff-pre-commit` is configured to run ruff formatting and linting. While pre-commit can error out and stop commits, this template is configured to perform automatic fixes as much as possible.
 
 To install pre-commit, run the following command:
 

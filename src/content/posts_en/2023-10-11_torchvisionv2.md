@@ -11,7 +11,7 @@ topics: [None]
 published: true
 ---
 
-Recently, TorchVision version 0.16.0, a library that consolidates PyTorch's image manipulation processing, was released.
+Recently, TorchVision version 0.16.0, a library that consolidates PyTorch's image processing functionality, was released.
 With this update, documentation for version v2 of `torchvision.transforms`, commonly used for data augmentation, was enhanced.
 While `torchvision.transforms.v2` existed as a beta version since 0.15.0, this update enriched the documentation and made it the recommended version, so I'd like to see how it differs from previous methods.
 Note that v2 is still in beta. It will become stable in 0.17.0.
@@ -28,10 +28,10 @@ Since future updates will only be made to v2, this is a good opportunity to migr
 
 ## Main Changes
 
-- transforms can now handle object detection BBoxes, segmentation masks, and videos as input
+- transforms can now handle object detection bounding boxes, segmentation masks, and videos as input
 - Support for data augmentation methods like CutMix and MixUp
 - Speed improvements
-- Accepts arbitrary inputs (dict, lists, tuples, etc.)
+- Accepts arbitrary inputs (dictionaries, lists, tuples, etc.)
 - Resize etc. can accept torch.uint8 type as input
 
 Based on the above changes, v2 recommends the following approaches:

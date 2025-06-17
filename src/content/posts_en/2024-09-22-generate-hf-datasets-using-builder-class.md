@@ -72,11 +72,11 @@ This method can also be used for audio files by using `audiofolder` instead of i
 
 ### 2. Using datasets.Dataset.from_* functions
 
-This method allows creating datasets by passing Python functions or dicts as shown in the following tutorial:
+This method allows creating datasets by passing Python functions or dictionaries as shown in the following tutorial:
 
 <https://huggingface.co/docs/datasets/create_dataset#from-python-dictionaries>
 
-For example, when passing a dict, create it as follows:
+For example, when passing a dictionary, create it as follows:
 
 ```python
 import datasets as ds
@@ -126,7 +126,7 @@ I'll introduce the main topic of this article: dataset creation methods using Bu
 
 Using Builder classes provides the following advantages:
 
-- Can define methods to obtain dataset files themselves and prepare them
+- Can define methods to obtain dataset files and prepare them
 - Can handle formats not supported by HuggingFace datasets or datasets requiring complex preparation
 - Can bundle multiple datasets
 

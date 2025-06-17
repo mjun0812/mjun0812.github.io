@@ -15,7 +15,7 @@ topics:
 published: true
 ---
 
-Hello. This time I'll write the steps to install NVIDIA CUDA and build an environment for running PyTorch, TensorFlow, etc. using NVIDIA GPUs.
+Hello. This time I'll write about the steps to install NVIDIA CUDA and build an environment for running PyTorch, TensorFlow, etc. using NVIDIA GPUs.
 
 While there are many such articles out there, this article differs from others in that it assumes use as a server shared in laboratories or companies.
 
@@ -66,11 +66,11 @@ sudo apt install -y \
     libffi-dev liblzma-dev
 ```
 
-Brief explanation of installed packages:
+Brief explanation of the installed packages:
 
 - `git, wget, curl` Essential
 - `avahi-daemon` mDNS library; with this installed, you can access from Windows, macOS, Linux via `ssh server.local` etc. from local LAN without setting up DNS
-- `emacs, vim` Installing both avoids wars
+- `emacs, vim` Installing both avoids editor wars
 - `build-essential` Contains various libraries for building
 - `jq` JSON parser. ML dataset information is sometimes provided in JSON format
 - `ffmpeg` Process videos from command line

@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import remarkLinkCard from "remark-link-card-plus";
+import remarkGithubAlerts from "remark-github-alerts";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import partytown from "@astrojs/partytown";
@@ -26,7 +27,8 @@ export default defineConfig({
           shortenUrl: true,
           thumbnailPosition: "right"
         },
-      ]
+      ],
+      remarkGithubAlerts,
     ],
     shikiConfig: {
       themes: {

@@ -23,6 +23,9 @@ importers:
       astro-icon:
         specifier: ^1.0.2
         version: 1.0.2
+      remark-github-alerts:
+        specifier: ^0.1.1
+        version: 0.1.1(@types/mdast@4.0.3)(unified@11.0.5)
       remark-link-card-plus:
         specifier: ^0.4.1
         version: 0.4.1
@@ -1606,6 +1609,12 @@ packages:
 
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
+
+  remark-github-alerts@0.1.1:
+    resolution: {integrity: sha512-A0NLfeAuu76ymiGIoEoBcHmqlPcdLFq+FoCGiWlzu8vkyhscyDv+pAkMA9paGr+OHpzpFflZKnsqOCvMESG/Uw==}
+    peerDependencies:
+      '@types/mdast': ^4.0.0
+      unified: ^11.0.0
 
   remark-link-card-plus@0.4.1:
     resolution: {integrity: sha512-AD7u8+tXk/5Ik3XqSRiyv5P/m1dOorB+9bkJ7BgWLKnCuCAqWI+GjGS5MEkKN546i7ZKfYJC1bv8POHj4G3pOQ==}
@@ -3840,6 +3849,12 @@ snapshots:
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
+
+  remark-github-alerts@0.1.1(@types/mdast@4.0.3)(unified@11.0.5):
+    dependencies:
+      '@types/mdast': 4.0.3
+      unified: 11.0.5
+      unist-util-visit: 5.0.0
 
   remark-link-card-plus@0.4.1:
     dependencies:

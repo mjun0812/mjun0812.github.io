@@ -564,64 +564,45 @@ posts = posts.sort(
     </ul>
 
     <h2>Skill</h2>
-    <ul class="skillContainer">
-      <ul class="skillList">
-        <li class="skillText"><Icon name="mdi:language-python" />Python</li>
-        <ul>
-          <li><Icon name="simple-icons:pytorch" />PyTorch</li>
-          <li><Icon name="simple-icons:fastapi" />FastAPI</li>
-        </ul>
-      </ul>
-
-      <ul class="skillList">
-        <li class="skillText">
-          <Icon name="mdi:language-javascript" />JavaScript
-        </li>
-        <ul>
-          <li><Icon name="mdi:react" />React</li>
-          <li><Icon name="simple-icons:svelte" />Svelte</li>
-          <li><Icon name="simple-icons:astro" />Astro</li>
-        </ul>
-      </ul>
-
-      <ul class="skillList">
-        <li class="skillText"><Icon name="mdi:docker" />Docker</li>
-      </ul>
-
-      <ul class="skillList">
-        <li class="skillText"><Icon name="mdi:aws" />AWS</li>
-      </ul>
-
-      <ul class="skillList">
-        <li class="skillText"><Icon name="mdi:language-swift" />Swift</li>
-      </ul>
-
-      <ul class="skillList">
-        <li class="skillText"><Icon name="mdi:language-ruby" />Ruby</li>
-        <ul><li><Icon name="simple-icons:rubysinatra" />Sinatra</li></ul>
-      </ul>
-
-      <ul class="skillList">
-        <li class="skillText"><Icon name="simple-icons:php" />PHP</li>
-        <ul><li><Icon name="simple-icons:codeigniter" />CodeIgniter</li></ul>
-      </ul>
-
-      <ul class="skillList">
-        <li class="skillText"><Icon name="mdi:blender-software" />Blender</li>
-      </ul>
-
-      <ul class="skillList">
-        <li class="skillText"><Icon name="simple-icons:onnx" />ONNX</li>
-      </ul>
-
-      <ul class="skillList">
-        <li class="skillText"><Icon name="simple-icons:nvidia" />TensorRT</li>
-      </ul>
-
-      <ul class="skillList">
-        <li class="skillText"><Icon name="simple-icons:cplusplus" />C++</li>
-      </ul>
-    </ul>
+    <div class="skill-tags">
+      <div class="skill-group">
+        <span class="skill-badge main"><Icon name="mdi:language-python" />Python</span>
+        <span class="skill-badge sub"><Icon name="simple-icons:pytorch" />PyTorch</span>
+        <span class="skill-badge sub"><Icon name="simple-icons:fastapi" />FastAPI</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"><Icon name="mdi:language-javascript" />JavaScript</span>
+        <span class="skill-badge sub"><Icon name="mdi:react" />React</span>
+        <span class="skill-badge sub"><Icon name="simple-icons:svelte" />Svelte</span>
+        <span class="skill-badge sub"><Icon name="simple-icons:astro" />Astro</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"><Icon name="simple-icons:cplusplus" />C++</span>
+        <span class="skill-badge sub"><Icon name="simple-icons:onnx" />ONNX</span>
+        <span class="skill-badge sub"><Icon name="simple-icons:nvidia" />TensorRT</span>
+        <span class="skill-badge sub">SIMD</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"><Icon name="mdi:language-ruby" />Ruby</span>
+        <span class="skill-badge sub"><Icon name="simple-icons:rubysinatra" />Sinatra</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"><Icon name="simple-icons:php" />PHP</span>
+        <span class="skill-badge sub"><Icon name="simple-icons:codeigniter" />CodeIgniter</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"><Icon name="mdi:language-swift" />Swift</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"><Icon name="mdi:docker" />Docker</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"><Icon name="mdi:aws" />AWS</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"><Icon name="mdi:blender-software" />Blender</span>
+      </div>
+    </div>
 
     <h2>Open Source</h2>
     <ul class="ossList">
@@ -875,37 +856,39 @@ posts = posts.sort(
       width: auto;
     }
 
-    .skillContainer {
-      column-count: 3;
-      column-gap: 26px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
-    @media screen and (max-width: 480px) {
-      .skillContainer {
-        column-count: 1;
+    .skill-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .skill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 2rem;
+      font-family: $english-font;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      [data-icon] {
+        height: 1rem;
+        width: 1rem;
       }
     }
-    .skillList {
-      list-style: none;
-      padding: 0;
-      margin: 0.5em 0;
+    .skill-badge.main {
+      background-color: var(--accent-color);
+      color: #fff;
+      font-weight: bold;
     }
-    .skillIcon {
+    .skill-badge.sub {
+      background-color: var(--shadow-color);
       color: var(--text-color);
-      vertical-align: middle;
-      height: 1.2em;
-      width: auto;
-      margin-right: 0.25em;
-    }
-    .skillText {
-      font-size: 1.2em;
-    }
-    @media (min-width: 480px) {
-      .skillColumn {
-        width: 50%;
-      }
     }
 
     .title {

@@ -41,6 +41,9 @@ posts = posts.sort(
         <a href="https://twitter.com/mjun0812" class="iconLink">
           <Icon name="fa6-brands:x-twitter" />
         </a>
+        <a href="https://www.linkedin.com/in/mjun0812" class="iconLink">
+          <Icon name="mdi:linkedin" />
+        </a>
       </p>
       <p>
         <svg
@@ -246,6 +249,9 @@ posts = posts.sort(
         </div>
       </li>
     </ul>
+
+    <h2>Contact</h2>
+    <p>mjun __at__ mjunya.com</p>
 
     <h2>Publication</h2>
     <ul class="publist">
@@ -487,6 +493,46 @@ posts = posts.sort(
           >
         </div>
       </li>
+      <li>
+        <div class="title">
+          Semantic Edge Extraction by Logical Operations for Room Structure
+          Estimation Using a Segmentation Result
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            Ryusuke Miyamoto, Kae Nakayama, <strong class="me"
+              ><u>Junya Morioka</u></strong
+            >, Miho Adachi
+          </span>
+          <span>International Conference on Extended Reality, 2025.6</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          Automatic annotation method for day–night aerial infrared image
+          dataset creation and its application to semantic segmentation
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            Michiya Kibe, Takeru Inoue, <strong class="me"
+              ><u>Junya Morioka</u></strong
+            >, Ryusuke Miyamoto
+          </span>
+          <span>Optical Engineering, 2025.9</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          領域分割結果から得られるエッジを手がかりとした部屋の3次元構造推定
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            <strong class="me"><u>森岡 隼也</u></strong>, 中山 果瑛, 安達 美穂,
+            宮本 龍介
+          </span>
+          <span>画像電子学会誌 第55巻 第1号, 2026.1</span>
+        </div>
+      </li>
     </ul>
 
     <h2>Award</h2>
@@ -524,7 +570,6 @@ posts = posts.sort(
         <li class="skillText"><Icon name="mdi:language-python" />Python</li>
         <ul>
           <li><Icon name="simple-icons:pytorch" />PyTorch</li>
-          <li><Icon name="simple-icons:tensorflow" />TensorFlow</li>
           <li><Icon name="simple-icons:fastapi" />FastAPI</li>
         </ul>
       </ul>
@@ -550,7 +595,6 @@ posts = posts.sort(
 
       <ul class="skillList">
         <li class="skillText"><Icon name="mdi:language-swift" />Swift</li>
-        <ul><li>SwiftUI</li></ul>
       </ul>
 
       <ul class="skillList">
@@ -578,6 +622,29 @@ posts = posts.sort(
       <ul class="skillList">
         <li class="skillText"><Icon name="simple-icons:cplusplus" />C++</li>
       </ul>
+    </ul>
+
+    <h2>Open Source</h2>
+    <ul class="ossList">
+      <li>
+        <div class="oss-item">
+          <a href="https://github.com/mjun0812/flash-attention-prebuild-wheels" class="oss-link">
+            <Icon name="mdi:github" class="oss-icon" />
+            <div>
+              <div class="title">
+                flash-attention-prebuild-wheels
+                <span class="star-badge">
+                  <Icon name="mdi:star" class="star-icon" />1k+
+                </span>
+              </div>
+              <div class="pubinfo">
+                Provides pre-built Flash Attention package wheels for Linux and Windows
+                platforms using GitHub Actions.
+              </div>
+            </div>
+          </a>
+        </div>
+      </li>
     </ul>
 
     <h2>Projects</h2>
@@ -690,8 +757,6 @@ posts = posts.sort(
       </div>
     </div>
 
-    <h2>Contact</h2>
-    <p>mjun __at__ mjunya.com</p>
   </div>
 
   <style lang="scss">
@@ -727,7 +792,7 @@ posts = posts.sort(
     .profile {
       background-color: var(--card-color);
       border: solid 1px var(--shadow-color);
-      padding: 0.5rem;
+      padding: 0.5rem 2rem;
       border-radius: 15px;
     }
 
@@ -811,6 +876,47 @@ posts = posts.sort(
       border-radius: 50%;
       max-height: 10rem;
       width: auto;
+    }
+
+    .ossList {
+      list-style: none;
+      padding: 0;
+    }
+    .star-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.15rem;
+      background-color: var(--accent-color);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: bold;
+      padding: 0.1rem 0.5rem;
+      border-radius: 1rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+    .star-icon {
+      height: 0.9rem;
+      width: 0.9rem;
+    }
+    .oss-item {
+      display: flex;
+      align-items: center;
+    }
+    .oss-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--text-color);
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .oss-icon {
+      height: 3rem;
+      width: 3rem;
+      flex-shrink: 0;
     }
 
     .split-layout {

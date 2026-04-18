@@ -4,7 +4,10 @@ import remarkGithubAlerts from "remark-github-alerts";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import partytown from "@astrojs/partytown";
+import { fileURLToPath } from "node:url";
 
+
+const mixinPath = fileURLToPath(new URL("./src/styles/_mixin.scss", import.meta.url)).replace(/\\/g, "/");
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,7 +16,7 @@ export default defineConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "src/styles/_mixin.scss" as *;`
+          additionalData: `@use "${mixinPath}" as *;`
         }
       }
     }

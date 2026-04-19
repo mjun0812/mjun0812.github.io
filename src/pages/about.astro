@@ -13,7 +13,7 @@ import huggingface from "../assets/hf.webp";
 import spic from "../assets/spic.png";
 
 export const siteTitle = "Junya Morioka | 森岡 隼也";
-export const description = "とある情報系の院生の技術ノートです";
+export const description = "とあるエンジニアの技術ノートです";
 export const author = "Junya Morioka";
 
 let posts = await getCollection("posts");
@@ -43,6 +43,9 @@ posts = posts.sort(
         <a href="https://www.linkedin.com/in/mjun0812" class="iconLink">
           <Icon name="mdi:linkedin" />
         </a>
+        <a href="https://zenn.dev/mjun0812" class="iconLink">
+          <Icon name="simple-icons:zenn" />
+        </a>
       </p>
       <p>
         <svg
@@ -64,23 +67,100 @@ posts = posts.sort(
         </svg>
         Tokyo, Japan
       </p>
-      <p>情報系の博士課程3年生です</p>
+      <p>博士(理学)</p>
     </div>
 
     <h2>Interest</h2>
-    <ul>
-      <li>Computer Vision</li>
-      <li>Deep Learning</li>
-      <li>Web</li>
-    </ul>
+    <p>Computer Vision, NLP, Web</p>
+
+    <h2>Contact</h2>
+    <p>mjun __at__ mjunya.com</p>
+
+    <h2>Skill</h2>
+    <div class="skill-tags">
+      <div class="skill-group">
+        <span class="skill-badge main"
+          ><Icon name="mdi:language-python" />Python</span
+        >
+        <span class="skill-badge sub"
+          ><Icon name="simple-icons:pytorch" />PyTorch</span
+        >
+        <span class="skill-badge sub"
+          ><Icon name="simple-icons:fastapi" />FastAPI</span
+        >
+        <span class="skill-badge sub"
+          ><Icon name="simple-icons:huggingface" />HuggingFace</span
+        >
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"
+          ><Icon name="mdi:language-javascript" />JavaScript</span
+        >
+        <span class="skill-badge sub"><Icon name="mdi:react" />React</span>
+        <span class="skill-badge sub"
+          ><Icon name="simple-icons:svelte" />Svelte</span
+        >
+        <span class="skill-badge sub"
+          ><Icon name="simple-icons:astro" />Astro</span
+        >
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"
+          ><Icon name="simple-icons:cplusplus" />C++</span
+        >
+        <span class="skill-badge sub"
+          ><Icon name="simple-icons:onnx" />ONNX</span
+        >
+        <span class="skill-badge sub"
+          ><Icon name="simple-icons:nvidia" />TensorRT</span
+        >
+        <span class="skill-badge sub">SIMD(AVX2, AVX-512)</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"
+          ><Icon name="mdi:language-ruby" />Ruby</span
+        >
+        <span class="skill-badge sub"
+          ><Icon name="simple-icons:rubysinatra" />Sinatra</span
+        >
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"><Icon name="simple-icons:php" />PHP</span
+        >
+        <span class="skill-badge sub"
+          ><Icon name="simple-icons:codeigniter" />CodeIgniter</span
+        >
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"
+          ><Icon name="mdi:language-swift" />Swift</span
+        >
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"><Icon name="mdi:docker" />Docker</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"><Icon name="mdi:aws" />AWS</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"
+          ><Icon name="simple-icons:githubactions" />GitHub Actions</span
+        >
+      </div>
+      <div class="skill-group">
+        <span class="skill-badge main"
+          ><Icon name="mdi:blender-software" />Blender</span
+        >
+      </div>
+    </div>
 
     <h2>Education</h2>
     <ul class="publist">
       <li>
-        <div class="title">Ph.D. Student in Computer Science</div>
+        <div class="title">Doctor's Degree in Computer Science</div>
         <div class="pubinfo">
           <span class="info">
-            <strong>2023.03 - current</strong>
+            <strong>2023.03 - 2026.03</strong>
           </span>
           <span class="info">
             Computer Science Program, Graduate School of Science and Technology,
@@ -134,51 +214,14 @@ posts = posts.sort(
     <h2>Work Experience</h2>
     <ul class="publist">
       <li>
-        <div class="title">Qdoga Inc.</div>
-        <div class="pubinfo">
-          <span class="info">
-            <strong>2021.03 - current</strong>
-          </span>
-          <span class="info">Part-time Full-stack Engineer</span>
-          <span class="info">
-            <a class="link" href="https://www.qdoga.com">HP</a>
-          </span>
-          <span class="info">
-            <a class="link" href="https://www.3minutesgolf.com/www/index.html">
-              App: 3分ゴルフ
-            </a>
-          </span>
-          <span class="info">
-            <a class="link" href="https://www.3284.jp/www/index.html">
-              App: Team 3284
-            </a>
-          </span>
-        </div>
-      </li>
-
-      <li>
         <div class="title">明治大学</div>
         <div class="pubinfo">
           <span class="info">
-            <strong>2021.04 - 2023.03</strong>
+            <strong>2023.04 - 2026.03</strong>
           </span>
-          <span class="info">Teaching Assistant</span>
+          <span class="info">Research Associate</span>
         </div>
       </li>
-
-      <li>
-        <div class="title">SensAI</div>
-        <div class="pubinfo">
-          <span class="info">
-            <strong>2021.05 - 2022.07</strong>
-          </span>
-          <span class="info">Part-time Engineer</span>
-          <span class="info">
-            <a class="link" href="https://sens-ai.co.jp/index.htm"> HP</a>
-          </span>
-        </div>
-      </li>
-
       <li>
         <div class="title">Yahoo Japan 2022 Summer Internship</div>
         <div class="pubinfo">
@@ -204,7 +247,6 @@ posts = posts.sort(
           </span>
         </div>
       </li>
-
       <li>
         <div class="title">
           RECRUIT Job for Student 2022 Autumn ~Engineer/Data Specialist~
@@ -224,12 +266,11 @@ posts = posts.sort(
           </span>
         </div>
       </li>
-
       <li>
         <div class="title">SPIC</div>
         <div class="pubinfo">
           <span class="info">
-            <strong>2022.12 - current</strong>
+            <strong>2022.12 - 2026.03</strong>
           </span>
           <span class="info">Part-time Engineer</span>
           <span class="info">
@@ -237,35 +278,295 @@ posts = posts.sort(
           </span>
         </div>
       </li>
-
+      <li>
+        <div class="title">SensAI</div>
+        <div class="pubinfo">
+          <span class="info">
+            <strong>2021.05 - 2022.07</strong>
+          </span>
+          <span class="info">Part-time Engineer</span>
+          <span class="info">
+            <a class="link" href="https://sens-ai.co.jp/index.htm"> HP</a>
+          </span>
+        </div>
+      </li>
       <li>
         <div class="title">明治大学</div>
         <div class="pubinfo">
           <span class="info">
-            <strong>2023.04 - current</strong>
+            <strong>2021.04 - 2023.03</strong>
           </span>
-          <span class="info">Research Associate</span>
+          <span class="info">Teaching Assistant</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">Qdoga Inc.</div>
+        <div class="pubinfo">
+          <span class="info">
+            <strong>2021.03 - current</strong>
+          </span>
+          <span class="info">Part-time Full-stack Engineer</span>
+          <span class="info">
+            <a class="link" href="https://www.qdoga.com">HP</a>
+          </span>
+          <span class="info">
+            <a class="link" href="https://www.3minutesgolf.com/www/index.html">
+              App: 3分ゴルフ
+            </a>
+          </span>
+          <span class="info">
+            <a class="link" href="https://www.3284.jp/www/index.html">
+              App: Team 3284
+            </a>
+          </span>
         </div>
       </li>
     </ul>
-
-    <h2>Contact</h2>
-    <p>mjun __at__ mjunya.com</p>
 
     <h2>Publication</h2>
     <ul class="publist">
       <li>
         <div class="title">
-          A study on accuracy improvement of small object detection using deep
-          neural networks
+          領域分割結果から得られるエッジを手がかりとした部屋の3次元構造推定
         </div>
         <div class="pubinfo">
           <span class="author">
-            <strong class="me"><u>Junya Morioka</u></strong> and Ryusuke Miyamoto
+            <strong class="me"><u>森岡 隼也</u></strong>, 中山 果瑛, 安達 美穂,
+            宮本 龍介
+          </span>
+          <span>画像電子学会誌 第55巻 第1号, 2026.1</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          Automatic annotation method for day–night aerial infrared image
+          dataset creation and its application to semantic segmentation
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            Michiya Kibe, Takeru Inoue, <strong class="me"
+              ><u>Junya Morioka</u></strong
+            >, Ryusuke Miyamoto
+          </span>
+          <span>Optical Engineering, 2025.9</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          Semantic Edge Extraction by Logical Operations for Room Structure
+          Estimation Using a Segmentation Result
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            Ryusuke Miyamoto, Kae Nakayama, <strong class="me"
+              ><u>Junya Morioka</u></strong
+            >, Miho Adachi
+          </span>
+          <span>International Conference on Extended Reality, 2025.6</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          屋内環境における単一画像からの3次元情報推定手法の回転耐性の向上
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            中山 果瑛, <strong class="me"><u>森岡 隼也</u></strong>, 安達 美穂,
+            宮本 龍介
           </span>
           <span>
-            IEEE Asia Pacific Conference on Circuit and Systems, APCCAS 2021,
-            Penang, Malaysia, November 22-26, 2021
+            電子情報通信学会(IEICE)
+            ライフインテリジェンスとオフィス情報システム研究会(LOIS), 2025.03</span
+          >
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          バーチャル内見を目的とする3次元構造推定のための効率的なセマンティックエッジ抽出
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            中山 果瑛, <strong class="me"><u>森岡 隼也</u></strong>, 安達 美穂,
+            宮本 龍介
+          </span>
+          <span> 電子情報通信学会(IEICE) MVE研究会（SIS), 2025.03</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">CNN における積和演算の高速化に関する一検討</div>
+        <div class="pubinfo">
+          <span class="author">
+            西郷 智博, 神谷 翔, <strong class="me"><u>森岡 隼也</u></strong>,
+            安達 美穂, 宮本 龍介
+          </span>
+          <span> 第50回 パルテノン研究会, 2024.12</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          AMD Ryzen CPUを対象としたCNNにおける積和演算の並列実装
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            <strong class="me"><u>森岡 隼也</u></strong>, 宮本 龍介
+          </span>
+          <span> 第50回 パルテノン研究会, 2024.12</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          Creation of Day-Night Visible-Thermal Paired Image Dataset via Image
+          Registration
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            Michiya Kibe, Takeru Inoue, <strong class="me"
+              ><u>Junya Morioka</u></strong
+            >, Ryusuke Miyamoto
+          </span>
+          <span>IEEE IRC, 2024.12</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          Improving Resolution of Translated Infrared Images
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            Michiya Kibe, Takeru Inoue, <strong class="me"
+              ><u>Junya Morioka</u></strong
+            >, Ryusuke Miyamoto
+          </span>
+          <span>IEEE SENSORS, 2024.10</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          合成画像を訓練サンプルとする分類器のバイラテラルフィルタによる精度向上
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            大木場正和, 井上尊, <strong class="me"><u>森岡隼也</u></strong>,
+            安達美穂, 学多晃司, 山田悦志, 刈谷葵, 紀之定正一, 北出雄二郎,
+            宮本龍介
+          </span>
+          <span>
+            電子情報通信学会(IEICE)
+            スマートインフォメディアシステム研究会（SIS), 2024.10</span
+          >
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          3D Structure Estimation of Room Environment Using Semantic
+          Segmentation and Model Fitting
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            <strong class="me"><u>Junya Morioka</u></strong>, Ryusuke Miyamoto
+          </span>
+          <span>
+            IEEE International Workshop on Metrology for Living Environment
+            (MetroLivEnv) , 2024.06</span
+          >
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          遠隔協調作業における臨場感向上のための単眼カメラによる部屋の3次元構造の推定
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            <strong class="me"><u>森岡 隼也</u></strong>, 政木研人, 宮本龍介
+          </span>
+          <span>
+            ライフインテリジェンスとオフィス情報システム研究会(LOIS), 2024.03</span
+          >
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          Data Augmentation for Semantic Segmentation Using a Real Image Dataset
+          Captured around the Tsukuba City Hall
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            Yuriko Ueda, Miho Adachi, <strong class="me"
+              ><u>Junya Morioka</u></strong
+            >, Marin Wada, Ryusuke Miyamoto
+          </span>
+          <span> Journal of Robotics and Mechatronics, 2023.12</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          Dataset Creation for Semantic Segmentation Using Colored Point Clouds
+          Considering Shadows on Traversable Area
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            Marin Wada, Yuriko Ueda, <strong class="me"
+              ><u>Junya Morioka</u></strong
+            >, Miho Adachi, Ryusuke Miyamoto
+          </span>
+          <span> Journal of Robotics and Mechatronics, 2023.12</span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          Human Pose Estimation Based on Part-Wise 6-DoF Pose Estimation
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            Yuki Nagoshi, Takeru Inoue,
+            <strong class="me"><u>Junya Morioka</u></strong>, Ryusuke Miyamoto
+          </span>
+          <span>
+            2023 International Workshop on Smart Info-Media Systems in Asia,
+            pp.77-81, 2023.9
+          </span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          空撮画像を対象としたInformed-Filtersに基づく人検出のC++AMPを用いたリアルタイム実装
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            津山雅彦, 薛俊峰, <strong class="me"><u>森岡隼也</u></strong>,
+            大木琢郎, 宮本龍介
+          </span>
+          <span>
+            画像電子学会 画像電子学誌 第52巻 第2号 pp.329-338, 2023.4</span
+          >
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          意味論的領域分割の計算コストと精度の関係に関する研究
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            伊藤陸斗, <strong class="me"><u>森岡隼也</u></strong>, 安達美穂,
+            津山雅彦, 今川隆司, 宮本龍介
+          </span>
+          <span>
+            電子情報通信学会(IEICE)
+            スマートインフォメディアシステム研究会（SIS), 2022.12
+          </span>
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          深層学習に基づく小物体検出の精度向上に関する一検討
+        </div>
+        <div class="pubinfo">
+          <span class="author">
+            <strong class="me"><u>森岡隼也</u></strong>, 宮本龍介
+          </span>
+          <span>
+            電子情報通信学会(IEICE)
+            スマートインフォメディアシステム研究会（SIS), 2022.12
           </span>
         </div>
       </li>
@@ -289,164 +590,27 @@ posts = posts.sort(
       </li>
       <li>
         <div class="title">
-          深層学習に基づく小物体検出の精度向上に関する一検討
+          A study on accuracy improvement of small object detection using deep
+          neural networks
         </div>
         <div class="pubinfo">
           <span class="author">
-            <strong class="me"><u>森岡隼也</u></strong>, 宮本龍介
+            <strong class="me"><u>Junya Morioka</u></strong> and Ryusuke Miyamoto
           </span>
           <span>
-            電子情報通信学会(IEICE)
-            スマートインフォメディアシステム研究会（SIS), 2022.12
+            IEEE Asia Pacific Conference on Circuit and Systems, APCCAS 2021,
+            Penang, Malaysia, November 22-26, 2021
           </span>
         </div>
       </li>
+    </ul>
+
+    <h2>Award</h2>
+    <ul class="publist">
       <li>
         <div class="title">
-          意味論的領域分割の計算コストと精度の関係に関する研究
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            伊藤陸斗, <strong class="me"><u>森岡隼也</u></strong>, 安達美穂,
-            津山雅彦, 今川隆司, 宮本龍介
-          </span>
-          <span>
-            電子情報通信学会(IEICE)
-            スマートインフォメディアシステム研究会（SIS), 2022.12
-          </span>
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          空撮画像を対象としたInformed-Filtersに基づく人検出のC++AMPを用いたリアルタイム実装
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            津山雅彦, 薛俊峰, <strong class="me"><u>森岡隼也</u></strong>,
-            大木琢郎, 宮本龍介
-          </span>
-          <span>
-            画像電子学会 画像電子学誌 第52巻 第2号 pp.329-338, 2023.4</span
-          >
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          Human Pose Estimation Based on Part-Wise 6-DoF Pose Estimation
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            Yuki Nagoshi, Takeru Inoue,
-            <strong class="me"><u>Junya Morioka</u></strong>, Ryusuke Miyamoto
-          </span>
-          <span>
-            2023 International Workshop on Smart Info-Media Systems in Asia,
-            pp.77-81, 2023.9
-          </span>
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          Dataset Creation for Semantic Segmentation Using Colored Point Clouds
-          Considering Shadows on Traversable Area
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            Marin Wada, Yuriko Ueda, <strong class="me"
-              ><u>Junya Morioka</u></strong
-            >, Miho Adachi, Ryusuke Miyamoto
-          </span>
-          <span> Journal of Robotics and Mechatronics, 2023.12</span>
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          Data Augmentation for Semantic Segmentation Using a Real Image Dataset
-          Captured around the Tsukuba City Hall
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            Yuriko Ueda, Miho Adachi, <strong class="me"
-              ><u>Junya Morioka</u></strong
-            >, Marin Wada, Ryusuke Miyamoto
-          </span>
-          <span> Journal of Robotics and Mechatronics, 2023.12</span>
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          遠隔協調作業における臨場感向上のための単眼カメラによる部屋の3次元構造の推定
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            <strong class="me"><u>森岡 隼也</u></strong>, 政木研人, 宮本龍介
-          </span>
-          <span>
-            ライフインテリジェンスとオフィス情報システム研究会(LOIS), 2024.03</span
-          >
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          3D Structure Estimation of Room Environment Using Semantic
-          Segmentation and Model Fitting
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            <strong class="me"><u>Junya Morioka</u></strong>, Ryusuke Miyamoto
-          </span>
-          <span>
-            IEEE International Workshop on Metrology for Living Environment
-            (MetroLivEnv) , 2024.06</span
-          >
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          合成画像を訓練サンプルとする分類器のバイラテラルフィルタによる精度向上
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            大木場正和, 井上尊, <strong class="me"><u>森岡隼也</u></strong>,
-            安達美穂, 学多晃司, 山田悦志, 刈谷葵, 紀之定正一, 北出雄二郎,
-            宮本龍介
-          </span>
-          <span>
-            電子情報通信学会(IEICE)
-            スマートインフォメディアシステム研究会（SIS), 2024.10</span
-          >
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          Improving Resolution of Translated Infrared Images
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            Michiya Kibe, Takeru Inoue, <strong class="me"
-              ><u>Junya Morioka</u></strong
-            >, Ryusuke Miyamoto
-          </span>
-          <span>IEEE SENSORS, 2024.10</span>
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          Creation of Day-Night Visible-Thermal Paired Image Dataset via Image
-          Registration
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            Michiya Kibe, Takeru Inoue, <strong class="me"
-              ><u>Junya Morioka</u></strong
-            >, Ryusuke Miyamoto
-          </span>
-          <span>IEEE IRC, 2024.12</span>
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          AMD Ryzen CPUを対象としたCNNにおける積和演算の並列実装
+          優秀プレゼンテーション賞「AMD Ryzen
+          CPUを対象としたCNNにおける積和演算の並列実装」
         </div>
         <div class="pubinfo">
           <span class="author">
@@ -455,87 +619,6 @@ posts = posts.sort(
           <span> 第50回 パルテノン研究会, 2024.12</span>
         </div>
       </li>
-      <li>
-        <div class="title">CNN における積和演算の高速化に関する一検討</div>
-        <div class="pubinfo">
-          <span class="author">
-            西郷 智博, 神谷 翔, <strong class="me"><u>森岡 隼也</u></strong>,
-            安達 美穂, 宮本 龍介
-          </span>
-          <span> 第50回 パルテノン研究会, 2024.12</span>
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          バーチャル内見を目的とする3次元構造推定のための効率的なセマンティックエッジ抽出
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            中山 果瑛, <strong class="me"><u>森岡 隼也</u></strong>, 安達 美穂,
-            宮本 龍介
-          </span>
-          <span> 電子情報通信学会(IEICE) MVE研究会（SIS), 2025.03</span>
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          屋内環境における単一画像からの3次元情報推定手法の回転耐性の向上
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            中山 果瑛, <strong class="me"><u>森岡 隼也</u></strong>, 安達 美穂,
-            宮本 龍介
-          </span>
-          <span>
-            電子情報通信学会(IEICE)
-            ライフインテリジェンスとオフィス情報システム研究会(LOIS), 2025.03</span
-          >
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          Semantic Edge Extraction by Logical Operations for Room Structure
-          Estimation Using a Segmentation Result
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            Ryusuke Miyamoto, Kae Nakayama, <strong class="me"
-              ><u>Junya Morioka</u></strong
-            >, Miho Adachi
-          </span>
-          <span>International Conference on Extended Reality, 2025.6</span>
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          Automatic annotation method for day–night aerial infrared image
-          dataset creation and its application to semantic segmentation
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            Michiya Kibe, Takeru Inoue, <strong class="me"
-              ><u>Junya Morioka</u></strong
-            >, Ryusuke Miyamoto
-          </span>
-          <span>Optical Engineering, 2025.9</span>
-        </div>
-      </li>
-      <li>
-        <div class="title">
-          領域分割結果から得られるエッジを手がかりとした部屋の3次元構造推定
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            <strong class="me"><u>森岡 隼也</u></strong>, 中山 果瑛, 安達 美穂,
-            宮本 龍介
-          </span>
-          <span>画像電子学会誌 第55巻 第1号, 2026.1</span>
-        </div>
-      </li>
-    </ul>
-
-    <h2>Award</h2>
-    <ul class="publist">
       <li>
         <div class="title">
           グッドプレゼンテーション賞「遠隔協調作業における臨場感向上のための単眼カメラによる部屋の3次元構造の推定」
@@ -549,66 +632,16 @@ posts = posts.sort(
           </span>
         </div>
       </li>
-      <li>
-        <div class="title">
-          優秀プレゼンテーション賞「AMD Ryzen
-          CPUを対象としたCNNにおける積和演算の並列実装」
-        </div>
-        <div class="pubinfo">
-          <span class="author">
-            <strong class="me"><u>森岡 隼也</u></strong>, 宮本 龍介
-          </span>
-          <span> 第50回 パルテノン研究会, 2024.12</span>
-        </div>
-      </li>
     </ul>
-
-    <h2>Skill</h2>
-    <div class="skill-tags">
-      <div class="skill-group">
-        <span class="skill-badge main"><Icon name="mdi:language-python" />Python</span>
-        <span class="skill-badge sub"><Icon name="simple-icons:pytorch" />PyTorch</span>
-        <span class="skill-badge sub"><Icon name="simple-icons:fastapi" />FastAPI</span>
-      </div>
-      <div class="skill-group">
-        <span class="skill-badge main"><Icon name="mdi:language-javascript" />JavaScript</span>
-        <span class="skill-badge sub"><Icon name="mdi:react" />React</span>
-        <span class="skill-badge sub"><Icon name="simple-icons:svelte" />Svelte</span>
-        <span class="skill-badge sub"><Icon name="simple-icons:astro" />Astro</span>
-      </div>
-      <div class="skill-group">
-        <span class="skill-badge main"><Icon name="simple-icons:cplusplus" />C++</span>
-        <span class="skill-badge sub"><Icon name="simple-icons:onnx" />ONNX</span>
-        <span class="skill-badge sub"><Icon name="simple-icons:nvidia" />TensorRT</span>
-        <span class="skill-badge sub">SIMD</span>
-      </div>
-      <div class="skill-group">
-        <span class="skill-badge main"><Icon name="mdi:language-ruby" />Ruby</span>
-        <span class="skill-badge sub"><Icon name="simple-icons:rubysinatra" />Sinatra</span>
-      </div>
-      <div class="skill-group">
-        <span class="skill-badge main"><Icon name="simple-icons:php" />PHP</span>
-        <span class="skill-badge sub"><Icon name="simple-icons:codeigniter" />CodeIgniter</span>
-      </div>
-      <div class="skill-group">
-        <span class="skill-badge main"><Icon name="mdi:language-swift" />Swift</span>
-      </div>
-      <div class="skill-group">
-        <span class="skill-badge main"><Icon name="mdi:docker" />Docker</span>
-      </div>
-      <div class="skill-group">
-        <span class="skill-badge main"><Icon name="mdi:aws" />AWS</span>
-      </div>
-      <div class="skill-group">
-        <span class="skill-badge main"><Icon name="mdi:blender-software" />Blender</span>
-      </div>
-    </div>
 
     <h2>Open Source</h2>
     <ul class="ossList">
       <li>
         <div class="oss-item">
-          <a href="https://github.com/mjun0812/flash-attention-prebuild-wheels" class="oss-link">
+          <a
+            href="https://github.com/mjun0812/flash-attention-prebuild-wheels"
+            class="oss-link"
+          >
             <Icon name="mdi:github" class="oss-icon" />
             <div>
               <div class="title">
@@ -618,8 +651,17 @@ posts = posts.sort(
                 </span>
               </div>
               <div class="pubinfo">
-                GitHub Actionsを使用して、LinuxおよびWindowsプラットフォーム向けにビルド済みの
+                GitHub
+                Actionsを使用して、LinuxおよびWindowsプラットフォーム向けにビルド済みの
                 Flash Attentionパッケージwheelを提供するOSSプロジェクトです。
+              </div>
+              <div class="oss-tech-tags">
+                <span class="tech-tag"
+                  ><Icon name="simple-icons:githubactions" />GitHub Actions</span
+                >
+                <span class="tech-tag"
+                  ><Icon name="mdi:language-python" />Python</span
+                >
               </div>
             </div>
           </a>
@@ -627,13 +669,26 @@ posts = posts.sort(
       </li>
       <li>
         <div class="oss-item">
-          <a href="https://github.com/mjun0812/python-project-template" class="oss-link">
+          <a
+            href="https://github.com/mjun0812/python-project-template"
+            class="oss-link"
+          >
             <Icon name="mdi:github" class="oss-icon" />
             <div>
               <div class="title">python-project-template</div>
               <div class="pubinfo">
-                uv, Docker, Claude Code, Cursor, devcontainer, GitHub Actions, pre-commitをサポートした
+                uv, Docker, Claude Code, Cursor, devcontainer, GitHub Actions,
+                pre-commitをサポートした
                 モダンなPythonプロジェクトテンプレートです。
+              </div>
+              <div class="oss-tech-tags">
+                <span class="tech-tag"
+                  ><Icon name="mdi:language-python" />Python</span
+                >
+                <span class="tech-tag"><Icon name="mdi:docker" />Docker</span>
+                <span class="tech-tag"
+                  ><Icon name="simple-icons:githubactions" />GitHub Actions</span
+                >
               </div>
             </div>
           </a>
@@ -641,13 +696,26 @@ posts = posts.sort(
       </li>
       <li>
         <div class="oss-item">
-          <a href="https://github.com/mjun0812/python-copier-template" class="oss-link">
+          <a
+            href="https://github.com/mjun0812/python-copier-template"
+            class="oss-link"
+          >
             <Icon name="mdi:github" class="oss-icon" />
             <div>
               <div class="title">python-copier-template</div>
               <div class="pubinfo">
-                Copierを使用した、uv, Docker, Claude Code, Cursor, devcontainer, GitHub Actions,
+                Copierを使用した、uv, Docker, Claude Code, Cursor, devcontainer,
+                GitHub Actions,
                 pre-commitをサポートしたモダンなPythonプロジェクトテンプレートです。
+              </div>
+              <div class="oss-tech-tags">
+                <span class="tech-tag"
+                  ><Icon name="mdi:language-python" />Python</span
+                >
+                <span class="tech-tag"><Icon name="mdi:docker" />Docker</span>
+                <span class="tech-tag"
+                  ><Icon name="simple-icons:githubactions" />GitHub Actions</span
+                >
               </div>
             </div>
           </a>
@@ -659,11 +727,15 @@ posts = posts.sort(
     <ul class="ossList">
       <li>
         <div class="oss-item">
-          <a href="https://zenn.dev/mjun0812/articles/0ae2325d40ed20" class="oss-link">
+          <a
+            href="https://zenn.dev/mjun0812/articles/0ae2325d40ed20"
+            class="oss-link"
+          >
             <Icon name="simple-icons:zenn" class="oss-icon" />
             <div>
               <div class="title">
-                uv, ruff, devcontainer, Claude Codeを使ったモダンなPython開発環境のテンプレート
+                uv, ruff, devcontainer, Claude
+                Codeを使ったモダンなPython開発環境のテンプレート
                 <span class="star-badge">
                   <Icon name="mdi:heart" class="star-icon" />246
                 </span>
@@ -675,11 +747,15 @@ posts = posts.sort(
       </li>
       <li>
         <div class="oss-item">
-          <a href="https://zenn.dev/mjun0812/articles/3694944ed3a588" class="oss-link">
+          <a
+            href="https://zenn.dev/mjun0812/articles/3694944ed3a588"
+            class="oss-link"
+          >
             <Icon name="simple-icons:zenn" class="oss-icon" />
             <div>
               <div class="title">
-                UbuntuにNVIDIA DriverとCUDA, Dockerをインストールして機械学習サーバを構築する
+                UbuntuにNVIDIA DriverとCUDA,
+                Dockerをインストールして機械学習サーバを構築する
                 <span class="star-badge">
                   <Icon name="mdi:heart" class="star-icon" />45
                 </span>
@@ -691,7 +767,10 @@ posts = posts.sort(
       </li>
       <li>
         <div class="oss-item">
-          <a href="https://zenn.dev/mjun0812/articles/b32f870bb3cdbf" class="oss-link">
+          <a
+            href="https://zenn.dev/mjun0812/articles/b32f870bb3cdbf"
+            class="oss-link"
+          >
             <Icon name="simple-icons:zenn" class="oss-icon" />
             <div>
               <div class="title">
@@ -707,23 +786,24 @@ posts = posts.sort(
       </li>
     </ul>
 
-    <h2>Projects</h2>
+    <h2>Current Projects</h2>
 
     <div class="split-layout">
       <div class="content-text">
-        <h3 class="project-title">深層学習を用いた小物体検出</h3>
-        深層学習に基づく物体検出には様々な手法が提案されているが， 小物体の検出には精度向上の余地が多分に残されている．
-        本研究では，小物体の検出精度向上を目的として，その精度向上にはどのような処理が重要であるかの検討を行う．
-        また，その検討結果を基に，小物体検出の精度向上を目指すための新たな手法を提案する．
+        <h3 class="project-title">
+          NLP Embedding Modelを用いた検索システムの開発
+        </h3>
+        自然言語処理で用いられるBERTやFaissを用いて、埋め込みモデルを用いた検索システムの開発を行っています。
+        サーバーサイドはFastAPIを使用し、インフラはAWSとオンプレの両方を使用しました。
+        検索対象のデータはPDFで60TBあり、この文書に対して高速に検索を行うことが求められています。
+        HuggingFace Datasetの作成や、tokenizerやモデルの学習を行い、独自のモデルの構築を行っています。
       </div>
       <div class="content-image">
-        <Image
-          src={small_object_detection}
-          alt="small object detection"
-          class="project-image"
-        />
+        <Image src={huggingface} alt="huggingface" class="project-image" />
       </div>
     </div>
+
+    <h2>Past Projects</h2>
 
     <div class="split-layout">
       <div class="content-image">
@@ -765,6 +845,17 @@ posts = posts.sort(
 
     <div class="split-layout">
       <div class="content-image">
+        <Image src={spic} alt="spic" class="project-image" />
+      </div>
+      <div class="content-text">
+        <h3 class="project-title">株式会社SPIC 社内システム開発</h3>
+        Lypo-Cをはじめとする健康関連商品、美容関連商品、オリジナルブランド商品の開発及び販売を行う
+        株式会社SPICの社内システムの構築を行っています。
+      </div>
+    </div>
+
+    <div class="split-layout">
+      <div class="content-image">
         <Image src={qvsbase} alt="qvsbase" class="project-image" />
       </div>
       <div class="content-text">
@@ -776,30 +867,19 @@ posts = posts.sort(
         動画配信サービスはマルチテナント構成となっており、アプリのデザイン等を指定するだけで、特定のジャンルの動画配信サービスを簡単に立ち上げることができます。
       </div>
     </div>
-
     <div class="split-layout">
       <div class="content-text">
-        <h3 class="project-title">
-          NLP Embedding Modelを用いた検索システムの開発
-        </h3>
-        自然言語処理で用いられるBERTやFaissを用いて、埋め込みモデルを用いた検索システムの開発を行っています。
-        サーバーサイドはFastAPIを使用し、インフラはAWSとオンプレの両方を使用しました。
-        検索対象のデータはPDFで60TBあり、この文書に対して高速に検索を行うことが求められています。
-        HuggingFace Datasetの作成や、tokenizerやモデルの学習を行い、独自のモデルの構築を行っています。
+        <h3 class="project-title">深層学習を用いた小物体検出</h3>
+        深層学習に基づく物体検出には様々な手法が提案されているが， 小物体の検出には精度向上の余地が多分に残されている．
+        本研究では，小物体の検出精度向上を目的として，その精度向上にはどのような処理が重要であるかの検討を行う．
+        また，その検討結果を基に，小物体検出の精度向上を目指すための新たな手法を提案する．
       </div>
       <div class="content-image">
-        <Image src={huggingface} alt="huggingface" class="project-image" />
-      </div>
-    </div>
-
-    <div class="split-layout">
-      <div class="content-image">
-        <Image src={spic} alt="spic" class="project-image" />
-      </div>
-      <div class="content-text">
-        <h3 class="project-title">株式会社SPIC 社内システム開発</h3>
-        Lypo-Cをはじめとする健康関連商品、美容関連商品、オリジナルブランド商品の開発及び販売を行う
-        株式会社SPICの社内システムの構築を行っています。
+        <Image
+          src={small_object_detection}
+          alt="small object detection"
+          class="project-image"
+        />
       </div>
     </div>
   </div>
@@ -930,6 +1010,12 @@ posts = posts.sort(
       list-style: none;
       padding: 0;
     }
+    .ossList li {
+      margin-bottom: 1.5rem;
+    }
+    .ossList li:last-child {
+      margin-bottom: 0;
+    }
     .star-badge {
       display: inline-flex;
       align-items: center;
@@ -965,6 +1051,28 @@ posts = posts.sort(
       height: 3rem;
       width: 3rem;
       flex-shrink: 0;
+    }
+    .oss-tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.35rem;
+    }
+    .tech-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 1rem;
+      font-family: $english-font;
+      font-size: 0.75rem;
+      background-color: var(--shadow-color);
+      color: var(--text-color);
+      white-space: nowrap;
+      [data-icon] {
+        height: 0.85rem;
+        width: 0.85rem;
+      }
     }
 
     .split-layout {

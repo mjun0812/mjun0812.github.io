@@ -17,20 +17,22 @@ const { title, siteTitle, description, author, lang = "ja" } = Astro.props;
     <BaseHead title={title} description={description} lang={lang} />
 
     <style lang="scss">
+      @use "sass:math";
+
       .container {
         display: flex;
       }
       main {
-        width: percentage(1 - 0.05 - $sidebar-width);
-        max-width: percentage(1 - 0.05 - $sidebar-width);
+        width: math.percentage(1 - 0.05 - $sidebar-width);
+        max-width: math.percentage(1 - 0.05 - $sidebar-width);
         padding: calc($side-padding/4) calc($side-padding/2);
         margin-bottom: 2rem;
       }
       .sidebar {
         display: flex;
         flex-direction: column;
-        width: percentage($sidebar-width);
-        min-width: percentage($sidebar-width);
+        width: math.percentage($sidebar-width);
+        min-width: math.percentage($sidebar-width);
         padding: calc($side-padding/4) calc($side-padding/2);
       }
       @media screen and (max-width: 480px) {

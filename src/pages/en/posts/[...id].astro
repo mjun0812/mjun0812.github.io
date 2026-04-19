@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import PostLayout from "../../../layouts/PostLayout.astro";
 import { siteTitle, description, author } from "../../[...page].astro";
+import { tagSlug } from "../../../utils/tags";
 import "../../../styles/markdown.scss";
 
 export async function getStaticPaths() {
@@ -74,7 +75,7 @@ const { Content } = await render(post);
       <li class="tags-container">
         {
           post.data.tags.map((tag) => (
-            <a href={`/en/tags/${kebabCase(tag)}`} class="tag-link">
+            <a href={`/en/tags/${tagSlug(tag)}`} class="tag-link">
               <span class="tag">#{tag}</span>
             </a>
           ))

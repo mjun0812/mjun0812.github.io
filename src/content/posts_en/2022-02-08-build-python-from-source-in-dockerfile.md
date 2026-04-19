@@ -1,6 +1,6 @@
 ---
 title: "Building Python from Source with Custom Version in Dockerfile"
-tags: [docker]
+tags: [Docker]
 category: Docker
 date: 2022-02-08
 update: 2022-02-08

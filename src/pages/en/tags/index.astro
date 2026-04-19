@@ -1,19 +1,13 @@
 ---
 import { getCollection } from "astro:content";
 import PostLayout from "../../../layouts/PostLayout.astro";
+import { getTagGroups } from "../../../utils/tags";
 
 import { siteTitle, description, author } from "../[...page].astro";
 
-function kebabCase(str: string) {
-  return str
-    .toLowerCase()
-    .replace(/(\s|_)+/g, "-")
-    .replace(/([a-z])([A-Z])/g, "$1-$2");
-}
-
 let posts = await getCollection("posts_en");
-const tags = [...new Set(posts.map((post) => post.data.tags).flat())].sort(
-  (a, b) => a.localeCompare(b, "en")
+const tagGroups = getTagGroups(posts).sort((a, b) =>
+  a.name.localeCompare(b.name, "en")
 );
 ---
 
@@ -28,9 +22,9 @@ const tags = [...new Set(posts.map((post) => post.data.tags).flat())].sort(
     <h1 class="postTitle">Tags</h1>
     <ul>
       {
-        tags.map((tag) => (
+        tagGroups.map((tagGroup) => (
           <li>
-            <a href={`/en/tags/${kebabCase(tag)}`}>{tag}</a>
+            <a href={`/en/tags/${tagGroup.slug}`}>{tagGroup.name}</a>
           </li>
         ))
       }

@@ -2,31 +2,21 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostList from "../../components/PostList.astro";
+import { getTagGroups } from "../../utils/tags";
 
 import { siteTitle, description, author } from "../[...page].astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
-  const tags = [...new Set(posts.map((post) => post.data.tags).flat())];
-  function kebabCase(str: string) {
-    return str
-      .toLowerCase()
-      .replace(/(\s|_)+/g, "-")
-      .replace(/([a-z])([A-Z])/g, "$1-$2");
-  }
+  const tagGroups = getTagGroups(posts);
 
-  return tags.map((tag) => ({
+  return tagGroups.map((tagGroup) => ({
     params: {
-      tag: kebabCase(tag),
+      tag: tagGroup.slug,
     },
     props: {
-      posts: posts
-        .filter((post) => post.data.tags.includes(tag))
-        .sort(
-          (a, b) =>
-            new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
-        ),
-      tagName: tag,
+      posts: tagGroup.posts,
+      tagName: tagGroup.name,
     },
   }));
 }

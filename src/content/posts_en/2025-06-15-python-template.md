@@ -1,6 +1,6 @@
 ---
 title: "Modern Python Development Environment Template with uv, ruff, devcontainer, Claude Code"
-tags: [Python, uv, ruff, devcontainer, Claude Code, Cursor, pytest, pre-commit, "docker"]
+tags: [Python, uv, ruff, devcontainer, Claude Code, Cursor, pytest, pre-commit, Docker]
 category: Python
 date: 2025-06-15
 update: 2025-06-15
@@ -390,58 +390,53 @@ Here's an example configuration of `devcontainer.json`:
 
 ```json
 {
- "name": "python-devcontainer",
- "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
- "containerEnv": {
-  "DISPLAY": "${localEnv:DISPLAY}",
-  "PYTHONUNBUFFERED": "1",
-  "PYTHONDONTWRITEBYTECODE": "1",
-  "UV_CACHE_DIR": "${containerWorkspaceFolder}/.cache/uv",
-  "UV_LINK_MODE": "copy",
-  "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venv",
-  "UV_COMPILE_BYTECODE": "1"
- },
- "features": {
-  "ghcr.io/devcontainers/features/github-cli:1": {},
-  "ghcr.io/devcontainers/features/common-utils:2": {
-   "configureZshAsDefaultShell": true
+  "name": "python-devcontainer",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "containerEnv": {
+    "DISPLAY": "${localEnv:DISPLAY}",
+    "PYTHONUNBUFFERED": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "UV_CACHE_DIR": "${containerWorkspaceFolder}/.cache/uv",
+    "UV_LINK_MODE": "copy",
+    "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venv",
+    "UV_COMPILE_BYTECODE": "1"
   },
-  "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
-   "packages": "curl,wget,git,jq,ca-certificates,build-essential,ripgrep"
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": true
+    },
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+      "packages": "curl,wget,git,jq,ca-certificates,build-essential,ripgrep"
+    },
+    "ghcr.io/va-h/devcontainers-features/uv:1": {
+      "shellAutocompletion": true
+    },
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
   },
-  "ghcr.io/va-h/devcontainers-features/uv:1": {
-   "shellAutocompletion": true
+  "runArgs": ["--init", "--rm"],
+  "hostRequirements": {
+    "gpu": "optional"
   },
-  "ghcr.io/devcontainers/features/node:1": {},
-  "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
- },
- "runArgs": [
-  "--init",
-  "--rm"
- ],
- "hostRequirements": {
-  "gpu": "optional"
- },
- "customizations": {
-  "vscode": {
-   "settings": {
-    "python.defaultInterpreterPath": "/home/vscode/.venv/bin/python"
-   },
-   "extensions": [
-    "ms-python.python",
-    "charliermarsh.ruff",
-    "eamodio.gitlens",
-    "tamasfe.even-better-toml",
-    "ms-toolsai.jupyter",
-    "yzhang.markdown-all-in-one"
-   ]
-  }
- },
- "mounts": [
-  "source=claude-code-config,target=/home/vscode/.claude,type=volume"
- ],
- "postCreateCommand": "uv sync",
- "postStartCommand": "uv run pre-commit install"
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/home/vscode/.venv/bin/python"
+      },
+      "extensions": [
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "eamodio.gitlens",
+        "tamasfe.even-better-toml",
+        "ms-toolsai.jupyter",
+        "yzhang.markdown-all-in-one"
+      ]
+    }
+  },
+  "mounts": ["source=claude-code-config,target=/home/vscode/.claude,type=volume"],
+  "postCreateCommand": "uv sync",
+  "postStartCommand": "uv run pre-commit install"
 }
 ```
 
@@ -717,7 +712,7 @@ jobs:
 
       - name: Lint
         run: uvx ruff check --output-format=github .
-      
+
       - name: Type check
         run: uvx mypy . --ignore-missing-imports --no-namespace-packages
 ```

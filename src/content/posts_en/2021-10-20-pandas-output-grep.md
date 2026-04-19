@@ -1,6 +1,6 @@
 ---
 title: "Using grep on Pandas DataFrame Output"
-tags: [pandas,python]
+tags: [pandas, Python]
 category: Python
 date: 2021-10-20
 update: 2021-10-20

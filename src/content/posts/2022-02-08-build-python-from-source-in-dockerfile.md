@@ -1,6 +1,6 @@
 ---
 title: Dockerfile内で任意のバージョンのPythonをソースからビルドする
-tags: [docker]
+tags: [Docker]
 category: Docker
 date: 2022-02-08
 update: 2022-02-08

@@ -2,7 +2,7 @@ import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 
 export const siteTitle = "MJUN Tech Note";
-export const description = "とある情報系の院生の技術ノートです";
+export const description = "とあるエンジニアの技術ノートです";
 export const siteUrl = "https://mjunya.com";
 
 export async function GET() {

@@ -214,6 +214,15 @@ posts = posts.sort(
     <h2>Work Experience</h2>
     <ul class="publist">
       <li>
+        <div class="title">LINEヤフー株式会社</div>
+        <div class="pubinfo">
+          <span class="info">
+            <strong>2026.04 - current</strong>
+          </span>
+          <span class="info">Machine Learning Engineer</span>
+        </div>
+      </li>
+      <li>
         <div class="title">明治大学</div>
         <div class="pubinfo">
           <span class="info">
@@ -630,6 +639,39 @@ posts = posts.sort(
           <span>
             ライフインテリジェンスとオフィス情報システム研究会(LOIS), 2024.03
           </span>
+          <span class="info">
+            <a
+              class="link"
+              href="https://meijinow.jp/meidainews/activity-meidainews/97499"
+            >
+              Link1 of University News Article
+            </a>
+          </span>
+          <span class="info">
+            <a
+              class="link"
+              href="https://www.meiji.ac.jp/sst/grad/information/2024/mkmht0018dj0870018sbub.html"
+            >
+              Link2 of University News Article
+            </a>
+          </span>
+        </div>
+      </li>
+    </ul>
+
+    <h2>Media</h2>
+    <ul class="publist">
+      <li>
+        <div class="title">
+          <a
+            class="link"
+            href="https://www.nikkei.com/article/DGXMZO54197770Z00C20A1X11000/"
+          >
+            国産ジンに世界が酔う　サントリーけん引、養命酒も参入
+          </a>
+        </div>
+        <div class="pubinfo">
+          <span>日本経済新聞, 2020.01</span>
         </div>
       </li>
     </ul>
@@ -715,6 +757,214 @@ posts = posts.sort(
                 <span class="tech-tag"><Icon name="mdi:docker" />Docker</span>
                 <span class="tech-tag"
                   ><Icon name="simple-icons:githubactions" />GitHub Actions</span
+                >
+              </div>
+            </div>
+          </a>
+        </div>
+      </li>
+    </ul>
+
+    <h2>OSS Contribute</h2>
+    <ul class="ossList">
+      <li>
+        <div class="oss-item">
+          <a
+            href="https://github.com/azooKey/azooKey-Desktop/pulls?q=is%3Apr+author%3Amjun0812+is%3Amerged"
+            class="oss-link"
+          >
+            <Icon name="mdi:github" class="oss-icon" />
+            <div>
+              <div class="title">
+                azooKey Desktop
+                <span class="star-badge">
+                  <Icon name="mdi:source-pull" class="star-icon" />3 Merged PRs
+                </span>
+              </div>
+              <div class="pubinfo">
+                macOS向け日本語IMEでCtrl系ショートカットがアプリ側へ適切に渡るようにし、
+                composing中の入力保護や英語入力切り替え時の状態同期を修正しました。
+              </div>
+              <div class="oss-tech-tags">
+                <span class="tech-tag"
+                  ><Icon name="mdi:language-swift" />Swift</span
+                >
+                <span class="tech-tag">IME</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="oss-item">
+          <a
+            href="https://github.com/oxc-project/oxc/pull/20701"
+            class="oss-link"
+          >
+            <Icon name="mdi:github" class="oss-icon" />
+            <div>
+              <div class="title">
+                oxc
+                <span class="star-badge">
+                  <Icon name="mdi:source-pull" class="star-icon" />Merged PR
+                </span>
+              </div>
+              <div class="pubinfo">
+                oxfmtリリース時にpre-commit mirrorを自動更新するため、 release
+                workflowからmirrors-oxfmtを更新するステップを追加しました。
+              </div>
+              <div class="oss-tech-tags">
+                <span class="tech-tag"
+                  ><Icon name="simple-icons:githubactions" />GitHub Actions</span
+                >
+                <span class="tech-tag">Release Automation</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="oss-item">
+          <a
+            href="https://github.com/oxc-project/mirrors-oxfmt/pull/3"
+            class="oss-link"
+          >
+            <Icon name="mdi:github" class="oss-icon" />
+            <div>
+              <div class="title">
+                mirrors-oxfmt
+                <span class="star-badge">
+                  <Icon name="mdi:source-pull" class="star-icon" />Merged PR
+                </span>
+              </div>
+              <div class="pubinfo">
+                pre-commit-mirror-makerがoxfmtのバージョンタグを生成できるように、
+                mirror初期化時の.versionファイルを削除しました。
+              </div>
+              <div class="oss-tech-tags">
+                <span class="tech-tag">pre-commit</span>
+                <span class="tech-tag">Release Automation</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="oss-item">
+          <a
+            href="https://github.com/huggingface/accelerate/pull/3725"
+            class="oss-link"
+          >
+            <Icon name="mdi:github" class="oss-icon" />
+            <div>
+              <div class="title">
+                Hugging Face Accelerate
+                <span class="star-badge">
+                  <Icon name="mdi:source-pull" class="star-icon" />Merged PR
+                </span>
+              </div>
+              <div class="pubinfo">
+                biasなしのLayerNormをFP8へ変換する際に発生する例外を修正し、
+                Transformer Engine連携のテストを追加しました。
+              </div>
+              <div class="oss-tech-tags">
+                <span class="tech-tag"
+                  ><Icon name="simple-icons:huggingface" />Hugging Face</span
+                >
+                <span class="tech-tag"
+                  ><Icon name="mdi:language-python" />Python</span
+                >
+              </div>
+            </div>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="oss-item">
+          <a
+            href="https://github.com/shunk031/huggingface-datasets_JGLUE/pull/17"
+            class="oss-link"
+          >
+            <Icon name="mdi:github" class="oss-icon" />
+            <div>
+              <div class="title">
+                huggingface-datasets JGLUE
+                <span class="star-badge">
+                  <Icon name="mdi:source-pull" class="star-icon" />Merged PR
+                </span>
+              </div>
+              <div class="pubinfo">
+                datasets.tasksの削除とtrust_remote_code指定を追加し、
+                Hugging Face Datasetsの新しい実行環境に対応しました。
+              </div>
+              <div class="oss-tech-tags">
+                <span class="tech-tag"
+                  ><Icon name="simple-icons:huggingface" />Hugging Face</span
+                >
+                <span class="tech-tag"
+                  ><Icon name="mdi:language-python" />Python</span
+                >
+              </div>
+            </div>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="oss-item">
+          <a
+            href="https://github.com/ultralytics/yolov5/pull/8497"
+            class="oss-link"
+          >
+            <Icon name="mdi:github" class="oss-icon" />
+            <div>
+              <div class="title">
+                YOLOv5
+                <span class="star-badge">
+                  <Icon name="mdi:source-pull" class="star-icon" />Merged PR
+                </span>
+              </div>
+              <div class="pubinfo">
+                PyTorch 1.12.0とtorchvision
+                0.13.0で発生するCUDA lazy initの問題を避けるため、
+                影響のあるバージョンを依存関係から除外しました。
+              </div>
+              <div class="oss-tech-tags">
+                <span class="tech-tag"
+                  ><Icon name="simple-icons:pytorch" />PyTorch</span
+                >
+                <span class="tech-tag"
+                  ><Icon name="mdi:language-python" />Python</span
+                >
+              </div>
+            </div>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="oss-item">
+          <a
+            href="https://github.com/pytorch/pytorch/issues/80876"
+            class="oss-link"
+          >
+            <Icon name="mdi:github" class="oss-icon" />
+            <div>
+              <div class="title">
+                PyTorch
+                <span class="star-badge">
+                  <Icon name="mdi:bug-outline" class="star-icon" />Issue
+                </span>
+              </div>
+              <div class="pubinfo">
+                PyTorch
+                1.12でCUDA_VISIBLE_DEVICESが期待通りに反映されない問題を報告し、
+                Docker環境での再現手順とバージョン比較を共有しました。
+              </div>
+              <div class="oss-tech-tags">
+                <span class="tech-tag"
+                  ><Icon name="simple-icons:pytorch" />PyTorch</span
+                >
+                <span class="tech-tag"
+                  ><Icon name="mdi:language-python" />Python</span
                 >
               </div>
             </div>

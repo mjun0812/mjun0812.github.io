@@ -5,6 +5,10 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    reviewers:
+      - "mjun0812"
+    assignees:
+      - "mjun0812"
     groups:
       astro:
         patterns:
@@ -21,3 +25,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    reviewers:
+      - "mjun0812"
+    assignees:
+      - "mjun0812"

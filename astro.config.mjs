@@ -4,6 +4,7 @@ import remarkGithubAlerts from "remark-github-alerts";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import partytown from "@astrojs/partytown";
+import remarkTweetEmbed from "./src/utils/remark-tweet-embed.mjs";
 import { fileURLToPath } from "node:url";
 
 
@@ -23,6 +24,7 @@ export default defineConfig({
   },
   markdown: {
     remarkPlugins: [
+      remarkTweetEmbed,
       [
         remarkLinkCard,
         {

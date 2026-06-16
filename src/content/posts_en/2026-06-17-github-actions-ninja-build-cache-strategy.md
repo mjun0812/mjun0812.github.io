@@ -2,7 +2,7 @@
 title: "How to Push CUDA Ninja Builds Beyond the GitHub-hosted Runner Limit on GitHub Actions"
 tags:
   - GitHub Actions
-  - CI/CD
+  - CICD
   - PyTorch
   - CUDA
   - GitHub

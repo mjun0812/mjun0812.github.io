@@ -2,7 +2,7 @@
 title: "GitHub ActionsでGitHub-hosted Runnerの限界を超えてCUDAのNinja Buildを通す方法"
 tags:
   - GitHub Actions
-  - CI/CD
+  - CICD
   - PyTorch
   - CUDA
   - GitHub

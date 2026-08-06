@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { unified } from "@astrojs/markdown-remark";
 import remarkLinkCard from "remark-link-card-plus";
 import remarkGithubAlerts from "remark-github-alerts";
 import sitemap from "@astrojs/sitemap";
@@ -23,18 +24,20 @@ export default defineConfig({
     }
   },
   markdown: {
-    remarkPlugins: [
-      remarkTweetEmbed,
-      [
-        remarkLinkCard,
-        {
-          cache: false,
-          shortenUrl: true,
-          thumbnailPosition: "right"
-        },
+    processor: unified({
+      remarkPlugins: [
+        remarkTweetEmbed,
+        [
+          remarkLinkCard,
+          {
+            cache: false,
+            shortenUrl: true,
+            thumbnailPosition: "right"
+          },
+        ],
+        remarkGithubAlerts,
       ],
-      remarkGithubAlerts,
-    ],
+    }),
     shikiConfig: {
       themes: {
         dark: 'one-dark-pro',

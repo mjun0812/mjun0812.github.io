@@ -11,19 +11,20 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "7.2.2",
     "@astrojs/partytown": "^2.1.7",
-    "@astrojs/rss": "^4.0.18",
+    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^6.4.2",
+    "astro": "^7.1.6",
     "astro-icon": "^1.1.5",
     "remark-github-alerts": "^0.1.1",
     "remark-link-card-plus": "^0.7.4",
-    "sharp": "^0.35.2"
+    "sharp": "^0.35.3"
   },
   "devDependencies": {
     "@iconify-json/fa6-brands": "^1.2.6",
     "@iconify-json/mdi": "^1.2.3",
-    "@iconify-json/simple-icons": "^1.2.84",
-    "sass": "^1.100.0"
+    "@iconify-json/simple-icons": "^1.2.92",
+    "sass": "^1.102.0"
   }
 }

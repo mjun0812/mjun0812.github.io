@@ -3,6 +3,9 @@ allowBuilds:
   esbuild: true
   sharp: true
 minimumReleaseAge: 10080
+# js-yaml: CVE-2026-59870 (GHSA-5p4m-2wfm-xmqj) の修正版4.3.1が公開7日未満のため除外。2026-08-08以降は削除可
+minimumReleaseAgeExclude:
+  - js-yaml
 onlyBuiltDependencies:
   - "@parcel/watcher"
   - esbuild

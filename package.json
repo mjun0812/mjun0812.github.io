@@ -19,7 +19,7 @@
     "astro-icon": "^1.2.0",
     "remark-github-alerts": "^0.1.1",
     "remark-link-card-plus": "^0.8.0",
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.4"
   },
   "devDependencies": {
     "@iconify-json/fa6-brands": "^1.2.6",

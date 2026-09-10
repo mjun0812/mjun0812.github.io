@@ -15,7 +15,7 @@
     "@astrojs/partytown": "^2.1.7",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^7.1.6",
+    "astro": "^7.2.8",
     "astro-icon": "^1.2.0",
     "remark-github-alerts": "^0.1.1",
     "remark-link-card-plus": "^0.8.0",
